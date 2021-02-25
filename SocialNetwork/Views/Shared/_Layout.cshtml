@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{
+        ViewBag.isUserLoggedIn = SocialNetwork.Models.users.isUserLoggedIn(); // если пользователь находится в аккаунте
+    }
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Социальная сеть", "Index", "Main", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Главная", "Index", "Main")</li>
+                    @if (ViewBag.isUserLoggedIn == false)
+                    {
+                        <li>@Html.ActionLink("Регистрация", "Registration", "Main")</li>
+                        <li>@Html.ActionLink("Авторизация", "Authorization", "Main")</li>
+                    }
+                    @if (ViewBag.isUserLoggedIn == true)
+                    {
+                        //<li>@Html.ActionLink("Новости", "Index", "Records")</li>
+                        <li>@Html.ActionLink("Моя страница", "Viewing", "Users", new { id = Session["id"] }, null)</li>
+                        //<li>@Html.ActionLink("Мои переписки", "Index", "Dialogs")</li>
+                        //<li>@Html.ActionLink("Мои объекты", "Index", "Objects")</li>
+                    }
+                    <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
+                    @if (ViewBag.isUserLoggedIn == true)
+                    {
+                        <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
+                        <li>@Html.ActionLink("Выйти из аккаунта", "Logout", "Main")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <header>
+        <h4>
+            @ViewBag.Title
+        </h4>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer>
+        <p>Социальная сеть &copy; @DateTime.Now.Year [Технология ASP.NET]</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

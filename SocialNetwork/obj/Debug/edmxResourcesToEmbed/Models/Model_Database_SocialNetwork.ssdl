@@ -1,0 +1,918 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Namespace_Model_Database_SocialNetwork" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="256" />
+    <Property Name="formatted_text" Type="nvarchar" MaxLength="2048" Nullable="false" />
+  </EntityType>
+  <EntityType Name="authorization_history">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="authorization_datetime_int" Type="int" Nullable="false" />
+    <Property Name="ip_address" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="bans">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+    <Property Name="user_id_to" Type="int" Nullable="false" />
+    <Property Name="is_permanent" Type="tinyint" Nullable="false" />
+    <Property Name="ban_datetime_int" Type="int" Nullable="false" />
+    <Property Name="unban_datetime_int" Type="int" />
+  </EntityType>
+  <EntityType Name="black_list">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+    <Property Name="user_id_blocked" Type="int" Nullable="false" />
+    <Property Name="block_datetime_int" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="collections">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="commentaries">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="1024" Nullable="false" />
+  </EntityType>
+  <EntityType Name="commentaries_to_objects_with_commentaries">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="commentary_id" Type="int" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="dialogs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+    <Property Name="creation_datetime_int" Type="int" Nullable="false" />
+    <Property Name="is_group" Type="tinyint" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="32" />
+  </EntityType>
+  <EntityType Name="files">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_type_id" Type="int" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="path" Type="nvarchar" MaxLength="512" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="files_or_articles_to_collections">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="collection_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="files_to_articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="file_id" Type="int" Nullable="false" />
+    <Property Name="article_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="friends_and_subscriptions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+    <Property Name="user_id_to" Type="int" Nullable="false" />
+    <Property Name="is_accepted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="messages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+    <Property Name="dialog_id" Type="int" Nullable="false" />
+    <Property Name="creation_datetime_int" Type="int" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="1024" Nullable="false" />
+    <Property Name="attached_record_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="object_types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="extra_info" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="objects">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_type_id" Type="int" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="objects_with_name_to_commentaries">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="commentary_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="objects_with_name_to_messages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="message_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="objects_with_name_to_records">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="record_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="objects_with_name_to_showcases">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="privacy_settings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="64" />
+  </EntityType>
+  <EntityType Name="privacy_settings_to_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="privacy_setting_id" Type="tinyint" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="for_friends" Type="tinyint" Nullable="false" />
+    <Property Name="for_friends_of_friends" Type="tinyint" Nullable="false" />
+    <Property Name="for_subcribers" Type="tinyint" Nullable="false" />
+    <Property Name="for_subscriptions" Type="tinyint" Nullable="false" />
+    <Property Name="for_others" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ratings_to_objects_with_rating">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id_from" Type="int" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="value" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="records">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="user_id_to" Type="int" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="1024" Nullable="false" />
+    <Property Name="attached_record_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="records_simple">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="1024" />
+    <Property Name="user_id_to" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="32" />
+    <Property Name="name" Type="nvarchar" MaxLength="64" />
+    <Property Name="special_name" Type="nvarchar" MaxLength="32" />
+    <Property Name="permissions_rank" Type="tinyint" />
+    <Property Name="password_sha512" Type="nchar" MaxLength="128" />
+    <Property Name="secret_question" Type="nvarchar" MaxLength="128" />
+    <Property Name="secret_answer_sha512" Type="nchar" MaxLength="128" />
+    <Property Name="avatar_file_url" Type="nvarchar" MaxLength="512" />
+    <Property Name="registration_datetime_int" Type="int" />
+    <Property Name="last_activity_datetime_int" Type="int" />
+    <Property Name="status" Type="nvarchar" MaxLength="64" />
+    <Property Name="info" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="users_to_dialogs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="dialog_id" Type="int" Nullable="false" />
+    <Property Name="is_admin_of_the_dialog" Type="tinyint" />
+  </EntityType>
+  <Association Name="FK_1_bans_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="bans" Type="Self.bans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="bans">
+        <PropertyRef Name="user_id_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_1_black_list_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="black_list" Type="Self.black_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="black_list">
+        <PropertyRef Name="user_id_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_1_friends_and_subscriptions_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="friends_and_subscriptions" Type="Self.friends_and_subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="friends_and_subscriptions">
+        <PropertyRef Name="user_id_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_2_bans_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="bans" Type="Self.bans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="bans">
+        <PropertyRef Name="user_id_to" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_2_black_list_to_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="black_list" Type="Self.black_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="black_list">
+        <PropertyRef Name="user_id_blocked" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_2_friends_and_subscriptions_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="friends_and_subscriptions" Type="Self.friends_and_subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="friends_and_subscriptions">
+        <PropertyRef Name="user_id_to" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_articles_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="articles" Type="Self.articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="articles">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_authorization_history_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="authorization_history" Type="Self.authorization_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="authorization_history">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_collections_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="collections" Type="Self.collections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="collections">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_commentaries_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="commentaries" Type="Self.commentaries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="commentaries">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_commentaries_to_objects_with_commentaries_TO_commentaries">
+    <End Role="commentaries" Type="Self.commentaries" Multiplicity="1" />
+    <End Role="commentaries_to_objects_with_commentaries" Type="Self.commentaries_to_objects_with_commentaries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="commentaries">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="commentaries_to_objects_with_commentaries">
+        <PropertyRef Name="commentary_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_commentaries_to_objects_with_commentaries_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="commentaries_to_objects_with_commentaries" Type="Self.commentaries_to_objects_with_commentaries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="commentaries_to_objects_with_commentaries">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dialogs_to_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="dialogs" Type="Self.dialogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="dialogs">
+        <PropertyRef Name="user_id_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_files_or_articles_to_collections_TO_collections">
+    <End Role="collections" Type="Self.collections" Multiplicity="1" />
+    <End Role="files_or_articles_to_collections" Type="Self.files_or_articles_to_collections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="collections">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="files_or_articles_to_collections">
+        <PropertyRef Name="collection_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_files_or_articles_to_collections_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="files_or_articles_to_collections" Type="Self.files_or_articles_to_collections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="files_or_articles_to_collections">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_files_to_articles_TO_articles">
+    <End Role="articles" Type="Self.articles" Multiplicity="1" />
+    <End Role="files_to_articles" Type="Self.files_to_articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="articles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="files_to_articles">
+        <PropertyRef Name="article_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_files_to_articles_TO_files">
+    <End Role="files" Type="Self.files" Multiplicity="1" />
+    <End Role="files_to_articles" Type="Self.files_to_articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="files">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="files_to_articles">
+        <PropertyRef Name="file_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_files_TO_object_types">
+    <End Role="object_types" Type="Self.object_types" Multiplicity="1" />
+    <End Role="files" Type="Self.files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="object_types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="files">
+        <PropertyRef Name="object_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_files_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="files" Type="Self.files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="files">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_messages_TO_dialogs">
+    <End Role="dialogs" Type="Self.dialogs" Multiplicity="1" />
+    <End Role="messages" Type="Self.messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dialogs">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="messages">
+        <PropertyRef Name="dialog_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_messages_TO_records">
+    <End Role="records" Type="Self.records" Multiplicity="1" />
+    <End Role="messages" Type="Self.messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="records">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="messages">
+        <PropertyRef Name="attached_record_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_messages_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="messages" Type="Self.messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="messages">
+        <PropertyRef Name="user_id_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_TO_object_types">
+    <End Role="object_types" Type="Self.object_types" Multiplicity="1" />
+    <End Role="objects" Type="Self.objects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="object_types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects">
+        <PropertyRef Name="object_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_commentaries_TO_commentaries">
+    <End Role="commentaries" Type="Self.commentaries" Multiplicity="1" />
+    <End Role="objects_with_name_to_commentaries" Type="Self.objects_with_name_to_commentaries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="commentaries">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_commentaries">
+        <PropertyRef Name="commentary_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_commentaries_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="objects_with_name_to_commentaries" Type="Self.objects_with_name_to_commentaries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_commentaries">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_messages_TO_messages">
+    <End Role="messages" Type="Self.messages" Multiplicity="1" />
+    <End Role="objects_with_name_to_messages" Type="Self.objects_with_name_to_messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="messages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_messages">
+        <PropertyRef Name="message_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_messages_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="objects_with_name_to_messages" Type="Self.objects_with_name_to_messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_messages">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_records_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="objects_with_name_to_records" Type="Self.objects_with_name_to_records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_records">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_records_TO_records">
+    <End Role="records" Type="Self.records" Multiplicity="1" />
+    <End Role="objects_with_name_to_records" Type="Self.objects_with_name_to_records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="records">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_records">
+        <PropertyRef Name="record_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_showcases_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="objects_with_name_to_showcases" Type="Self.objects_with_name_to_showcases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_showcases">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_objects_with_name_to_showcases_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="objects_with_name_to_showcases" Type="Self.objects_with_name_to_showcases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="objects_with_name_to_showcases">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_privacy_settings_to_users_TO_privacy_settings">
+    <End Role="privacy_settings" Type="Self.privacy_settings" Multiplicity="1" />
+    <End Role="privacy_settings_to_users" Type="Self.privacy_settings_to_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="privacy_settings">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="privacy_settings_to_users">
+        <PropertyRef Name="privacy_setting_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_privacy_settings_to_users_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="privacy_settings_to_users" Type="Self.privacy_settings_to_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="privacy_settings_to_users">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ratings_to_objects_with_rating_TO_objects">
+    <End Role="objects" Type="Self.objects" Multiplicity="1" />
+    <End Role="ratings_to_objects_with_rating" Type="Self.ratings_to_objects_with_rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ratings_to_objects_with_rating">
+        <PropertyRef Name="object_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ratings_to_objects_with_rating_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="ratings_to_objects_with_rating" Type="Self.ratings_to_objects_with_rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ratings_to_objects_with_rating">
+        <PropertyRef Name="user_id_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_records_TO_records">
+    <End Role="records" Type="Self.records" Multiplicity="1" />
+    <End Role="records1" Type="Self.records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="records">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="records1">
+        <PropertyRef Name="attached_record_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_records_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="records" Type="Self.records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="records">
+        <PropertyRef Name="user_id_to" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_to_dialogs_TO_dialogs">
+    <End Role="dialogs" Type="Self.dialogs" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="users_to_dialogs" Type="Self.users_to_dialogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dialogs">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users_to_dialogs">
+        <PropertyRef Name="dialog_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_to_dialogs_TO_users">
+    <End Role="users" Type="Self.users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="users_to_dialogs" Type="Self.users_to_dialogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users_to_dialogs">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="isObjectAFileOrAnArticle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="object_type_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="isObjectAnObjectWithCommentary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="object_type_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="isObjectAnObjectWithName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="object_type_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="isObjectAnObjectWithRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="object_type_id" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="Хранилище Namespace_Model_Database_SocialNetworkContainer">
+    <EntitySet Name="articles" EntityType="Self.articles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="authorization_history" EntityType="Self.authorization_history" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bans" EntityType="Self.bans" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="black_list" EntityType="Self.black_list" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="collections" EntityType="Self.collections" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="commentaries" EntityType="Self.commentaries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="commentaries_to_objects_with_commentaries" EntityType="Self.commentaries_to_objects_with_commentaries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dialogs" EntityType="Self.dialogs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="files" EntityType="Self.files" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="files_or_articles_to_collections" EntityType="Self.files_or_articles_to_collections" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="files_to_articles" EntityType="Self.files_to_articles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="friends_and_subscriptions" EntityType="Self.friends_and_subscriptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="object_types" EntityType="Self.object_types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="objects" EntityType="Self.objects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="objects_with_name_to_commentaries" EntityType="Self.objects_with_name_to_commentaries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="objects_with_name_to_messages" EntityType="Self.objects_with_name_to_messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="objects_with_name_to_records" EntityType="Self.objects_with_name_to_records" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="objects_with_name_to_showcases" EntityType="Self.objects_with_name_to_showcases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="privacy_settings" EntityType="Self.privacy_settings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="privacy_settings_to_users" EntityType="Self.privacy_settings_to_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ratings_to_objects_with_rating" EntityType="Self.ratings_to_objects_with_rating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="records" EntityType="Self.records" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="records_simple" EntityType="Self.records_simple" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users_to_dialogs" EntityType="Self.users_to_dialogs" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_1_bans_TO_users" Association="Self.FK_1_bans_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="bans" EntitySet="bans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_1_black_list_TO_users" Association="Self.FK_1_black_list_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="black_list" EntitySet="black_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK_1_friends_and_subscriptions_TO_users" Association="Self.FK_1_friends_and_subscriptions_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="friends_and_subscriptions" EntitySet="friends_and_subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_2_bans_TO_users" Association="Self.FK_2_bans_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="bans" EntitySet="bans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_2_black_list_to_users" Association="Self.FK_2_black_list_to_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="black_list" EntitySet="black_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK_2_friends_and_subscriptions_TO_users" Association="Self.FK_2_friends_and_subscriptions_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="friends_and_subscriptions" EntitySet="friends_and_subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_articles_TO_objects" Association="Self.FK_articles_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="articles" EntitySet="articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_authorization_history_TO_users" Association="Self.FK_authorization_history_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="authorization_history" EntitySet="authorization_history" />
+    </AssociationSet>
+    <AssociationSet Name="FK_collections_TO_objects" Association="Self.FK_collections_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="collections" EntitySet="collections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_commentaries_TO_objects" Association="Self.FK_commentaries_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="commentaries" EntitySet="commentaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_commentaries_to_objects_with_commentaries_TO_commentaries" Association="Self.FK_commentaries_to_objects_with_commentaries_TO_commentaries">
+      <End Role="commentaries" EntitySet="commentaries" />
+      <End Role="commentaries_to_objects_with_commentaries" EntitySet="commentaries_to_objects_with_commentaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_commentaries_to_objects_with_commentaries_TO_objects" Association="Self.FK_commentaries_to_objects_with_commentaries_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="commentaries_to_objects_with_commentaries" EntitySet="commentaries_to_objects_with_commentaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dialogs_to_users" Association="Self.FK_dialogs_to_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="dialogs" EntitySet="dialogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_files_or_articles_to_collections_TO_collections" Association="Self.FK_files_or_articles_to_collections_TO_collections">
+      <End Role="collections" EntitySet="collections" />
+      <End Role="files_or_articles_to_collections" EntitySet="files_or_articles_to_collections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_files_or_articles_to_collections_TO_objects" Association="Self.FK_files_or_articles_to_collections_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="files_or_articles_to_collections" EntitySet="files_or_articles_to_collections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_files_to_articles_TO_articles" Association="Self.FK_files_to_articles_TO_articles">
+      <End Role="articles" EntitySet="articles" />
+      <End Role="files_to_articles" EntitySet="files_to_articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_files_to_articles_TO_files" Association="Self.FK_files_to_articles_TO_files">
+      <End Role="files" EntitySet="files" />
+      <End Role="files_to_articles" EntitySet="files_to_articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_files_TO_object_types" Association="Self.FK_files_TO_object_types">
+      <End Role="object_types" EntitySet="object_types" />
+      <End Role="files" EntitySet="files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_files_TO_objects" Association="Self.FK_files_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="files" EntitySet="files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_messages_TO_dialogs" Association="Self.FK_messages_TO_dialogs">
+      <End Role="dialogs" EntitySet="dialogs" />
+      <End Role="messages" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_messages_TO_records" Association="Self.FK_messages_TO_records">
+      <End Role="records" EntitySet="records" />
+      <End Role="messages" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_messages_TO_users" Association="Self.FK_messages_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="messages" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_TO_object_types" Association="Self.FK_objects_TO_object_types">
+      <End Role="object_types" EntitySet="object_types" />
+      <End Role="objects" EntitySet="objects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_commentaries_TO_commentaries" Association="Self.FK_objects_with_name_to_commentaries_TO_commentaries">
+      <End Role="commentaries" EntitySet="commentaries" />
+      <End Role="objects_with_name_to_commentaries" EntitySet="objects_with_name_to_commentaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_commentaries_TO_objects" Association="Self.FK_objects_with_name_to_commentaries_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="objects_with_name_to_commentaries" EntitySet="objects_with_name_to_commentaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_messages_TO_messages" Association="Self.FK_objects_with_name_to_messages_TO_messages">
+      <End Role="messages" EntitySet="messages" />
+      <End Role="objects_with_name_to_messages" EntitySet="objects_with_name_to_messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_messages_TO_objects" Association="Self.FK_objects_with_name_to_messages_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="objects_with_name_to_messages" EntitySet="objects_with_name_to_messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_records_TO_objects" Association="Self.FK_objects_with_name_to_records_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="objects_with_name_to_records" EntitySet="objects_with_name_to_records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_records_TO_records" Association="Self.FK_objects_with_name_to_records_TO_records">
+      <End Role="records" EntitySet="records" />
+      <End Role="objects_with_name_to_records" EntitySet="objects_with_name_to_records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_showcases_TO_objects" Association="Self.FK_objects_with_name_to_showcases_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="objects_with_name_to_showcases" EntitySet="objects_with_name_to_showcases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_objects_with_name_to_showcases_TO_users" Association="Self.FK_objects_with_name_to_showcases_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="objects_with_name_to_showcases" EntitySet="objects_with_name_to_showcases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_privacy_settings_to_users_TO_privacy_settings" Association="Self.FK_privacy_settings_to_users_TO_privacy_settings">
+      <End Role="privacy_settings" EntitySet="privacy_settings" />
+      <End Role="privacy_settings_to_users" EntitySet="privacy_settings_to_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_privacy_settings_to_users_TO_users" Association="Self.FK_privacy_settings_to_users_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="privacy_settings_to_users" EntitySet="privacy_settings_to_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ratings_to_objects_with_rating_TO_objects" Association="Self.FK_ratings_to_objects_with_rating_TO_objects">
+      <End Role="objects" EntitySet="objects" />
+      <End Role="ratings_to_objects_with_rating" EntitySet="ratings_to_objects_with_rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ratings_to_objects_with_rating_TO_users" Association="Self.FK_ratings_to_objects_with_rating_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="ratings_to_objects_with_rating" EntitySet="ratings_to_objects_with_rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_records_TO_records" Association="Self.FK_records_TO_records">
+      <End Role="records" EntitySet="records" />
+      <End Role="records1" EntitySet="records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_records_TO_users" Association="Self.FK_records_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="records" EntitySet="records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_to_dialogs_TO_dialogs" Association="Self.FK_users_to_dialogs_TO_dialogs">
+      <End Role="dialogs" EntitySet="dialogs" />
+      <End Role="users_to_dialogs" EntitySet="users_to_dialogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_to_dialogs_TO_users" Association="Self.FK_users_to_dialogs_TO_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="users_to_dialogs" EntitySet="users_to_dialogs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

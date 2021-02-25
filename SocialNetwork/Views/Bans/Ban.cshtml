@@ -1,0 +1,53 @@
+﻿@{
+    SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser;
+    SocialNetwork.Models.users user = ViewBag.User;
+
+    ViewBag.Title = "Выдача блокировки пользователю " + viewing_user.name;
+}
+
+<form method="POST" class="form_two_columns">
+    <table>
+        <tr>
+            <td class="td_value_text">
+                Навсегда ли:
+            </td>
+            <td>
+                <select name="is_permanent">
+                    <option value="1" @if (ViewBag.is_permanent == 1) { ViewContext.Writer.Write(" selected"); }>
+                        Да
+                    </option>
+                    <option value="0" @if (ViewBag.is_permanent == 0) { ViewContext.Writer.Write(" selected"); }>
+                        Нет
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                Время бана (часы):
+            </td>
+            <td>
+                <input type="text" name="ban_hours" maxlength="512" size="32" value="@ViewBag.ban_hours" />
+            </td>
+        </tr>
+        @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
+        {
+            <tr>
+                <td colspan="2" class="td_errors">
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        @error<br />
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="td_button_one_column">
+                <a href="/Bans/Index?id=@viewing_user.id"><input type="button" value="Назад" /></a>
+            </td>
+            <td class="td_button_one_column">
+                <input type="submit" name="ok" value="Забанить" />
+            </td>
+        </tr>
+    </table>
+</form>

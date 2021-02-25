@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Настройки аккаунта";
+}
+
+<form method="POST" class="form_two_columns">
+    <table>
+        <tr>
+            <td class="td_value_text">
+                <b>Имя пользователя <span class="required_asterisk">*</span>:<b>
+</td>
+            <td>
+                <input type="text" name="name" maxlength="64" size="32" value="@ViewBag.name" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Специальное имя пользователя <span class="required_asterisk">*</span>:<b>
+</td>
+            <td>
+                <input type="text" name="special_name" maxlength="32" size="32" value="@ViewBag.special_name" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Новый пароль:<b>
+            </td>
+            <td>
+                <input type="text" name="new_password" maxlength="128" size="32" value="@ViewBag.new_password" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Подтверждение нового пароля:<b>
+            </td>
+            <td>
+                <input type="text" name="new_password_2" maxlength="128" size="32" value="@ViewBag.new_password_2" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Новый секретный вопрос:<b>
+            </td>
+            <td>
+                <input type="text" name="new_secret_question" maxlength="128" size="32" value="@ViewBag.new_secret_question" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Новый ответ на секретный вопрос:<b>
+            </td>
+            <td>
+                <input type="text" name="new_secret_answer" maxlength="128" size="32" value="@ViewBag.new_secret_answer" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Текущий пароль <span class="required_asterisk">*</span>:<b>
+            </td>
+            <td>
+                <input type="password" name="password" maxlength="128" size="32" value="@Request.Form["password"]" />
+            </td>
+        </tr>
+        @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
+        {
+            <tr>
+                <td colspan="2" class="td_errors">
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        @error<br />
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="td_button_one_column">
+                <a href="/Settings"><input type="button" value="Назад" /></a>
+            </td>
+            <td class="td_button_one_column">
+                <input type="submit" name="ok" value="Сохранить настройки аккаунта" />
+            </td>
+        </tr>
+    </table>
+</form>

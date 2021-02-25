@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Авторизация";
+}
+
+<form method="POST" class="form_two_columns">
+    <table>
+        <tr>
+            <td class="td_value_text">
+                <b>Логин <span class="required_asterisk">*</span>:<b>
+            </td>
+            <td>
+                <input type="text" name="login" maxlength="32" size="32" value="@Request.Form["login"]" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                <b>Пароль <span class="required_asterisk">*</span>:<b>
+            </td>
+            <td>
+                <input type="password" name="password" maxlength="128" size="32" value="@Request.Form["password"]" />
+            </td>
+        </tr>
+        @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
+        {
+            <tr>
+                <td colspan="2" class="td_errors">
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        @error<br />
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2" class="td_buttons">
+                <input type="submit" name="ok" value="Войти" /><br />
+                @Html.ActionLink("Регистрация", "Registration", "Main")<br />
+                @Html.ActionLink("Восстановление пароля", "PasswordRecovery", "Main")
+            </td>
+        </tr>
+    </table>
+</form>

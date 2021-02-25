@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Главная";
+}
+
+<div class="center_content">
+    @if (SocialNetwork.Models.users.isUserLoggedIn() != true) // если пользователь не находится в аккаунте
+    {
+        <p>Добро пожаловать!</p>
+        <br />
+        @Html.ActionLink("Регистрация", "Registration", "Main", null, new { @class = "my_button" })
+        @Html.ActionLink("Авторизация", "Authorization", "Main", null, new { @class = "my_button" })
+    }
+    else
+    {
+        if (@ViewBag.ViewingUser.name != null)
+        {
+            <p>Добро пожаловать, @ViewBag.ViewingUser.name!</p>
+        }
+        else
+        {
+            <p>Добро пожаловать!</p>
+        }
+    }
+</div>

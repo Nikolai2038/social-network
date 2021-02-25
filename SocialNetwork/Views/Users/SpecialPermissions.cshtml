@@ -1,0 +1,53 @@
+﻿@{
+    SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser;
+    SocialNetwork.Models.users user = ViewBag.User;
+    if (user == null)
+    {
+        ViewBag.Title = "Пользователь не найден";
+        //// вывод страницы ошибки
+    }
+    else
+    {
+        ViewBag.Title = "Изменение специальных прав пользователя " + viewing_user.login;
+        if (user.permissions_rank > viewing_user.permissions_rank)
+        {
+            string rank_name = "обычным пользователем";
+            if (viewing_user.permissions_rank == 1)
+            {
+                rank_name = "модератором";
+            }
+            else if (viewing_user.permissions_rank == 2)
+            {
+                rank_name = "администратором";
+            }
+            else if (viewing_user.permissions_rank == 3)
+            {
+                rank_name = "главным администратором";
+            }
+
+            <div class="center_content">
+                <p>Данный пользователь является @rank_name.</p>
+                <br />
+                @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user.id }, new { @class = "my_button" })
+                @if (user.permissions_rank >= 2)
+                {
+                    if (viewing_user.permissions_rank > 0)
+                    {
+                        @Html.ActionLink("Снять все права", "SpecialPermissions", "Users", new { id = viewing_user.id, specials_permissions_action = "set_user" }, new { @class = "my_button" });
+                    }
+                    if (viewing_user.permissions_rank < 1)
+                    {
+                        @Html.ActionLink("Назначить модератором", "SpecialPermissions", "Users", new { id = viewing_user.id, specials_permissions_action = "set_moderator" }, new { @class = "my_button" });
+                    }
+                }
+                @if (user.permissions_rank >= 3)
+                {
+                    if (viewing_user.permissions_rank < 2)
+                    {
+                        @Html.ActionLink("Назначить администратором", "SpecialPermissions", "Users", new { id = viewing_user.id, specials_permissions_action = "set_administrator" }, new { @class = "my_button" });
+                    }
+                }
+            </div>
+        }
+    }
+}

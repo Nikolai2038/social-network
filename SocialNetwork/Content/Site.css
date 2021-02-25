@@ -1,0 +1,487 @@
+﻿body
+{
+    /*padding-top: 50px;*/
+    padding-bottom: 20px;
+    background-color: #000000;
+}
+
+.body-content
+{
+    padding: 15px;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+@media (max-width: 767px)
+{
+    header
+    {
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 768px)
+{
+    .body-content
+    {
+        /*margin-top: 110px;*/
+    }
+}
+
+footer
+{
+    padding: 15px;
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+}
+
+header
+{
+    color: #ffffff;
+    text-align: center;
+    background-color: #333333;
+}
+
+header h4
+{
+    padding: 10px 0;
+    margin: 0;
+    font-family: Arial
+}
+
+/* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
+.dl-horizontal dt
+{
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea
+{
+    max-width: 280px;
+}
+
+/* ======================================================== */
+/* Форма с двумя колонками (регистрация, авторизация и др.) */
+/* ======================================================== */
+.required_asterisk
+{
+    color: #ff0000;
+    font-size: larger;
+    font-weight: 900;
+}
+
+.form_two_columns
+{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form_two_columns table
+{
+    margin: 0 auto;
+    background-color: #000000;
+    border-radius: 15px;
+}
+
+.form_two_columns table tr .td_value_text
+{
+    padding-right: 0px;
+    text-align: right;
+    color: #ffffff;
+}
+
+.form_two_columns table td
+{
+    padding: 5px 10px;
+    font-weight: 700;
+    width: 50%;
+}
+
+.form_two_columns table td a,
+.form_two_columns table td input
+{
+    font-weight: 400;
+}
+
+.form_two_columns table td input[type=button],
+.form_two_columns table td input[type=submit]
+{
+    font-weight: 700;
+}
+
+.form_two_columns table tr:first-child td
+{
+    padding-top: 10px;
+}
+
+.form_two_columns table tr:last-child td
+{
+    padding-bottom: 10px;
+}
+
+.form_two_columns table tr .td_text
+{
+    color: #ffffff;
+    text-align: center;
+}
+
+.form_two_columns table tr .td_errors
+{
+    color: #ff0000;
+    text-align: center;
+}
+
+.form_two_columns table tr .td_buttons
+{
+    text-align: center;
+}
+
+.form_two_columns table tr .td_buttons input
+{
+    color: #000000;
+    margin: 0 auto;
+}
+
+.form_two_columns table tr .td_button_one_column input[type=button],
+.form_two_columns table tr .td_button_one_column input[type=submit]
+{
+    width: calc(100% - 10px);
+    margin: 0 5px;
+}
+
+.form_two_columns table tr .td_button_one_column a input[type=button],
+.form_two_columns table tr .td_button_one_column a:hover input[type=button],
+.form_two_columns table tr .td_button_one_column a:active input[type=button]
+{
+    color: #000000;
+    text-decoration: none;
+}
+/* ======================================================== */
+
+/* ======================================================== */
+/* Настройки */
+/* ======================================================== */
+.center_content
+{
+    text-align: center;
+}
+
+.center_content p
+{
+    text-align: center;
+    margin: 0;
+}
+
+.my_button
+{
+    display: inline-block;
+    margin: 2px 1px;
+    padding: 5px 15px;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+    font-weight: 700;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.my_button:hover,
+.my_button:active
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* ======================================================== */
+
+
+/* ======================================================== */
+/* Настройки приватности */
+/* ======================================================== */
+.form_private_settings
+{
+    margin: 0 auto;
+}
+
+.form_private_settings table
+{
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+}
+
+.form_private_settings table tr td
+{
+    padding: 5px 10px;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    font-weight: 700;
+}
+
+.form_private_settings table tr .td_value_text
+{
+    text-align: left;
+}
+
+.form_private_settings table tr .td_checkbox
+{
+    min-width: 110px;
+    text-align: center;
+}
+
+.form_private_settings table td a,
+.form_private_settings table td input
+{
+    font-weight: 400;
+}
+
+.form_private_settings table td input[type=button],
+.form_private_settings table td input[type=submit]
+{
+    font-weight: 700;
+}
+
+.form_private_settings table tr .td_text
+{
+    color: #ffffff;
+    text-align: center;
+}
+
+.form_private_settings table tr .td_errors
+{
+    color: #ff0000;
+    text-align: center;
+}
+
+.form_private_settings table tr .td_buttons
+{
+    text-align: center;
+}
+
+.form_private_settings table tr .td_buttons input
+{
+    color: #000000;
+    margin: 0 auto;
+}
+
+.form_private_settings table tr .td_buttons input[type=button],
+.form_private_settings table tr .td_buttons input[type=submit]
+{
+    width: calc(100% - 10px);
+    margin: 0 5px;
+}
+
+.form_private_settings table tr .td_buttons a input[type=button],
+.form_private_settings table tr .td_buttons a:hover input[type=button],
+.form_private_settings table tr .td_buttons a:active input[type=button]
+{
+    color: #000000;
+    text-decoration: none;
+}
+/* ======================================================== */
+
+
+/* ======================================================== */
+/* Страница пользователя */
+/* ======================================================== */
+
+.my_button_2,
+.my_button_3
+{
+    display: inline-block;
+    margin: 2px 1px;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.my_button_2
+{
+    padding: 0px 12px;
+    border-radius: 6px;
+}
+
+.my_button_3
+{
+    padding: 6px 18px;
+    border-radius: 12px;
+}
+
+.my_button_2:hover,
+.my_button_2:active,
+.my_button_3:hover,
+.my_button_3:active
+{
+    color: #000000;
+    text-decoration: underline;
+}
+
+.profile
+{
+    margin: 0 auto;
+}
+
+.profile p
+{
+    margin: 0;
+}
+
+.profile table
+{
+    width: 90%;
+    min-width: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.profile table tr td[colspan="3"]
+{
+    width: calc(100% * 3 / 18);
+}
+.profile table tr td[colspan="6"]
+{
+    width: calc(100% * 6 / 18);
+}
+.profile table tr td[colspan="9"]
+{
+    width: calc(100% * 9 / 18);
+}
+.profile table tr td[colspan="12"]
+{
+    width: calc(100% * 12 / 18);
+}
+.profile table tr td[colspan="15"]
+{
+    width: calc(100% * 15 / 18);
+}
+
+.profile table tr td
+{
+    padding: 5px 10px;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    font-weight: 400;
+    text-align: center;
+}
+
+.profile table tr .td_text
+{
+    font-weight: 700;
+}
+
+.profile table tr .td_avatar
+{
+}
+
+.profile table tr .td_info
+{
+    height: 100px;
+}
+
+.profile table tr .td_attachment
+{
+    height: 100px;
+}
+
+.profile table .tr_mini_avatars
+{
+    height: 100px;
+}
+
+.status_offline span
+{
+    color: #ff0000;
+}
+
+.status_online span
+{
+    color: #00ff00;
+}
+
+/* ======================================================== */
+
+/* ======================================================== */
+/* Таблица истории авторизаций */
+/* ======================================================== */
+.black_table
+{
+    width: 90%;
+    min-width: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.black_table tr td
+{
+    padding: 5px 10px;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+}
+/* ======================================================== */
+
+/* ======================================================== */
+/* Форма навигации по страницам */
+/* ======================================================== */
+.page_navigation_form
+{
+    width: 90%;
+    min-width: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+}
+
+.page_navigation_form input,
+.page_navigation_form select
+{
+    color: #000000;
+    text-align: center;
+    height: 30px;
+}
+
+.page_navigation_form input[type="text"]
+{
+    max-width: 40px;
+}
+
+.search_text
+{
+    max-width: 300px;
+    min-width: 300px;
+    margin-bottom: 10px;
+}
+/* ======================================================== */
+.record_avatar
+{
+    width: 150px;
+    max-height: 150px;
+}
+.record_avatar img
+{
+    max-width: 150px;
+    max-height: 150px;
+}
+.record_text
+{
+    text-align: left;
+    vertical-align: top;
+}
+.record_buttons
+{
+    height: 20px;
+}
+/* ======================================================== */

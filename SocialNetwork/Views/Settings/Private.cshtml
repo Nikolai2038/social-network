@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Настройки приватности";
+
+    string[,] checkBoxesNames = ViewBag.CheckBoxesNames;
+    Dictionary<string, int> checkBoxesValues = ViewBag.CheckBoxesValues;
+
+    List<string> varieties = SocialNetwork.Models.privacy_settings_to_users.getVarieties();
+
+    Action<int, bool, string> printTDs = (_privacySettingId, is_second_column, text) =>
+    {
+        if (is_second_column == true)
+        {
+            ViewContext.Writer.WriteLine("<td class=\"td_value_text\">");
+            ViewContext.Writer.WriteLine(text);
+            ViewContext.Writer.WriteLine("</td>");
+        }
+        for (int varietyId = 0; varietyId < varieties.Count; varietyId++)
+        {
+            string checkBoxName = checkBoxesNames[_privacySettingId, varietyId];
+            int checkBoxValue = checkBoxesValues[checkBoxName];
+            string checkBoxState = "";
+            if (checkBoxValue == 1)
+            {
+                checkBoxState = "checked";
+            }
+            ViewContext.Writer.WriteLine("<td class=\"td_checkbox\">");
+            ViewContext.Writer.WriteLine($"<input type=\"checkbox\" name=\"{checkBoxName}\" {checkBoxState}/>");
+            ViewContext.Writer.WriteLine("</td>");
+        }
+    };
+
+    int privacySettingId = 0;
+}
+
+<form method="POST" class="form_private_settings">
+    <table>
+        <tr>
+            <td colspan="2" class="td_value_text"></td>
+            <td class="td_checkbox">Друзья</td>
+            <td class="td_checkbox">Друзья друзей</td>
+            <td class="td_checkbox">Подписки</td>
+            <td class="td_checkbox">Подписчики</td>
+            <td class="td_checkbox">Все</td>
+        </tr>
+        <tr>
+            <td rowspan="12" class="td_value_text">Кто может видеть...</td>
+        </tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моих друзей:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моих подписчиков:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моих подписки:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мою витрину:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои изображения:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои видеозаписи:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои аудиозаписи:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои документы:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои статьи:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои коллекции:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои записи:"); }</tr>
+        <tr>
+            <td colspan="2" class="td_value_text">Кто может писать мне личные сообщения:</td>
+            @{ printTDs(privacySettingId++, false, ""); }
+        </tr>
+        <tr>
+            <td colspan="2" class="td_value_text">Кто может оставлять записи на моей странице:</td>
+            @{ printTDs(privacySettingId++, false, ""); }
+        </tr>
+        <tr>
+            <td rowspan="8" class="td_value_text">Кто может комментировать...</td>
+        </tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои изображения:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои видеозаписи:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои аудиозаписи:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои документы:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои статьи:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои коллекции:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...мои записи:"); }</tr>
+        <tr>
+            <td rowspan="8" class="td_value_text">Кто может делиться...</td>
+        </tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими изображениями:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими видеозаписями:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими аудиозаписями:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими документами:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими статьями:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими коллекциями:"); }</tr>
+        <tr>@{ printTDs(privacySettingId++, true, "...моими записями:"); }</tr>
+
+        @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
+        {
+            <tr>
+                <td colspan="2" class="td_errors">
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        @error<br />
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="7" class="td_buttons">
+                <a href="/Settings"><input type="button" value="Назад" /></a>
+                <input type="submit" name="ok" value="Сохранить настройки приватности" />
+            </td>
+        </tr>
+    </table>
+</form>

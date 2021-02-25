@@ -1,0 +1,282 @@
+﻿@{
+    SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser;
+    SocialNetwork.Models.users user = ViewBag.User;
+
+    ViewBag.Title = "Профиль пользователя " + viewing_user.login;
+
+    Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUser = SocialNetwork.Models.users.getUserPermissionsToUser(user, viewing_user);
+
+    userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SHOWCASE] = false; //// ВИТРИНА ВРЕМЕННО УБРАНА
+}
+
+<div class="profile">
+    <table>
+        <tr>
+            <td colspan="18" class="td_value_text">
+                @viewing_user.special_name
+            </td>
+        </tr>
+        <tr>
+            @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SHOWCASE] == true)
+            {
+                ViewContext.Writer.WriteLine("<td colspan=\"6\" rowspan=\"5\" class=\"td_avatar\">");
+            }
+            else
+            {
+                ViewContext.Writer.WriteLine("<td colspan=\"6\" rowspan=\"3\" class=\"td_avatar\">");
+            }
+            <img src="@viewing_user.avatar_file_url" alt="&nbsp;&nbsp;&nbsp;Аватар не установлен" />
+            </td>
+            <td colspan="12">
+                @if ((viewing_user.status == null) || (viewing_user.status.Trim().Length == 0))
+                {
+                    <p>Личный статус не указан</p>
+                }
+                else
+                {
+                    @viewing_user.status
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12" class="td_info">
+                @if ((viewing_user.info == null) || (viewing_user.info.Trim().Length == 0))
+                {
+                    <p>Дополнительная информация не указана</p>
+                }
+                else
+                {
+                    @viewing_user.info
+                }
+            </td>
+        </tr>
+        @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SHOWCASE] == true)
+        {
+            <tr>
+                <td colspan="12" class="td_text">
+                    Витрина:
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="td_attachment">
+                    [Вложение 1]
+                </td>
+                <td colspan="3" class="td_attachment">
+                    [Вложение 2]
+                </td>
+                <td colspan="3" class="td_attachment">
+                    [Вложение 3]
+                </td>
+                <td colspan="3" class="td_attachment">
+                    [Вложение 4]
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="6">
+                Дата регистрации:<br />
+                @SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(@viewing_user.registration_datetime_int))
+            </td>
+            <td colspan="6">
+                Общий рейтинг: 0
+            </td>
+        </tr>
+        <tr>
+            @{
+                ViewContext.Writer.Write(@viewing_user.getLastActivityStatusAsString());
+            }
+            <td colspan="12">
+                Количество блокировок: @viewing_user.getBansCount(). @Html.ActionLink("Посмотреть список", "Index", "Bans", new { id = viewing_user.id }, new { @class = "my_button_2" })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_FRIENDS] == true)
+                {
+                    ViewContext.Writer.Write("Друзья: " + @viewing_user.getFriendsCount() + ". ");
+                    @Html.ActionLink("Посмотреть список", "Friends", "Users", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                }
+                else
+                {
+                    ViewContext.Writer.Write("Друзья: скрыты.");
+                }
+            </td>
+            <td colspan="6">
+                @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SUBSCRIBERS] == true)
+                {
+                    ViewContext.Writer.Write("Подписчики: " + @viewing_user.getSubscribersCount() + ". ");
+                    @Html.ActionLink("Посмотреть список", "Subscribers", "Users", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                }
+                else
+                {
+                    ViewContext.Writer.Write("Подписчики: скрыты.");
+                }
+            </td>
+            <td colspan="6">
+                @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SUBSCRIPTIONS] == true)
+                {
+                    ViewContext.Writer.Write("Подписки: " + @viewing_user.getSubscriptionsCount() + ". ");
+                    @Html.ActionLink("Посмотреть список", "Subscriptions", "Users", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                }
+                else
+                {
+                    ViewContext.Writer.Write("Подписки: скрыты.");
+                }
+            </td>
+        </tr>
+        @{
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_ACTIONS_TR] == true)
+            {
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td colspan=\"18\">");
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_ACCEPT_SUBSCRIBER] == true)
+            {
+                @Html.ActionLink("Принять заявку в друзья", "Viewing", "Users", new { id = viewing_user.id, tr_action = "accept_subscriber" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_UNACCEPT_FRIEND] == true)
+            {
+                @Html.ActionLink("Удалить из друзей", "Viewing", "Users", new { id = viewing_user.id, tr_action = "unaccept_friend" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SUBSCRIBE] == true)
+            {
+                @Html.ActionLink("Подписаться", "Viewing", "Users", new { id = viewing_user.id, tr_action = "subscribe" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_UNSUBSCRIBE] == true)
+            {
+                @Html.ActionLink("Отписаться", "Viewing", "Users", new { id = viewing_user.id, tr_action = "unsubscribe" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_MESSAGE_ME] == true)
+            {
+                @Html.ActionLink("Отправить сообщение", "Viewing", "Users", new { id = viewing_user.id, tr_action = "message" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_ADD_TO_BLACK_LIST] == true)
+            {
+                @Html.ActionLink("Добавить в чёрный список", "Viewing", "Users", new { id = viewing_user.id, tr_action = "add_to_black_list" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_REMOVE_FROM_BLACK_LIST] == true)
+            {
+                @Html.ActionLink("Удалить из чёрного списка", "Viewing", "Users", new { id = viewing_user.id, tr_action = "remove_from_black_list" }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_AUTHORIZATION_HISTORY] == true)
+            {
+                @Html.ActionLink("Посмотреть историю авторизаций", "AuthorizationHistory", "Users", new { id = viewing_user.id }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_CHANGE_SPECIAL_PERMISSIONS] == true)
+            {
+                @Html.ActionLink("Изменить специальные права", "SpecialPermissions", "Users", new { id = viewing_user.id }, new { @class = "my_button_3" })
+            }
+
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_ACTIONS_TR] == true)
+            {
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+            }
+        }
+    </table>
+</div>
+<div class="center_content">
+    @{
+        List<object> list_o = ViewBag.ListOnPage;
+        List<SocialNetwork.Models.records_simple> list = new List<SocialNetwork.Models.records_simple>();
+        foreach (object o in list_o)
+        {
+            list.Add(o as SocialNetwork.Models.records_simple);
+        }
+
+        int total_page_id = Convert.ToInt32(ViewBag.TotalPageId);
+
+        int elements_on_page = Convert.ToInt32(ViewBag.ElementsOnPage);
+
+        Dictionary<string, string> sort_names = new Dictionary<string, string>();
+        sort_names.Add("id", "ID");
+        sort_names.Add("text", "Текст");
+
+        Dictionary<string, string> search_names = new Dictionary<string, string>();
+        search_names.Add("id", "ID");
+        search_names.Add("text", "Текст");
+
+        string sort_key = ViewBag.SortKey;
+        string sort_asc = ViewBag.SortAsc;
+
+        string search_text = ViewBag.SearchText;
+        string search_key = ViewBag.SearchKey;
+
+        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.id}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
+        <br />
+        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
+        ViewContext.Writer.WriteLine("</form>");
+    }
+<table class="black_table">
+    @{
+        foreach (SocialNetwork.Models.records_simple element in list)
+        {
+            /*int object_id = element.object_id;
+            SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
+            int user_id_from = obj.user_id_from;
+            SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
+            */
+            ViewContext.Writer.WriteLine("<tr>");
+
+            ViewContext.Writer.WriteLine("<td rowspan=\"2\" class=\"record_avatar\">");
+            ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
+            ViewContext.Writer.WriteLine("</td>");
+
+            /*ViewContext.Writer.WriteLine("<td>");
+            ViewContext.Writer.WriteLine(user_from.name);
+            ViewContext.Writer.WriteLine("</td>");
+
+            ViewContext.Writer.WriteLine("<td>");
+            ViewContext.Writer.WriteLine(user_from.special_name);
+            ViewContext.Writer.WriteLine("</td>");*/
+
+            ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
+            @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.id, record_id = element.id }, new { @class = "my_button_2" })
+            @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.id, record_id = element.id }, new { @class = "my_button_2" })
+            ViewContext.Writer.WriteLine("</td>");
+
+            ViewContext.Writer.WriteLine("</tr>");
+
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td class=\"record_text\">");
+            ViewContext.Writer.WriteLine(element.text);
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+        }
+        if (list.Count == 0)
+        {
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td colspan=\"4\">");
+            ViewContext.Writer.WriteLine("Нет записей");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+        }
+
+        if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_CREATE_RECORDS_ON_MY_PAGE] == true)
+        {
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td colspan=2>");
+            @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.id }, new { @class = "my_button_3" })
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+        }
+    }
+</table>
+    @{
+        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.id}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
+        <br />
+        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
+        ViewContext.Writer.WriteLine("</form>");
+    }
+</div>

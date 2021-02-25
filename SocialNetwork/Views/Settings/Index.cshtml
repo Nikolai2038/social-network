@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Настройки";
+    //@Html.ActionLink("Настройки чёрного списка", "BlackList", "Settings", null, new { @class = "my_button" })
+}
+
+<div class="center_content">
+    @Html.ActionLink("Настройки страницы", "Page", "Settings", null, new { @class = "my_button" })
+    @Html.ActionLink("Настройки аккаунта", "Account", "Settings", null, new { @class = "my_button" })
+    @Html.ActionLink("Настройки приватности", "Private", "Settings", null, new { @class = "my_button" })
+</div>

@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Настройки страницы";
+}
+
+<form method="POST" class="form_two_columns">
+    <table>
+        <tr>
+            <td class="td_value_text">
+                Личный статус:
+            </td>
+            <td>
+                <input type="text" name="status" maxlength="64" size="32" value="@ViewBag.status" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                Дополнительная информация:
+            </td>
+            <td>
+                <input type="text" name="info" maxlength="64" size="32" value="@ViewBag.info" />
+            </td>
+        </tr>
+        <tr>
+            <td class="td_value_text">
+                Ссылка на аватар:
+            </td>
+            <td>
+                <input type="text" name="avatar_file_url" maxlength="512" size="32" value="@ViewBag.avatar_file_url" />
+            </td>
+        </tr>
+        @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
+        {
+            <tr>
+                <td colspan="2" class="td_errors">
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        @error<br />
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="td_button_one_column">
+                <a href="/Settings"><input type="button" value="Назад" /></a>
+            </td>
+            <td class="td_button_one_column">
+                <input type="submit" name="ok" value="Сохранить настройки аккаунта" />
+            </td>
+        </tr>
+    </table>
+</form>
