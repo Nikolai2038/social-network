@@ -26,7 +26,7 @@ namespace SocialNetwork
         private static readonly string SYMBOLS_RU               = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
         private static readonly string SYMBOLS_NUMBERS          = "0123456789";
         private static readonly string SYMBOLS_DASH             = "-";
-        private static readonly string SYMBOLS_SPECIAL_SYMBOLS  = "!$%^*()-=+<>.,{}[];;";
+        private static readonly string SYMBOLS_SPECIAL_SYMBOLS  = "!$%^*()-=+<>.,{}[];; ";
 
         private static readonly string ALLOWED_SYMBOLS_FOR_USER_LOGIN            = SYMBOLS_EN + SYMBOLS_NUMBERS + SYMBOLS_DASH;
         private static readonly string ALLOWED_SYMBOLS_FOR_USER_PASSWORD         = SYMBOLS_EN + SYMBOLS_NUMBERS + SYMBOLS_SPECIAL_SYMBOLS;

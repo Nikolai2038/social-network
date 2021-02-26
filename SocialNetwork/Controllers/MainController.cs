@@ -71,12 +71,9 @@ namespace SocialNetwork.Controllers
                             m_database.users.Add(user); // добавляем пользователя в БД
                             m_database.SaveChanges(); // сохраняем БД
 
-                            users.SaveSession(user);
-
                             // после добавления пользователя в БД, добавим для него имя и уникальное специальное имя
-                            users user_found = m_database.users.Where(p => (p.login == user.login) && (p.password_sha512 == user.password_sha512)).FirstOrDefault();
-                            user_found.special_name = "id" + Session["id"];
-                            user_found.name = user_found.special_name;
+                            user.special_name = "id" + user.id;
+                            user.name = user.special_name;
 
                             m_database.SaveChanges(); // сохраняем БД
 
