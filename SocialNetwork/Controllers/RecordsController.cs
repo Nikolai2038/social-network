@@ -16,17 +16,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Create(string id)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -64,17 +59,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Edit(string id, int record_id)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -120,17 +110,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Delete(string id, int record_id)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
