@@ -442,7 +442,7 @@ namespace SocialNetwork.Models
                 CAN_COMMENT,
                 CAN_REPOST,
             */
-            users user_to = getUserFromUserId(objects.getObjectUserIdFrom(object_to));
+            users user_to = getUserFromUserId(MyFunctions.getObjectUserIdFrom(object_to));
 
             Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUser = SocialNetwork.Models.users.getUserPermissionsToUser(user_from, user_to);
 

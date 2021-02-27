@@ -58,10 +58,5 @@ namespace SocialNetwork.Models
         public virtual ICollection<objects_with_name_to_showcases> objects_with_name_to_showcases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ratings_to_objects_with_rating> ratings_to_objects_with_rating { get; set; }
-
-        public static int getObjectUserIdFrom(object obj)
-        {
-            return (obj as objects).user_id_from;
-        }
     }
 }

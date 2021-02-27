@@ -389,5 +389,35 @@ namespace SocialNetwork
             }
             writer.WriteLine("</select>");
         }
+
+        public static int getObjectUserIdFrom(object obj)
+        {
+            int object_id = -1;
+
+            if (obj is files)
+            {
+                object_id = (obj as files).object_id;
+            }
+            else if (obj is articles)
+            {
+                object_id = (obj as articles).object_id;
+            }
+            else if (obj is collections)
+            {
+                object_id = (obj as collections).object_id;
+            }
+            else if (obj is records)
+            {
+                object_id = (obj as records).object_id;
+            }
+            else if (obj is commentaries)
+            {
+                object_id = (obj as commentaries).object_id;
+            }
+
+            objects object_found = database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
+
+            return object_found.user_id_from;
+        }
     }
 }
