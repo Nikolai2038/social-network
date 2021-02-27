@@ -224,9 +224,9 @@ namespace SocialNetwork.Models
         {
             return MyFunctions.database.bans.Where(p => ((p.user_id_to == id))).ToList();
         }
-        public List<records_simple> getRecords()
+        public List<records> getRecords()
         {
-            return MyFunctions.database.records_simple.Where(p => ((p.user_id_to == id))).ToList();
+            return MyFunctions.database.records.Where(p => ((p.user_id_to == id))).ToList();
         }
 
         public int getBansCount()

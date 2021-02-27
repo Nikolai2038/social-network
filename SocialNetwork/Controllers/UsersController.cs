@@ -209,7 +209,7 @@ namespace SocialNetwork.Controllers
 
 
 
-            List<records_simple> list = user_to.getRecords();
+            List<records> list = user_to.getRecords();
 
             if (search_key == "id")
             {
