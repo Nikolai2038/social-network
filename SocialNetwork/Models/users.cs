@@ -433,6 +433,153 @@ namespace SocialNetwork.Models
             return result;
         }
 
+        public static Dictionary<PermissionsToObject, bool> getUserPermissionsToObject(users user_from, object object_to)
+        {
+            /*
+                CAN_SEE,
+                CAN_EDIT,
+                CAN_DELETE,
+                CAN_COMMENT,
+                CAN_REPOST,
+            */
+            users user_to = getUserFromUserId(objects.getObjectUserIdFrom(object_to));
+
+            Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUser = SocialNetwork.Models.users.getUserPermissionsToUser(user_from, user_to);
+
+            Dictionary<PermissionsToObject, bool> result = new Dictionary<PermissionsToObject, bool>();
+
+            for (int i = 0; i < (int)PermissionsToObject.COUNT; i++)
+            {
+                result.Add((PermissionsToObject)i, false);
+            }
+
+            if (object_to is files)
+            {
+                files file = object_to as files;
+                if (file.object_id == Convert.ToInt32(ObjectsTypes.IMAGE))
+                {
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_IMAGES] == true)
+                    {
+                        result[PermissionsToObject.CAN_SEE] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_IMAGES] == true)
+                    {
+                        result[PermissionsToObject.CAN_COMMENT] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_IMAGES] == true)
+                    {
+                        result[PermissionsToObject.CAN_SHARE] = true;
+                    }
+                }
+                else if (file.object_id == Convert.ToInt32(ObjectsTypes.VIDEO))
+                {
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_VIDEOS] == true)
+                    {
+                        result[PermissionsToObject.CAN_SEE] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_VIDEOS] == true)
+                    {
+                        result[PermissionsToObject.CAN_COMMENT] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_VIDEOS] == true)
+                    {
+                        result[PermissionsToObject.CAN_SHARE] = true;
+                    }
+                }
+                else if (file.object_id == Convert.ToInt32(ObjectsTypes.AUDIO))
+                {
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_AUDIOS] == true)
+                    {
+                        result[PermissionsToObject.CAN_SEE] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_AUDIOS] == true)
+                    {
+                        result[PermissionsToObject.CAN_COMMENT] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_AUDIOS] == true)
+                    {
+                        result[PermissionsToObject.CAN_SHARE] = true;
+                    }
+                }
+                else if (file.object_id == Convert.ToInt32(ObjectsTypes.DOCUMENT))
+                {
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_DOCUMENTS] == true)
+                    {
+                        result[PermissionsToObject.CAN_SEE] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_DOCUMENTS] == true)
+                    {
+                        result[PermissionsToObject.CAN_COMMENT] = true;
+                    }
+                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_DOCUMENTS] == true)
+                    {
+                        result[PermissionsToObject.CAN_SHARE] = true;
+                    }
+                }
+            }
+            else if (object_to is articles)
+            {
+                if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_ARTICLES] == true)
+                {
+                    result[PermissionsToObject.CAN_SEE] = true;
+                }
+                if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_ARTICLES] == true)
+                {
+                    result[PermissionsToObject.CAN_COMMENT] = true;
+                }
+                if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_ARTICLES] == true)
+                {
+                    result[PermissionsToObject.CAN_SHARE] = true;
+                }
+            }
+            else if (object_to is collections)
+            {
+                if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_COLLECTIONS] == true)
+                {
+                    result[PermissionsToObject.CAN_SEE] = true;
+                }
+                if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_COLLECTIONS] == true)
+                {
+                    result[PermissionsToObject.CAN_COMMENT] = true;
+                }
+                if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_COLLECTIONS] == true)
+                {
+                    result[PermissionsToObject.CAN_SHARE] = true;
+                }
+            }
+            else if (object_to is records)
+            {
+                records record = object_to as records;
+                users user_with_record = getUserFromUserId(record.user_id_to);
+                Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUserPage = SocialNetwork.Models.users.getUserPermissionsToUser(user_from, user_with_record);
+
+                if (userPermissionsToUserPage[PermissionsToUser.CAN_SEE_RECORDS_ON_MY_PAGE] == true)
+                {
+                    result[PermissionsToObject.CAN_SEE] = true;
+                }
+                if (userPermissionsToUserPage[PermissionsToUser.CAN_COMMENT_RECORDS_ON_MY_PAGE] == true)
+                {
+                    result[PermissionsToObject.CAN_COMMENT] = true;
+                }
+                if (userPermissionsToUserPage[PermissionsToUser.CAN_SHARE_RECORDS_ON_MY_PAGE] == true)
+                {
+                    result[PermissionsToObject.CAN_SHARE] = true;
+                }
+            }
+
+            if (user_from.id == user_to.id)
+            {
+                result[PermissionsToObject.CAN_EDIT] = true;
+                result[PermissionsToObject.CAN_DELETE] = true;
+            }
+            else if (user_to.permissions_rank < user_from.permissions_rank) // при ранге выше ранга просматриваемого пользователя, первый пользователь может удалять объекты
+            {
+                result[PermissionsToObject.CAN_DELETE] = true;
+            }
+
+            return result;
+        }
+         
         public string getLastActivityStatusAsString()
         {
             string result = "";

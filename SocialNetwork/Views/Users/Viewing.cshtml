@@ -221,37 +221,49 @@
     @{
         foreach (SocialNetwork.Models.records element in list)
         {
-            /*int object_id = element.object_id;
-            SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
-            int user_id_from = obj.user_id_from;
-            SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
-            */
-            ViewContext.Writer.WriteLine("<tr>");
+            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, element);
 
-            ViewContext.Writer.WriteLine("<td rowspan=\"2\" class=\"record_avatar\">");
-            ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
-            ViewContext.Writer.WriteLine("</td>");
+            if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
+            {
+                /*int object_id = element.object_id;
+                SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
+                int user_id_from = obj.user_id_from;
+                SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
+                */
+                ViewContext.Writer.WriteLine("<tr>");
 
-            /*ViewContext.Writer.WriteLine("<td>");
-            ViewContext.Writer.WriteLine(user_from.name);
-            ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("<td rowspan=\"2\" class=\"record_avatar\">");
+                ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
+                ViewContext.Writer.WriteLine("</td>");
 
-            ViewContext.Writer.WriteLine("<td>");
-            ViewContext.Writer.WriteLine(user_from.special_name);
-            ViewContext.Writer.WriteLine("</td>");*/
+                /*ViewContext.Writer.WriteLine("<td>");
+                ViewContext.Writer.WriteLine(user_from.name);
+                ViewContext.Writer.WriteLine("</td>");
 
-            ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
-            @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
-            @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
-            ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("<td>");
+                ViewContext.Writer.WriteLine(user_from.special_name);
+                ViewContext.Writer.WriteLine("</td>");*/
 
-            ViewContext.Writer.WriteLine("</tr>");
+                ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
 
-            ViewContext.Writer.WriteLine("<tr>");
-            ViewContext.Writer.WriteLine("<td class=\"record_text\">");
-            ViewContext.Writer.WriteLine(element.text);
-            ViewContext.Writer.WriteLine("</td>");
-            ViewContext.Writer.WriteLine("</tr>");
+                if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
+                {
+                    @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                }
+                if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == true)
+                {
+                    @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                }
+                ViewContext.Writer.WriteLine("</td>");
+
+                ViewContext.Writer.WriteLine("</tr>");
+
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td class=\"record_text\">");
+                ViewContext.Writer.WriteLine(element.text);
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+            }
         }
         if (list.Count == 0)
         {

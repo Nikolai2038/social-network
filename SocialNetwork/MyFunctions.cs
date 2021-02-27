@@ -13,7 +13,7 @@ namespace SocialNetwork
         IMAGE = 0,
         VIDEO = 1,
         AUDIO = 2,
-        FILE = 3,
+        DOCUMENT = 3,
         ARTICLE = 4,
         COLLECTION = 5,
         RECORD = 6,

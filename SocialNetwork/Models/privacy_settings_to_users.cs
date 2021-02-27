@@ -58,6 +58,17 @@ namespace SocialNetwork.Models
         COUNT
     }
 
+    public enum PermissionsToObject
+    {
+        CAN_SEE,
+        CAN_EDIT,
+        CAN_DELETE,
+        CAN_COMMENT,
+        CAN_SHARE,
+
+        COUNT
+    }
+
     public partial class privacy_settings_to_users
     {
         public int id { get; set; }
