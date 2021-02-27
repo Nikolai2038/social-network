@@ -567,14 +567,17 @@ namespace SocialNetwork.Models
                 }
             }
 
-            if (user_from.id == user_to.id)
+            if (user_from != null) // если пользователь, просматривающий страницу - не гость
             {
-                result[PermissionsToObject.CAN_EDIT] = true;
-                result[PermissionsToObject.CAN_DELETE] = true;
-            }
-            else if (user_to.permissions_rank < user_from.permissions_rank) // при ранге выше ранга просматриваемого пользователя, первый пользователь может удалять объекты
-            {
-                result[PermissionsToObject.CAN_DELETE] = true;
+                if (user_from.id == user_to.id)
+                {
+                    result[PermissionsToObject.CAN_EDIT] = true;
+                    result[PermissionsToObject.CAN_DELETE] = true;
+                }
+                else if (user_to.permissions_rank < user_from.permissions_rank) // при ранге выше ранга просматриваемого пользователя, первый пользователь может удалять объекты
+                {
+                    result[PermissionsToObject.CAN_DELETE] = true;
+                }
             }
 
             return result;
