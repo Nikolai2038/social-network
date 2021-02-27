@@ -248,6 +248,8 @@
 
                 ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
 
+                ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
+
                 if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
                 {
                     @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })

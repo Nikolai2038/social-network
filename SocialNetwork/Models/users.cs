@@ -435,13 +435,6 @@ namespace SocialNetwork.Models
 
         public static Dictionary<PermissionsToObject, bool> getUserPermissionsToObject(users user_from, object object_to)
         {
-            /*
-                CAN_SEE,
-                CAN_EDIT,
-                CAN_DELETE,
-                CAN_COMMENT,
-                CAN_REPOST,
-            */
             users user_to = getUserFromUserId(MyFunctions.getUserIdFromObject(object_to));
 
             Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUser = SocialNetwork.Models.users.getUserPermissionsToUser(user_from, user_to);

@@ -488,6 +488,7 @@ textarea
 }
 .record_buttons
 {
+    text-align: left;
     height: 20px;
 }
 /* ======================================================== */

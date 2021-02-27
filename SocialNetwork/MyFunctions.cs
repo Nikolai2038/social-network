@@ -390,7 +390,7 @@ namespace SocialNetwork
             writer.WriteLine("</select>");
         }
 
-        public static int getUserIdFromObject(object obj)
+        public static objects getBasicObjectFromObject(object obj)
         {
             int object_id = -1;
 
@@ -417,7 +417,12 @@ namespace SocialNetwork
 
             objects object_found = database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
 
-            return object_found.user_id_from;
+            return object_found;
+        }
+
+        public static int getUserIdFromObject(object obj)
+        {
+            return getBasicObjectFromObject(obj).user_id_from;
         }
     }
 }
