@@ -7,6 +7,19 @@ using System.Web;
 
 namespace SocialNetwork
 {
+    public enum ObjectsTypes
+    {
+        DELETED_FILE = -1,
+        IMAGE = 0,
+        VIDEO = 1,
+        AUDIO = 2,
+        FILE = 3,
+        ARTICLE = 4,
+        COLLECTION = 5,
+        RECORD = 6,
+        COMMENTARY = 7
+    }
+
     public class MyFunctions
     {
         public static Entities_Database_SocialNetwork database = new Entities_Database_SocialNetwork();
