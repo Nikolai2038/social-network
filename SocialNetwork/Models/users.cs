@@ -160,6 +160,12 @@ namespace SocialNetwork.Models
             return user_found;
         }
 
+        public static users getUserFromUserSpecialName(string special_name)
+        {
+            users user_found = MyFunctions.database.users.Where(p => (p.special_name == special_name)).FirstOrDefault();
+            return user_found;
+        }
+
         public List<users> getFriends()
         {
             List<friends_and_subscriptions> friendsAndSubscriptions = MyFunctions.database.friends_and_subscriptions.Where(p => ((p.user_id_from == id) && (p.is_accepted == 1))).ToList();

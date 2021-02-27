@@ -71,7 +71,7 @@
                 ViewContext.Writer.WriteLine("</td>");
 
                 ViewContext.Writer.WriteLine("<td>");
-                @Html.ActionLink(element.special_name, "Viewing", "Users", new { id = element.id }, new { @class = "my_button_3" })
+                @Html.ActionLink(element.special_name, "Viewing", "Users", new { id = element.special_name }, new { @class = "my_button_3" })
                 ViewContext.Writer.WriteLine("</td>");
 
                 ViewContext.Writer.WriteLine("<td>");

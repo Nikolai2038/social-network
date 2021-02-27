@@ -210,7 +210,7 @@ namespace SocialNetwork
                 }
             }
         }
-        public static users checkSecretAnswerSha512InDatabase(string secret_answer_sha512, string login, ref Entities_Database_SocialNetwork database, ref List<string> errors)
+        public static users checkSecretAnswerSha512InDatabase(string secret_answer_sha512, string login, ref List<string> errors)
         {
             users user_found = database.users.Where(p => (p.login == login) && (p.secret_answer_sha512 == secret_answer_sha512)).FirstOrDefault();
 

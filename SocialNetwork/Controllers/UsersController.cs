@@ -98,8 +98,7 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Viewing(string id, string tr_action, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 10)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан - будем использовать id пользователя текущей сессии
+            if (id == null) // если специальное имя пользователя не указано - будем использовать id пользователя текущей сессии
             {
                 if (users.isUserLoggedIn() != true) // если пользователь не находится в аккаунте
                 {
@@ -107,17 +106,17 @@ namespace SocialNetwork.Controllers
                 }
                 else
                 {
-                    user_id = Convert.ToInt32(Session["id"]);
+                    int user_id = Convert.ToInt32(Session["id"]);
+                    ViewBag.ViewingUser = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
                 }
             }
             else
             {
-                user_id = Convert.ToInt32(id);
+                ViewBag.ViewingUser = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
             }
 
-            ViewBag.ViewingUser = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
 
-            if (ViewBag.ViewingUser == null) // если непонятно, профиль какого пользователя открывается
+            if (ViewBag.ViewingUser == null) // если не понятно, профиль какого пользователя открывается
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
@@ -267,17 +266,12 @@ namespace SocialNetwork.Controllers
             }
             else
             {
-                int user_id = -1;
-                if (id == null) // если id пользователя не указан
+                if (id == null) // если специальное имя пользователя не указано
                 {
                     return RedirectToAction("Index", "Users"); // перенаправляем пользователя
                 }
-                else
-                {
-                    user_id = Convert.ToInt32(id);
-                }
 
-                users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+                users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
                 users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
 
@@ -288,7 +282,7 @@ namespace SocialNetwork.Controllers
 
                 if (user.permissions_rank <= viewing_user.permissions_rank) // ранг для изменения прав обязательно должен быть выше ранга изменяемого пользователя
                 {
-                    return RedirectToAction("Viewing", "Users", new { id = viewing_user.id }); // перенаправляем пользователя
+                    return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
                 }
 
                 if (specials_permissions_action != null) // если указано действие изменения специальных прав
@@ -307,7 +301,7 @@ namespace SocialNetwork.Controllers
                     }
                     MyFunctions.database.SaveChanges();
 
-                    return RedirectToAction("SpecialPermissions", "Users", new { id = viewing_user.id }); // перенаправляем пользователя
+                    return RedirectToAction("SpecialPermissions", "Users", new { id = id }); // перенаправляем пользователя
                 }
 
                 ViewBag.ViewingUser = viewing_user;
@@ -325,17 +319,12 @@ namespace SocialNetwork.Controllers
             }
             else
             {
-                int user_id = -1;
-                if (id == null) // если id пользователя не указан
+                if (id == null) // если специальное имя пользователя не указано
                 {
                     return RedirectToAction("Index", "Users"); // перенаправляем пользователя
                 }
-                else
-                {
-                    user_id = Convert.ToInt32(id);
-                }
 
-                users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+                users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
                 if (viewing_user == null) // если указанного пользователя не существует
                 {
@@ -402,17 +391,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Friends(string id, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 10)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -438,17 +422,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Subscribers(string id, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 10)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -474,17 +453,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Subscriptions(string id, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 10)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {

@@ -33,8 +33,9 @@
                     }
                     @if (ViewBag.isUserLoggedIn == true)
                     {
+                        SocialNetwork.Models.users this_user = SocialNetwork.Models.users.getUserFromUserId(Convert.ToInt32(Session["id"]));
                         //<li>@Html.ActionLink("Новости", "Index", "Records")</li>
-                        <li>@Html.ActionLink("Моя страница", "Viewing", "Users", new { id = Session["id"] }, null)</li>
+                        <li>@Html.ActionLink("Моя страница", "Viewing", "Users")</li>
                         //<li>@Html.ActionLink("Мои переписки", "Index", "Dialogs")</li>
                         //<li>@Html.ActionLink("Мои объекты", "Index", "Objects")</li>
                     }

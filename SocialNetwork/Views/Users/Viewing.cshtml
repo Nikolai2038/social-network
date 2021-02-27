@@ -86,7 +86,7 @@
                 ViewContext.Writer.Write(@viewing_user.getLastActivityStatusAsString());
             }
             <td colspan="12">
-                Количество блокировок: @viewing_user.getBansCount(). @Html.ActionLink("Посмотреть список", "Index", "Bans", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                Количество блокировок: @viewing_user.getBansCount(). @Html.ActionLink("Посмотреть список", "Index", "Bans", new { id = viewing_user.special_name }, new { @class = "my_button_2" })
             </td>
         </tr>
         <tr>
@@ -94,7 +94,7 @@
                 @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_FRIENDS] == true)
                 {
                     ViewContext.Writer.Write("Друзья: " + @viewing_user.getFriendsCount() + ". ");
-                    @Html.ActionLink("Посмотреть список", "Friends", "Users", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                    @Html.ActionLink("Посмотреть список", "Friends", "Users", new { id = viewing_user.special_name }, new { @class = "my_button_2" })
                 }
                 else
                 {
@@ -105,7 +105,7 @@
                 @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SUBSCRIBERS] == true)
                 {
                     ViewContext.Writer.Write("Подписчики: " + @viewing_user.getSubscribersCount() + ". ");
-                    @Html.ActionLink("Посмотреть список", "Subscribers", "Users", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                    @Html.ActionLink("Посмотреть список", "Subscribers", "Users", new { id = viewing_user.special_name }, new { @class = "my_button_2" })
                 }
                 else
                 {
@@ -116,7 +116,7 @@
                 @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SUBSCRIPTIONS] == true)
                 {
                     ViewContext.Writer.Write("Подписки: " + @viewing_user.getSubscriptionsCount() + ". ");
-                    @Html.ActionLink("Посмотреть список", "Subscriptions", "Users", new { id = viewing_user.id }, new { @class = "my_button_2" })
+                    @Html.ActionLink("Посмотреть список", "Subscriptions", "Users", new { id = viewing_user.special_name }, new { @class = "my_button_2" })
                 }
                 else
                 {
@@ -133,47 +133,47 @@
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_ACCEPT_SUBSCRIBER] == true)
             {
-                @Html.ActionLink("Принять заявку в друзья", "Viewing", "Users", new { id = viewing_user.id, tr_action = "accept_subscriber" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Принять заявку в друзья", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "accept_subscriber" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_UNACCEPT_FRIEND] == true)
             {
-                @Html.ActionLink("Удалить из друзей", "Viewing", "Users", new { id = viewing_user.id, tr_action = "unaccept_friend" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Удалить из друзей", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "unaccept_friend" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SUBSCRIBE] == true)
             {
-                @Html.ActionLink("Подписаться", "Viewing", "Users", new { id = viewing_user.id, tr_action = "subscribe" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Подписаться", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "subscribe" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_UNSUBSCRIBE] == true)
             {
-                @Html.ActionLink("Отписаться", "Viewing", "Users", new { id = viewing_user.id, tr_action = "unsubscribe" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Отписаться", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "unsubscribe" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_MESSAGE_ME] == true)
             {
-                @Html.ActionLink("Отправить сообщение", "Viewing", "Users", new { id = viewing_user.id, tr_action = "message" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Отправить сообщение", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "message" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_ADD_TO_BLACK_LIST] == true)
             {
-                @Html.ActionLink("Добавить в чёрный список", "Viewing", "Users", new { id = viewing_user.id, tr_action = "add_to_black_list" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Добавить в чёрный список", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "add_to_black_list" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_REMOVE_FROM_BLACK_LIST] == true)
             {
-                @Html.ActionLink("Удалить из чёрного списка", "Viewing", "Users", new { id = viewing_user.id, tr_action = "remove_from_black_list" }, new { @class = "my_button_3" })
+                @Html.ActionLink("Удалить из чёрного списка", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "remove_from_black_list" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_AUTHORIZATION_HISTORY] == true)
             {
-                @Html.ActionLink("Посмотреть историю авторизаций", "AuthorizationHistory", "Users", new { id = viewing_user.id }, new { @class = "my_button_3" })
+                @Html.ActionLink("Посмотреть историю авторизаций", "AuthorizationHistory", "Users", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_CHANGE_SPECIAL_PERMISSIONS] == true)
             {
-                @Html.ActionLink("Изменить специальные права", "SpecialPermissions", "Users", new { id = viewing_user.id }, new { @class = "my_button_3" })
+                @Html.ActionLink("Изменить специальные права", "SpecialPermissions", "Users", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_ACTIONS_TR] == true)
@@ -211,7 +211,7 @@
         string search_text = ViewBag.SearchText;
         string search_key = ViewBag.SearchKey;
 
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.id}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
         MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
         <br />
         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
@@ -241,8 +241,8 @@
             ViewContext.Writer.WriteLine("</td>");*/
 
             ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
-            @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.id, record_id = element.id }, new { @class = "my_button_2" })
-            @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.id, record_id = element.id }, new { @class = "my_button_2" })
+            @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+            @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
             ViewContext.Writer.WriteLine("</td>");
 
             ViewContext.Writer.WriteLine("</tr>");
@@ -266,14 +266,14 @@
         {
             ViewContext.Writer.WriteLine("<tr>");
             ViewContext.Writer.WriteLine("<td colspan=2>");
-            @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.id }, new { @class = "my_button_3" })
+            @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("</tr>");
         }
     }
 </table>
     @{
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.id}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
         MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
         <br />
         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);

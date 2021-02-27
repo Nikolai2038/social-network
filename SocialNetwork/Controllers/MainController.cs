@@ -11,8 +11,6 @@ namespace SocialNetwork.Controllers
 {
     public class MainController : Controller
     {
-        private static Entities_Database_SocialNetwork m_database = new Entities_Database_SocialNetwork();
-
         public ActionResult Index()
         {
             if (users.isUserLoggedIn() != true) // если пользователь не находится в аккаунте
@@ -40,12 +38,17 @@ namespace SocialNetwork.Controllers
                 if (Request.Form["ok"] != null)
                 {
                     string login = Request.Form["login"];
+                    string name = Request.Form["name"];
                     string password = Request.Form["password"];
                     string password_2 = Request.Form["password_2"];
                     string secret_question = Request.Form["secret_question"];
                     string secret_answer = Request.Form["secret_answer"];
 
                     MyFunctions.checkLogin(login, ref errors);
+                    if (name != "")
+                    {
+                        MyFunctions.checkName(name, ref errors);
+                    }
                     MyFunctions.checkPassword(password, ref errors);
                     MyFunctions.checkPassword2(password, password_2, ref errors);
                     MyFunctions.checkSecretQuestion(secret_question, secret_answer, ref errors);
@@ -59,6 +62,7 @@ namespace SocialNetwork.Controllers
                         {
                             users user = new users(); // новый пользователь
                             user.login = login;
+                            user.name = name;
                             user.password_sha512 = users.generateSha512(password);
                             if (secret_question != "") // если был указан секретный вопрос - сохраняем и его, ответ на него
                             {
@@ -68,15 +72,19 @@ namespace SocialNetwork.Controllers
                             user.permissions_rank = 0; // ранг: 0 – пользователь; 1 – модератор; 2 – администратор; 3 – главный администратор
                             user.registration_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
 
-                            m_database.users.Add(user); // добавляем пользователя в БД
-                            m_database.SaveChanges(); // сохраняем БД
+                            MyFunctions.database.users.Add(user); // добавляем пользователя в БД
+                            MyFunctions.database.SaveChanges(); // сохраняем БД
 
                             // после добавления пользователя в БД, добавим для него имя и уникальное специальное имя
-                            user.special_name = "id" + user.id;
-                            user.name = user.special_name;
+                            users user_found = MyFunctions.database.users.Where(p => (p.login == user.login) && (p.password_sha512 == user.password_sha512)).FirstOrDefault();
+                            user.special_name = "id" + user_found.id;
 
-                            m_database.SaveChanges(); // сохраняем БД
+                            if (user.name == "")
+                            {
+                                user.name = user.special_name;
+                            }
 
+                            MyFunctions.database.SaveChanges(); // сохраняем БД
                             users.SaveSession(user);
 
                             return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
@@ -164,7 +172,7 @@ namespace SocialNetwork.Controllers
                                 ViewBag.IsSecretAnswerCorrect = false;
                                 if (errors.Count == 0)
                                 {
-                                    user_found = MyFunctions.checkSecretAnswerSha512InDatabase(secret_answer_sha512, login, ref m_database, ref errors);
+                                    user_found = MyFunctions.checkSecretAnswerSha512InDatabase(secret_answer_sha512, login, ref errors);
                                     if (errors.Count == 0)
                                     {
                                         ViewBag.IsSecretAnswerCorrect = true;
@@ -181,7 +189,7 @@ namespace SocialNetwork.Controllers
                                             {
                                                 string password_sha512 = users.generateSha512(password);
                                                 user_found.password_sha512 = password_sha512; // меняем пароль пользователя в БД
-                                                m_database.SaveChanges(); // сохраняем БД
+                                                MyFunctions.database.SaveChanges(); // сохраняем БД
                                                 users.SaveSession(user_found); // сохраняем сессию
                                                 return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
                                             }
