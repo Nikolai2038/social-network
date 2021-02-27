@@ -33,6 +33,7 @@ namespace SocialNetwork.Models
         public int id { get; set; }
         public int object_type_id { get; set; }
         public int user_id_from { get; set; }
+        public int creation_datetime_int { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<articles> articles { get; set; }

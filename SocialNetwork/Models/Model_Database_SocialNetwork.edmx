@@ -141,6 +141,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="object_type_id" Type="int" Nullable="false" />
           <Property Name="user_id_from" Type="int" Nullable="false" />
+          <Property Name="creation_datetime_int" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="objects_with_name_to_commentaries">
           <Key>
@@ -1104,6 +1105,7 @@
           <NavigationProperty Name="objects_with_name_to_records" Relationship="Self.FK_objects_with_name_to_records_TO_objects" FromRole="objects" ToRole="objects_with_name_to_records" />
           <NavigationProperty Name="objects_with_name_to_showcases" Relationship="Self.FK_objects_with_name_to_showcases_TO_objects" FromRole="objects" ToRole="objects_with_name_to_showcases" />
           <NavigationProperty Name="ratings_to_objects_with_rating" Relationship="Self.FK_ratings_to_objects_with_rating_TO_objects" FromRole="objects" ToRole="ratings_to_objects_with_rating" />
+          <Property Name="creation_datetime_int" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="objects_with_name_to_commentaries">
           <Key>
@@ -2067,6 +2069,7 @@
           <EntitySetMapping Name="objects">
             <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.objects">
               <MappingFragment StoreEntitySet="objects">
+                <ScalarProperty Name="creation_datetime_int" ColumnName="creation_datetime_int" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="object_type_id" ColumnName="object_type_id" />
                 <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
