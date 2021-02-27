@@ -390,7 +390,7 @@ namespace SocialNetwork
             writer.WriteLine("</select>");
         }
 
-        public static int getObjectUserIdFrom(object obj)
+        public static int getUserIdFromObject(object obj)
         {
             int object_id = -1;
 

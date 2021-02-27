@@ -468,7 +468,9 @@ textarea
 .record_avatar
 {
     width: 150px;
+    min-height: 150px;
     max-height: 150px;
+    height: 150px;
 }
 .record_avatar img
 {
@@ -479,6 +481,10 @@ textarea
 {
     text-align: left;
     vertical-align: top;
+}
+.record_user_name
+{
+    text-align: center;
 }
 .record_buttons
 {
