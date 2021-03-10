@@ -219,6 +219,10 @@
     }
 <table class="black_table">
     @{
+        ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+        ViewContext.Writer.WriteLine("<td colspan=\"2\">");
+        ViewContext.Writer.WriteLine("</td>");
+        ViewContext.Writer.WriteLine("</tr>");
         foreach (SocialNetwork.Models.records element in list)
         {
             Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, element);
@@ -233,8 +237,18 @@
                 SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
                 */
                 ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
+                ViewContext.Writer.WriteLine(user_from.name);
+                ViewContext.Writer.WriteLine("<br/>");
+                ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("<td class=\"record_text\" rowspan=\"2\">");
+                ViewContext.Writer.WriteLine(element.text);
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
 
-                ViewContext.Writer.WriteLine("<td rowspan=\"2\" class=\"record_avatar\">");
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
                 ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
                 ViewContext.Writer.WriteLine("</td>");
 
@@ -246,10 +260,10 @@
                 ViewContext.Writer.WriteLine(user_from.special_name);
                 ViewContext.Writer.WriteLine("</td>");*/
 
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.Write(@viewing_user.getActivityStatusAsString());
                 ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
-
                 ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
-
                 if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
                 {
                     @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
@@ -259,19 +273,10 @@
                     @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
                 }
                 ViewContext.Writer.WriteLine("</td>");
-
                 ViewContext.Writer.WriteLine("</tr>");
 
-                ViewContext.Writer.WriteLine("<tr>");
-                ViewContext.Writer.WriteLine("<td class=\"record_text\" rowspan=\"2\">");
-                ViewContext.Writer.WriteLine(element.text);
-                ViewContext.Writer.WriteLine("</td>");
-                ViewContext.Writer.WriteLine("</tr>");
-                ViewContext.Writer.WriteLine("<tr>");
-                ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
-                ViewContext.Writer.WriteLine(user_from.name);
-                ViewContext.Writer.WriteLine("<br/>");
-                ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
+                ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+                ViewContext.Writer.WriteLine("<td colspan=\"2\">");
                 ViewContext.Writer.WriteLine("</td>");
                 ViewContext.Writer.WriteLine("</tr>");
             }
@@ -290,6 +295,11 @@
             ViewContext.Writer.WriteLine("<tr>");
             ViewContext.Writer.WriteLine("<td colspan=2>");
             @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+
+            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+            ViewContext.Writer.WriteLine("<td colspan=\"2\">");
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("</tr>");
         }

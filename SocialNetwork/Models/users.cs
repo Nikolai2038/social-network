@@ -575,7 +575,7 @@ namespace SocialNetwork.Models
 
             return result;
         }
-         
+
         public string getLastActivityStatusAsString()
         {
             string result = "";
@@ -594,6 +594,27 @@ namespace SocialNetwork.Models
             }
             result += "<br />";
             result += "[" + getDatetimeStringFromDatetimeInt(Convert.ToInt32(this.last_activity_datetime_int)) + "]";
+            result += "</td>";
+
+            return result;
+        }
+
+        public string getActivityStatusAsString()
+        {
+            string result = "";
+
+            int total_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+
+            if (total_datetime_int - this.last_activity_datetime_int <= 60 * 5)
+            {
+                result += "<td class=\"status_online\">";
+                result += "<span>Онлайн</span>";
+            }
+            else
+            {
+                result += "<td class=\"status_offline\">";
+                result += "<span>Оффлайн</span>";
+            }
             result += "</td>";
 
             return result;

@@ -493,4 +493,9 @@ textarea
     text-align: left;
     height: 20px;
 }
+
+#records_white_line td
+{
+    background-color: #ffffff;
+}
 /* ======================================================== */
