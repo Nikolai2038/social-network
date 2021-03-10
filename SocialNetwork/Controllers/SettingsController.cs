@@ -81,6 +81,12 @@ namespace SocialNetwork.Controllers
 
                     if (errors.Count == 0)
                     {
+                        string saved_name = user.name;
+                        string saved_special_name = user.special_name;
+                        string saved_password_sha512 = user.password_sha512;
+                        string saved_secret_question = user.secret_question;
+                        string saved_secret_answer_sha512 = user.secret_answer_sha512;
+
                         user.name = name;
                         user.special_name = special_name;
                         if (new_password.Length != 0)
@@ -93,9 +99,22 @@ namespace SocialNetwork.Controllers
                             user.secret_answer_sha512 = users.generateSha512(new_secret_answer);
                         }
 
-                        MyFunctions.database.SaveChanges(); // сохраняем БД
+                        try
+                        {
+                            MyFunctions.database.SaveChanges(); // сохраняем БД
 
-                        return RedirectToAction("Index", "Settings"); // перенаправляем пользователя в его профиль
+                            return RedirectToAction("Index", "Settings"); // перенаправляем пользователя в его профиль
+                        }
+                        catch
+                        {
+                            user.name = saved_name;
+                            user.special_name = saved_special_name;
+                            user.password_sha512 = saved_password_sha512;
+                            user.secret_question = saved_secret_question;
+                            user.secret_answer_sha512 = saved_secret_answer_sha512;
+
+                            errors.Add("Введённое специальное имя пользователя уже занято!");
+                        }
                     }
                 }
                 else
