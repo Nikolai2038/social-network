@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SocialNetwork")]
-[assembly: AssemblyCopyright("© , 2020")]
+[assembly: AssemblyCopyright("© , 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для ID библиотеки типов typelib, если этот проект видим для COM
-[assembly: Guid("08531cde-1237-412d-917e-8133257d7ad1")]
+[assembly: Guid("31b97854-ec26-4b61-b08e-95d4a90f3856")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //

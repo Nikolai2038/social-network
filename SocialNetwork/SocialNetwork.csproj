@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7DB595E2-EBE9-45C7-91A4-A7C0992215D9}</ProjectGuid>
+    <ProjectGuid>{89E19B10-B7D1-4697-BD4E-7153D3DDF892}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44333</IISExpressSSLPort>
+    <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -55,9 +55,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -66,12 +63,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -91,33 +82,33 @@
     </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -130,20 +121,20 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\RecordsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ObjectsController.cs" />
     <Compile Include="Controllers\BansController.cs" />
     <Compile Include="Controllers\DialogsController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ObjectsController.cs" />
+    <Compile Include="Controllers\RecordsController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,15 +182,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_Database_SocialNetwork.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model_Database_SocialNetwork.cs">
+    <Compile Include="Models\Model_Database_SocialNetwork.cs" />
+    <Compile Include="Models\Model_Database_SocialNetwork.Designer.cs">
+      <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\Model_Database_SocialNetwork1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model_Database_SocialNetwork.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\objects.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
@@ -252,19 +244,19 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\Model_Database_SocialNetwork.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
       <LastGenOutput>Model_Database_SocialNetwork.Context.cs</LastGenOutput>
+      <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
     </Content>
     <Content Include="Models\Model_Database_SocialNetwork.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
-      <LastGenOutput>Model_Database_SocialNetwork.cs</LastGenOutput>
+      <LastGenOutput>Model_Database_SocialNetwork1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -275,11 +267,11 @@
     <Content Include="Models\Model_Database_SocialNetwork.edmx.diagram">
       <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -297,52 +289,52 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Main\Index.cshtml" />
-    <Content Include="Views\Main\Registration.cshtml" />
-    <Content Include="Views\Main\Authorization.cshtml" />
-    <Content Include="Views\Main\Logout.cshtml" />
-    <Content Include="Views\Settings\Index.cshtml" />
-    <Content Include="Views\Settings\Private.cshtml" />
-    <Content Include="Views\Settings\BlackList.cshtml" />
-    <Content Include="Views\Settings\Account.cshtml" />
-    <Content Include="Views\Settings\Page.cshtml" />
-    <Content Include="Views\Dialogs\Index.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Bans\Ban.cshtml" />
+    <Content Include="Views\Bans\Delete.cshtml" />
+    <Content Include="Views\Bans\Index.cshtml" />
+    <Content Include="Views\Bans\Unban.cshtml" />
     <Content Include="Views\Dialogs\Create.cshtml" />
     <Content Include="Views\Dialogs\CreateGroup.cshtml" />
+    <Content Include="Views\Dialogs\Delete.cshtml" />
+    <Content Include="Views\Dialogs\EditGroup.cshtml" />
+    <Content Include="Views\Dialogs\Index.cshtml" />
     <Content Include="Views\Dialogs\Search.cshtml" />
-    <Content Include="Views\Bans\Index.cshtml" />
-    <Content Include="Views\Bans\Ban.cshtml" />
-    <Content Include="Views\Bans\Unban.cshtml" />
-    <Content Include="Views\Bans\Delete.cshtml" />
-    <Content Include="Views\Users\AuthorizationHistory.cshtml" />
-    <Content Include="Views\Users\SpecialPermissions.cshtml" />
-    <Content Include="Views\Objects\Index.cshtml" />
-    <Content Include="Views\Records\Index.cshtml" />
-    <Content Include="Views\Objects\CollectionViewing.cshtml" />
-    <Content Include="Views\Objects\CollectionEdit.cshtml" />
-    <Content Include="Views\Objects\CollectionDelete.cshtml" />
-    <Content Include="Views\Objects\CollectionCreate.cshtml" />
-    <Content Include="Views\Records\Delete.cshtml" />
-    <Content Include="Views\Records\Edit.cshtml" />
-    <Content Include="Views\Records\Create.cshtml" />
-    <Content Include="Views\Objects\FileCreate.cshtml" />
-    <Content Include="Views\Objects\FileDelete.cshtml" />
-    <Content Include="Views\Objects\FileEdit.cshtml" />
-    <Content Include="Views\Objects\FileViewing.cshtml" />
+    <Content Include="Views\Dialogs\Viewing.cshtml" />
+    <Content Include="Views\Main\Authorization.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Logout.cshtml" />
+    <Content Include="Views\Main\PasswordRecovery.cshtml" />
+    <Content Include="Views\Main\Registration.cshtml" />
     <Content Include="Views\Objects\ArticleCreate.cshtml" />
     <Content Include="Views\Objects\ArticleDelete.cshtml" />
     <Content Include="Views\Objects\ArticleEdit.cshtml" />
     <Content Include="Views\Objects\ArticleViewing.cshtml" />
-    <Content Include="Views\Dialogs\Viewing.cshtml" />
-    <Content Include="Views\Dialogs\EditGroup.cshtml" />
-    <Content Include="Views\Dialogs\Delete.cshtml" />
+    <Content Include="Views\Objects\CollectionCreate.cshtml" />
+    <Content Include="Views\Objects\CollectionDelete.cshtml" />
+    <Content Include="Views\Objects\CollectionEdit.cshtml" />
+    <Content Include="Views\Objects\CollectionViewing.cshtml" />
+    <Content Include="Views\Objects\FileCreate.cshtml" />
+    <Content Include="Views\Objects\FileDelete.cshtml" />
+    <Content Include="Views\Objects\FileEdit.cshtml" />
+    <Content Include="Views\Objects\FileViewing.cshtml" />
+    <Content Include="Views\Objects\Index.cshtml" />
+    <Content Include="Views\Records\Create.cshtml" />
+    <Content Include="Views\Records\Delete.cshtml" />
+    <Content Include="Views\Records\Edit.cshtml" />
+    <Content Include="Views\Records\Index.cshtml" />
+    <Content Include="Views\Records\Viewing.cshtml" />
+    <Content Include="Views\Settings\Account.cshtml" />
+    <Content Include="Views\Settings\BlackList.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Settings\Page.cshtml" />
+    <Content Include="Views\Settings\Private.cshtml" />
+    <Content Include="Views\Users\AuthorizationHistory.cshtml" />
+    <Content Include="Views\Users\Friends.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\SpecialPermissions.cshtml" />
     <Content Include="Views\Users\Subscribers.cshtml" />
     <Content Include="Views\Users\Subscriptions.cshtml" />
-    <Content Include="Views\Users\Friends.cshtml" />
-    <Content Include="Views\Records\Viewing.cshtml" />
     <Content Include="Views\Users\Viewing.cshtml" />
-    <Content Include="Views\Main\PasswordRecovery.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -355,8 +347,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -377,9 +369,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51392</DevelopmentServerPort>
+          <DevelopmentServerPort>55047</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44333/</IISUrl>
+          <IISUrl>http://localhost:55047/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -393,7 +385,7 @@
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
