@@ -379,10 +379,14 @@ textarea
     font-weight: 700;
 }
 
+.profile table tr .td_avatar
+{
+    max-height: 300px;
+}
+
 .profile table tr .td_avatar img
 {
     width: 100%;
-    max-height: 300px;
 }
 
 .profile table tr .td_info
