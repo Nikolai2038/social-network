@@ -584,12 +584,12 @@ namespace SocialNetwork.Models
 
             if (total_datetime_int - this.last_activity_datetime_int <= 60 * 5)
             {
-                result += "<td colspan=\"6\" class=\"status_online\">";
+                result += "<td class=\"status_online\">";
                 result += "<span>Онлайн</span>";
             }
             else
             {
-                result += "<td colspan=\"6\" class=\"status_offline\">";
+                result += "<td class=\"status_offline\">";
                 result += "<span>Оффлайн</span>";
             }
             result += "<br />";
@@ -637,6 +637,25 @@ namespace SocialNetwork.Models
             int total_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
             bans _bans = MyFunctions.database.bans.Where(p => (p.user_id_to == this.id) && (p.unban_datetime_int > total_datetime_int)).FirstOrDefault();
             return (_bans != null);
+        }
+
+        public int getRating()
+        {
+            int result = 0;
+            List<objects> objects_from_user = MyFunctions.database.objects.Where(p => (p.user_id_from == this.id)).ToList();
+
+            foreach (objects object_from_user in objects_from_user)
+            {
+                int all_rating_to_object = 0;
+                try // обработка исключения, когда у объекта нет ни одного рейтинга
+                {
+                    all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == object_from_user.id)).Sum(p => p.value);
+                }
+                catch { }
+                result += all_rating_to_object;
+            }
+
+            return result;
         }
     }
 }
