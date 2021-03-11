@@ -584,12 +584,12 @@ namespace SocialNetwork.Models
 
             if (total_datetime_int - this.last_activity_datetime_int <= 60 * 5)
             {
-                result += "<td class=\"status_online\">";
+                result += "<td colspan=\"6\" class=\"status_online\">";
                 result += "<span>Онлайн</span>";
             }
             else
             {
-                result += "<td class=\"status_offline\">";
+                result += "<td colspan=\"6\" class=\"status_offline\">";
                 result += "<span>Оффлайн</span>";
             }
             result += "<br />";
