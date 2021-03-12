@@ -217,94 +217,108 @@
         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
         ViewContext.Writer.WriteLine("</form>");*/
     }
-<table class="black_table">
-    @{
-        ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
-        ViewContext.Writer.WriteLine("<td colspan=\"2\">");
-        ViewContext.Writer.WriteLine("</td>");
-        ViewContext.Writer.WriteLine("</tr>");
-        foreach (SocialNetwork.Models.records element in list)
-        {
-            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, element);
-
-            if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
+    <table class="black_table">
+        @{
+            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+            ViewContext.Writer.WriteLine("<td colspan=\"4\">");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+            foreach (SocialNetwork.Models.records element in list)
             {
-                SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(SocialNetwork.MyFunctions.getUserIdFromObject(element));
+                Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, element);
 
-                /*int object_id = element.object_id;
-                SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
-                int user_id_from = obj.user_id_from;
-                SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
-                */
+                if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
+                {
+                    SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(SocialNetwork.MyFunctions.getUserIdFromObject(element));
+
+                    /*int object_id = element.object_id;
+                    SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
+                    int user_id_from = obj.user_id_from;
+                    SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
+                    */
+                    ViewContext.Writer.WriteLine("<tr>");
+                    ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
+                    ViewContext.Writer.WriteLine(user_from.name);
+                    ViewContext.Writer.WriteLine("<br/>");
+                    ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("<td class=\"record_text\" colspan=\"3\" rowspan=\"3\">");
+                    ViewContext.Writer.WriteLine(element.text);
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("</tr>");
+
+                    ViewContext.Writer.WriteLine("<tr>");
+                    ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
+                    ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
+                    ViewContext.Writer.WriteLine("</td>");
+
+                    /*ViewContext.Writer.WriteLine("<td>");
+                    ViewContext.Writer.WriteLine(user_from.name);
+                    ViewContext.Writer.WriteLine("</td>");
+
+                    ViewContext.Writer.WriteLine("<td>");
+                    ViewContext.Writer.WriteLine(user_from.special_name);
+                    ViewContext.Writer.WriteLine("</td>");*/
+
+                    ViewContext.Writer.WriteLine("<tr>");
+                    ViewContext.Writer.Write(@viewing_user.getActivityStatusAsString());
+                    ViewContext.Writer.WriteLine("</tr>");
+                    ViewContext.Writer.WriteLine("<tr>");
+                    ViewContext.Writer.WriteLine("<td>");
+                    ViewContext.Writer.Write("Общий рейтинг: " + viewing_user.getRating());
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
+                    ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
+                    if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
+                    {
+                        @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                    }
+                    if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == true)
+                    {
+                        @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                    }
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("<td>");
+                    ViewContext.Writer.WriteLine("Рейтинг: " + element.getRating());
+                    @Html.ActionLink("-", "Viewing", "Users", new { id = viewing_user.special_name, action = "down_rating" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("+", "Viewing", "Users", new { id = viewing_user.special_name, action = "up_rating" }, new { @class = "my_button_2" })
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("<td>");
+                    ViewContext.Writer.WriteLine("");
+                    @Html.ActionLink("Комментарии: " + element.getCommentariesCount(), "Viewing", "Records", new { id = element.id }, new { @class = "my_button_2" })
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("</tr>");
+
+                    ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+                    ViewContext.Writer.WriteLine("<td colspan=\"4\">");
+                    ViewContext.Writer.WriteLine("</td>");
+                    ViewContext.Writer.WriteLine("</tr>");
+                }
+            }
+            if (list.Count == 0)
+            {
                 ViewContext.Writer.WriteLine("<tr>");
-                ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
-                ViewContext.Writer.WriteLine(user_from.name);
-                ViewContext.Writer.WriteLine("<br/>");
-                ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
-                ViewContext.Writer.WriteLine("</td>");
-                ViewContext.Writer.WriteLine("<td class=\"record_text\" rowspan=\"2\">");
-                ViewContext.Writer.WriteLine(element.text);
+                ViewContext.Writer.WriteLine("<td colspan=\"4\">");
+                ViewContext.Writer.WriteLine("Нет записей");
                 ViewContext.Writer.WriteLine("</td>");
                 ViewContext.Writer.WriteLine("</tr>");
+            }
 
+            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_CREATE_RECORDS_ON_MY_PAGE] == true)
+            {
                 ViewContext.Writer.WriteLine("<tr>");
-                ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
-                ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
-                ViewContext.Writer.WriteLine("</td>");
-
-                /*ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(user_from.name);
-                ViewContext.Writer.WriteLine("</td>");
-
-                ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(user_from.special_name);
-                ViewContext.Writer.WriteLine("</td>");*/
-
-                ViewContext.Writer.WriteLine("<tr>");
-                ViewContext.Writer.Write(@viewing_user.getActivityStatusAsString());
-                ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
-                ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
-                if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
-                {
-                    @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
-                }
-                if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == true)
-                {
-                    @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
-                }
+                ViewContext.Writer.WriteLine("<td colspan=\"4\">");
+                @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
                 ViewContext.Writer.WriteLine("</td>");
                 ViewContext.Writer.WriteLine("</tr>");
 
                 ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
-                ViewContext.Writer.WriteLine("<td colspan=\"2\">");
+                ViewContext.Writer.WriteLine("<td colspan=\"4\">");
                 ViewContext.Writer.WriteLine("</td>");
                 ViewContext.Writer.WriteLine("</tr>");
             }
         }
-        if (list.Count == 0)
-        {
-            ViewContext.Writer.WriteLine("<tr>");
-            ViewContext.Writer.WriteLine("<td colspan=\"4\">");
-            ViewContext.Writer.WriteLine("Нет записей");
-            ViewContext.Writer.WriteLine("</td>");
-            ViewContext.Writer.WriteLine("</tr>");
-        }
-
-        if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_CREATE_RECORDS_ON_MY_PAGE] == true)
-        {
-            ViewContext.Writer.WriteLine("<tr>");
-            ViewContext.Writer.WriteLine("<td colspan=2>");
-            @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
-            ViewContext.Writer.WriteLine("</td>");
-            ViewContext.Writer.WriteLine("</tr>");
-
-            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
-            ViewContext.Writer.WriteLine("<td colspan=\"2\">");
-            ViewContext.Writer.WriteLine("</td>");
-            ViewContext.Writer.WriteLine("</tr>");
-        }
-    }
-</table>
+    </table>
     @{
         ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
         MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
