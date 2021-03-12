@@ -404,6 +404,11 @@ textarea
     height: 100px;
 }
 
+.status_offline, .status_online, .record_avatar, .td_text_center
+{
+    text-align: center;
+}
+
 .status_offline span
 {
     color: #ff0000;
@@ -488,10 +493,24 @@ textarea
     text-align: left;
     vertical-align: top;
 }
+
 .record_user_name
 {
     text-align: center;
 }
+
+.record_user_name a, .record_user_name a:active, .record_user_name a:visited
+{
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.record_user_name a:hover
+{
+    color: #ff00dc;
+    text-decoration: underline;
+}
+
 .record_buttons
 {
     text-align: left;

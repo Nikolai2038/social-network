@@ -85,19 +85,19 @@ namespace SocialNetwork.Controllers
             users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
 
             ViewBag.User = user;
+            
+            records record = MyFunctions.database.records.Where(p => (p.id == record_id)).FirstOrDefault();
+            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
 
-            Dictionary<PermissionsToUser, bool> userPermissionsToUser = users.getUserPermissionsToUser(user, viewing_user);
-
-            if (!userPermissionsToUser[PermissionsToUser.CAN_CREATE_RECORDS_ON_MY_PAGE])
+            if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == false)
             {
                 return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
             }
-
+            
             if (Request.Form["ok"] != null) // если была нажата кнопка добавления записи
             {
                 ViewBag.text = Request.Form["text"];
-
-                records_simple record = MyFunctions.database.records_simple.Where(p => (p.id == record_id)).FirstOrDefault();
+                
                 record.text = ViewBag.text;
                 MyFunctions.database.SaveChanges();
 
@@ -105,15 +105,44 @@ namespace SocialNetwork.Controllers
             }
             else
             {
-                records_simple record = MyFunctions.database.records_simple.Where(p => (p.id == record_id)).FirstOrDefault();
                 ViewBag.text = record.text;
             }
 
             return View();
         }
 
-        public ActionResult Viewing()
+        public ActionResult Viewing(string id, int record_id, string action)
         {
+            if (id == null) // если специальное имя пользователя не указано
+            {
+                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
+            }
+
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
+
+            if (viewing_user == null) // если указанного пользователя не существует
+            {
+                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
+            }
+
+            ViewBag.ViewingUser = viewing_user;
+
+            users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
+
+            ViewBag.User = user;
+                        
+            records record = MyFunctions.database.records.Where(p => (p.id == record_id)).FirstOrDefault();
+            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
+
+            if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == false)
+            {
+                return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+            }
+
+            ViewBag.User = user;
+            ViewBag.ViewingUser = viewing_user;
+            ViewBag.Record = record;
+
             return View();
         }
 
@@ -137,22 +166,20 @@ namespace SocialNetwork.Controllers
 
             ViewBag.User = user;
 
-            Dictionary<PermissionsToUser, bool> userPermissionsToUser = users.getUserPermissionsToUser(user, viewing_user);
+            records record = MyFunctions.database.records.Where(p => (p.id == record_id)).FirstOrDefault();
+            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
 
-            if (!userPermissionsToUser[PermissionsToUser.CAN_CREATE_RECORDS_ON_MY_PAGE])
+            if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == false)
             {
                 return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
             }
 
             ViewBag.text = Request.Form["text"];
-
-            records_simple record = MyFunctions.database.records_simple.Where(p => (p.id == record_id)).FirstOrDefault();
-            MyFunctions.database.records_simple.Remove(record);
+            
+            MyFunctions.database.records.Remove(record);
             MyFunctions.database.SaveChanges();
 
-            return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя на страницу настроек
-
-            return View();
+            return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
         }
     }
 }

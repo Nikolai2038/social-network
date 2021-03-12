@@ -81,7 +81,7 @@
                 ViewContext.Writer.WriteLine(SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(element.registration_datetime_int)));
                 ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine(element.getLastActivityStatusAsString());
+                ViewContext.Writer.WriteLine(element.getLastActivityStatusAsString(0));
 
                 ViewContext.Writer.WriteLine("<td>");
                 ViewContext.Writer.WriteLine(element.getRating());

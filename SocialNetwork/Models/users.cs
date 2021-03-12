@@ -576,7 +576,7 @@ namespace SocialNetwork.Models
             return result;
         }
 
-        public string getLastActivityStatusAsString()
+        public string getLastActivityStatusAsString(int colspan = 0)
         {
             string result = "";
 
@@ -584,12 +584,12 @@ namespace SocialNetwork.Models
 
             if (total_datetime_int - this.last_activity_datetime_int <= 60 * 5)
             {
-                result += "<td colspan=\"6\" class=\"status_online\">";
+                result += "<td class=\"status_online\" colspan=\"" + colspan + "\">";
                 result += "<span>Онлайн</span>";
             }
             else
             {
-                result += "<td colspan=\"6\" class=\"status_offline\">";
+                result += "<td class=\"status_offline\" colspan=\"" + colspan + "\">";
                 result += "<span>Оффлайн</span>";
             }
             result += "<br />";

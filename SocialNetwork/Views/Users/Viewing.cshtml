@@ -83,7 +83,7 @@
         </tr>
         <tr>
             @{
-                ViewContext.Writer.Write(@viewing_user.getLastActivityStatusAsString());
+                ViewContext.Writer.Write(@viewing_user.getLastActivityStatusAsString(6));
             }
             <td colspan="12">
                 Количество блокировок: @viewing_user.getBansCount(). @Html.ActionLink("Посмотреть список", "Index", "Bans", new { id = viewing_user.special_name }, new { @class = "my_button_2" })
@@ -238,7 +238,7 @@
                     */
                     ViewContext.Writer.WriteLine("<tr>");
                     ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
-                    ViewContext.Writer.WriteLine(user_from.name);
+                    @Html.ActionLink(user_from.name, "Viewing", "Users", new { id = user_from.special_name }, new { @class = "" });
                     ViewContext.Writer.WriteLine("<br/>");
                     ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
                     ViewContext.Writer.WriteLine("</td>");
@@ -280,12 +280,12 @@
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("Рейтинг: " + element.getRating());
-                    @Html.ActionLink("-", "Viewing", "Users", new { id = viewing_user.special_name, action = "down_rating" }, new { @class = "my_button_2" })
-                    @Html.ActionLink("+", "Viewing", "Users", new { id = viewing_user.special_name, action = "up_rating" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("-", "Viewing", "Records", new { id = viewing_user.special_name, record_id = element.id, action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("+", "Viewing", "Records", new { id = viewing_user.special_name, record_id = element.id, action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("");
-                    @Html.ActionLink("Комментарии: " + element.getCommentariesCount(), "Viewing", "Records", new { id = element.id }, new { @class = "my_button_2" })
+                    @Html.ActionLink("Комментарии: " + element.getCommentariesCount(), "Viewing", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("</tr>");
 
