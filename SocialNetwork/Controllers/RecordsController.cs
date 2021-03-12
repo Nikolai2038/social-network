@@ -97,16 +97,18 @@ namespace SocialNetwork.Controllers
             if (Request.Form["ok"] != null) // если была нажата кнопка добавления записи
             {
                 ViewBag.text = Request.Form["text"];
-                
+
                 record.text = ViewBag.text;
                 MyFunctions.database.SaveChanges();
 
                 return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя на страницу настроек
             }
-            else
-            {
-                ViewBag.text = record.text;
-            }
+
+            ViewBag.text = record.text;
+
+            ViewBag.User = user;
+            ViewBag.ViewingUser = viewing_user;
+            ViewBag.Record = record;
 
             return View();
         }
@@ -175,7 +177,11 @@ namespace SocialNetwork.Controllers
             }
 
             ViewBag.text = Request.Form["text"];
-            
+
+            ViewBag.User = user;
+            ViewBag.ViewingUser = viewing_user;
+            ViewBag.Record = record;
+
             MyFunctions.database.records.Remove(record);
             MyFunctions.database.SaveChanges();
 

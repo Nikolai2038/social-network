@@ -522,3 +522,28 @@ textarea
     background-color: #ffffff;
 }
 /* ======================================================== */
+
+/* ======================================================== */
+/* Форма создания или редактирования записи */
+/* ======================================================== */
+.form_record_create_or_edit table tr .record_text
+{
+    padding: 5px;
+}
+
+.form_record_create_or_edit table tr .record_text textarea
+{
+    width: 100%;
+    height: 100%;
+    margin-bottom: -5px;
+    color: #000000;
+    max-width: none;
+    resize: vertical;
+}
+
+.form_record_create_or_edit table tr .td_text_center a,
+.form_record_create_or_edit table tr .td_text_center input
+{
+    color: #000000;
+}
+/* ======================================================== */

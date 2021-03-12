@@ -1,23 +1,45 @@
 ﻿@{
-    SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser;
-    SocialNetwork.Models.users user = ViewBag.User;
+    SocialNetwork.Models.users user = ViewBag.User as SocialNetwork.Models.users;
+    SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser as SocialNetwork.Models.users;
 
-    ViewBag.Title = "Изменение записи на странице пользователя " + viewing_user.name;
+    ViewBag.Title = "Изменения записи на странице пользователя " + viewing_user.name;
+
+    SocialNetwork.Models.users user_from = user;
 }
+<form method="POST" class="form_record_create_or_edit">
+    <table class="black_table">
+        @{
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
+            @Html.ActionLink(user_from.name, "Viewing", "Users", new { id = user_from.special_name }, new { @class = "" });
+            ViewContext.Writer.WriteLine("<br/>");
+            ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("<td class=\"record_text\" colspan=\"2\" rowspan=\"4\">");
+            ViewContext.Writer.WriteLine("<textarea type=\"text\" name=\"text\" maxlength=\"512\" size=\"32\" rows=\"13\">" + @ViewBag.text + "</textarea>");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
 
-<form method="POST" class="form_two_columns">
-    <table>
-        <tr>
-            <td class="td_value_text">
-                Текст записи:
-            </td>
-            <td>
-                <textarea type="text" name="text" maxlength="512" size="32">@ViewBag.text</textarea>
-            </td>
-        </tr>
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
+            ViewContext.Writer.WriteLine($"<img src=\"{user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
+            ViewContext.Writer.WriteLine("</td>");
+
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.Write(user.getActivityStatusAsString());
+            ViewContext.Writer.WriteLine("</tr>");
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td class=\"td_text_center\">");
+            ViewContext.Writer.Write("Общий рейтинг: " + user.getRating());
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+
+            ViewContext.Writer.WriteLine("<tr>");
+            ViewContext.Writer.WriteLine("<td colspan=\"3\" class=\"td_text_center\">");
+        }
         @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
         {
-            <tr>
+            <tr colspan="3">
                 <td colspan="2" class="td_errors">
                     @foreach (string error in ViewBag.Errors)
                     {
@@ -26,13 +48,16 @@
                 </td>
             </tr>
         }
-        <tr>
-            <td class="td_button_one_column">
-                <a href="/Users/Viewing?id=@viewing_user.id"><input type="button" value="Назад" /></a>
-            </td>
-            <td class="td_button_one_column">
-                <input type="submit" name="ok" value="Изменить" />
-            </td>
-        </tr>
+        <a href="/Users/Viewing/@viewing_user.special_name"><input type="button" value="Назад" /></a>
+        <input type="submit" name="ok" value="Изменить" />
+        @{
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+
+            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+            ViewContext.Writer.WriteLine("<td colspan=\"3\">");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+        }
     </table>
 </form>
