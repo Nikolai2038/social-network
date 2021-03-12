@@ -66,25 +66,15 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Edit(string id, int record_id)
+        public ActionResult Edit(string id)
         {
-            if (id == null) // если специальное имя пользователя не указано
+            int record_id = Convert.ToInt32(id);
+            if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-
-            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
-
-            if (viewing_user == null) // если указанного пользователя не существует
-            {
-                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
-            }
-
-            ViewBag.ViewingUser = viewing_user;
 
             users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
-
-            ViewBag.User = user;
             
             records record = MyFunctions.database.records.Where(p => (p.id == record_id)).FirstOrDefault();
             Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
@@ -107,27 +97,19 @@ namespace SocialNetwork.Controllers
             ViewBag.text = record.text;
 
             ViewBag.User = user;
-            ViewBag.ViewingUser = viewing_user;
+            ViewBag.ViewingUser = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
             ViewBag.Record = record;
 
             return View();
         }
 
-        public ActionResult Viewing(string id, int record_id, string action)
+        public ActionResult Viewing(string id, string action)
         {
-            if (id == null) // если специальное имя пользователя не указано
+            int record_id = Convert.ToInt32(id);
+            if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-
-            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
-
-            if (viewing_user == null) // если указанного пользователя не существует
-            {
-                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
-            }
-
-            ViewBag.ViewingUser = viewing_user;
 
             users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
 
@@ -138,35 +120,25 @@ namespace SocialNetwork.Controllers
 
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == false)
             {
-                return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
 
             ViewBag.User = user;
-            ViewBag.ViewingUser = viewing_user;
+            ViewBag.ViewingUser = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
             ViewBag.Record = record;
 
             return View();
         }
 
-        public ActionResult Delete(string id, int record_id)
+        public ActionResult Delete(string id)
         {
-            if (id == null) // если специальное имя пользователя не указано
+            int record_id = Convert.ToInt32(id);
+            if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-
-            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
-
-            if (viewing_user == null) // если указанного пользователя не существует
-            {
-                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
-            }
-
-            ViewBag.ViewingUser = viewing_user;
 
             users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
-
-            ViewBag.User = user;
 
             records record = MyFunctions.database.records.Where(p => (p.id == record_id)).FirstOrDefault();
             Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
@@ -179,7 +151,7 @@ namespace SocialNetwork.Controllers
             ViewBag.text = Request.Form["text"];
 
             ViewBag.User = user;
-            ViewBag.ViewingUser = viewing_user;
+            ViewBag.ViewingUser = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
             ViewBag.Record = record;
 
             MyFunctions.database.records.Remove(record);

@@ -37,17 +37,17 @@
     ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(record).creation_datetime_int) + " ");
     if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
     {
-        @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = record.id }, new { @class = "my_button_2" })
+        @Html.ActionLink("Изменить", "Edit", "Records", new { id = record.id }, new { @class = "my_button_2" })
     }
     if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == true)
     {
-        @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = record.id }, new { @class = "my_button_2" })
+        @Html.ActionLink("Удалить", "Delete", "Records", new { id = record.id }, new { @class = "my_button_2" })
     }
     ViewContext.Writer.WriteLine("</td>");
     ViewContext.Writer.WriteLine("<td class=\"td_text_center\">");
     ViewContext.Writer.WriteLine("Рейтинг: " + record.getRating());
-    @Html.ActionLink("-", "Viewing", "Records", new { id = viewing_user.special_name, record_id = record.id, action = "down_rating" }, new { @class = "my_button_2" })
-    @Html.ActionLink("+", "Viewing", "Records", new { id = viewing_user.special_name, record_id = record.id, action = "up_rating" }, new { @class = "my_button_2" })
+    @Html.ActionLink("-", "Viewing", "Records", new { id = record.id, action = "down_rating" }, new { @class = "my_button_2" })
+    @Html.ActionLink("+", "Viewing", "Records", new { id = record.id, action = "up_rating" }, new { @class = "my_button_2" })
     ViewContext.Writer.WriteLine("</td>");
     ViewContext.Writer.WriteLine("</tr>");
 

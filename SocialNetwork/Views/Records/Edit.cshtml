@@ -5,6 +5,8 @@
     ViewBag.Title = "Изменения записи на странице пользователя " + viewing_user.name;
 
     SocialNetwork.Models.users user_from = user;
+
+    SocialNetwork.Models.records record = ViewBag.Record;
 }
 <form method="POST" class="form_record_create_or_edit">
     <table class="black_table">
@@ -48,7 +50,7 @@
                 </td>
             </tr>
         }
-        <a href="/Users/Viewing/@viewing_user.special_name"><input type="button" value="Назад" /></a>
+        <a href="/Records/Viewing/@record.id"><input type="button" value="Назад" /></a>
         <input type="submit" name="ok" value="Изменить" />
         @{
             ViewContext.Writer.WriteLine("</td>");

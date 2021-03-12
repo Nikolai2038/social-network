@@ -271,21 +271,21 @@
                     ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
                     if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
                     {
-                        @Html.ActionLink("Изменить", "Edit", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                        @Html.ActionLink("Изменить", "Edit", "Records", new { id = element.id }, new { @class = "my_button_2" })
                     }
                     if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == true)
                     {
-                        @Html.ActionLink("Удалить", "Delete", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                        @Html.ActionLink("Удалить", "Delete", "Records", new { id = element.id }, new { @class = "my_button_2" })
                     }
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("Рейтинг: " + element.getRating());
-                    @Html.ActionLink("-", "Viewing", "Records", new { id = viewing_user.special_name, record_id = element.id, action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
-                    @Html.ActionLink("+", "Viewing", "Records", new { id = viewing_user.special_name, record_id = element.id, action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("-", "Viewing", "Records", new { id = element.id, action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("+", "Viewing", "Records", new { id = element.id, action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("");
-                    @Html.ActionLink("Комментарии: " + element.getCommentariesCount(), "Viewing", "Records", new { id = viewing_user.special_name, record_id = element.id }, new { @class = "my_button_2" })
+                    @Html.ActionLink("Комментарии: " + element.getCommentariesCount(), "Viewing", "Records", new { id = element.id }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("</tr>");
 
