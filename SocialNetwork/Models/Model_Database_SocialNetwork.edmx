@@ -202,7 +202,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id_from" Type="int" Nullable="false" />
           <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="value" Type="tinyint" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="records">
           <Key>
@@ -1168,7 +1168,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id_from" Type="Int32" Nullable="false" />
           <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="value" Type="Byte" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
           <NavigationProperty Name="objects" Relationship="Self.FK_ratings_to_objects_with_rating_TO_objects" FromRole="ratings_to_objects_with_rating" ToRole="objects" />
           <NavigationProperty Name="users" Relationship="Self.FK_ratings_to_objects_with_rating_TO_users" FromRole="ratings_to_objects_with_rating" ToRole="users" />
         </EntityType>
