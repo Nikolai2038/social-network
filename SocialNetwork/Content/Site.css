@@ -129,7 +129,7 @@ textarea
     text-align: center;
 }
 
-.form_two_columns table tr .td_errors
+.td_errors
 {
     color: #ff0000;
     text-align: center;
@@ -253,7 +253,7 @@ textarea
     text-align: center;
 }
 
-.form_private_settings table tr .td_errors
+.td_errors
 {
     color: #ff0000;
     text-align: center;
@@ -438,6 +438,11 @@ textarea
     color: #ffffff;
     background-color: #000000;
     border: 1px solid #ffffff;
+}
+
+.black_table tr .td_errors
+{
+    color: #ff0000;
 }
 /* ======================================================== */
 

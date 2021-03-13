@@ -43,24 +43,33 @@ namespace SocialNetwork.Controllers
 
             if (Request.Form["ok"] != null) // если была нажата кнопка добавления записи
             {
-                ViewBag.text = Request.Form["text"];
+                try
+                {
+                    ViewBag.text = Request.Form["text"];
 
-                objects object_record = new objects();
-                object_record.object_type_id = Convert.ToInt32(ObjectsTypes.RECORD);
-                object_record.user_id_from = user.id;
-                object_record.creation_datetime_int = Convert.ToInt32((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
-                MyFunctions.database.objects.Add(object_record);
-                MyFunctions.database.SaveChanges(); // сохраняем изменения, чтобы установился id для объекта
+                    objects object_record = new objects();
+                    object_record.object_type_id = Convert.ToInt32(ObjectsTypes.RECORD);
+                    object_record.user_id_from = user.id;
+                    object_record.creation_datetime_int = Convert.ToInt32((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+                    MyFunctions.database.objects.Add(object_record);
+                    MyFunctions.database.SaveChanges(); // сохраняем изменения, чтобы установился id для объекта
 
-                records record = new records();
-                record.object_id = object_record.id;
-                record.user_id_to = viewing_user.id;
-                record.text = ViewBag.text;
-                record.attached_record_id = -1;
-                MyFunctions.database.records.Add(record);
-                MyFunctions.database.SaveChanges();
+                    records record = new records();
+                    record.object_id = object_record.id;
+                    record.user_id_to = viewing_user.id;
+                    record.text = ViewBag.text;
+                    record.attached_record_id = -1;
+                    MyFunctions.database.records.Add(record);
+                    MyFunctions.database.SaveChanges();
 
-                return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+                    return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+                }
+                catch
+                {
+                    List<string> errors = new List<string>();
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
+                    ViewBag.Errors = errors;
+                }
             }
 
             return View();
@@ -86,12 +95,21 @@ namespace SocialNetwork.Controllers
             
             if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
             {
-                ViewBag.text = Request.Form["text"];
+                try
+                {
+                    ViewBag.text = Request.Form["text"];
 
-                record.text = ViewBag.text;
-                MyFunctions.database.SaveChanges();
+                    record.text = ViewBag.text;
+                    MyFunctions.database.SaveChanges();
 
-                return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
+                    return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
+                }
+                catch
+                {
+                    List<string> errors = new List<string>();
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
+                    ViewBag.Errors = errors;
+                }
             }
 
             ViewBag.text = record.text;
