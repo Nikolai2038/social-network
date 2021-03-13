@@ -121,7 +121,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Viewing(string id, string action)
+        public ActionResult Viewing(string id, string rating_action)
         {
             int record_id = Convert.ToInt32(id);
             if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
@@ -143,23 +143,22 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
 
-            objects record_as_object = MyFunctions.getBasicObjectFromObject(record);
-            if (action == "up_rating")
+            if (rating_action == "up_rating")
             {
-                MyFunctions.changeObjectRating(record_as_object, user, false);
+                MyFunctions.changeObjectRating(record, user, false);
             }
-            else if (action == "up_rating_plus_return_to_user_page")
+            else if (rating_action == "up_rating_plus_return_to_user_page")
             {
-                MyFunctions.changeObjectRating(record_as_object, user, false);
+                MyFunctions.changeObjectRating(record, user, false);
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
-            else if (action == "down_rating")
+            else if (rating_action == "down_rating")
             {
-                MyFunctions.changeObjectRating(record_as_object, user, false);
+                MyFunctions.changeObjectRating(record, user, true);
             }
-            else if (action == "down_rating_plus_return_to_user_page")
+            else if (rating_action == "down_rating_plus_return_to_user_page")
             {
-                MyFunctions.changeObjectRating(record_as_object, user, false);
+                MyFunctions.changeObjectRating(record, user, true);
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
 

@@ -48,7 +48,7 @@ namespace SocialNetwork.Models
             int all_rating_to_object = 0;
             try // обработка исключения, когда у объекта нет ни одного рейтинга
             {
-                all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == this.id)).Sum(p => p.value);
+                all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == this.object_id)).Sum(p => p.value);
             }
             catch { }
             return all_rating_to_object;

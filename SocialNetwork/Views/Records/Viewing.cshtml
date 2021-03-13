@@ -48,8 +48,8 @@
     ViewContext.Writer.WriteLine("</td>");
     ViewContext.Writer.WriteLine("<td class=\"td_text_center\">");
     ViewContext.Writer.WriteLine("Рейтинг: " + record.getRating());
-    @Html.ActionLink("-", "Viewing", "Records", new { id = record.id, action = "down_rating" }, new { @class = "my_button_2" })
-    @Html.ActionLink("+", "Viewing", "Records", new { id = record.id, action = "up_rating" }, new { @class = "my_button_2" })
+    @Html.ActionLink("-", "Viewing", "Records", new { id = record.id, rating_action = "down_rating" }, new { @class = "my_button_2" })
+    @Html.ActionLink("+", "Viewing", "Records", new { id = record.id, rating_action = "up_rating" }, new { @class = "my_button_2" })
     ViewContext.Writer.WriteLine("</td>");
     ViewContext.Writer.WriteLine("</tr>");
 

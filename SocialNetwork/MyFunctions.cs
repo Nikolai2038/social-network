@@ -425,17 +425,18 @@ namespace SocialNetwork
             return getBasicObjectFromObject(obj).user_id_from;
         }
 
-        public static void changeObjectRating(objects obj, users user_from, bool is_down_rating)
+        public static void changeObjectRating(object obj, users user_from, bool is_down_rating)
         {
             Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToObject = SocialNetwork.Models.users.getUserPermissionsToObject(user_from, obj);
 
             if (userPermissionsToObject[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
             {
-                ratings_to_objects_with_rating rating = SocialNetwork.MyFunctions.database.ratings_to_objects_with_rating.Where(p => ((p.object_id == obj.id) && (p.user_id_from == user_from.id))).FirstOrDefault();
-                if (rating != null) // если рейтинг ещё не был установлен
+                objects obj_as_objects = MyFunctions.getBasicObjectFromObject(obj);
+                ratings_to_objects_with_rating rating = SocialNetwork.MyFunctions.database.ratings_to_objects_with_rating.Where(p => ((p.object_id == obj_as_objects.id) && (p.user_id_from == user_from.id))).FirstOrDefault();
+                if (rating == null) // если рейтинг ещё не был установлен
                 {
                     ratings_to_objects_with_rating new_rating = new ratings_to_objects_with_rating();
-                    new_rating.object_id = obj.id;
+                    new_rating.object_id = obj_as_objects.id;
                     new_rating.user_id_from = user_from.id;
                     if (is_down_rating == true)
                     {

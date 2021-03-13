@@ -280,8 +280,8 @@
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("Рейтинг: " + element.getRating());
-                    @Html.ActionLink("-", "Viewing", "Records", new { id = element.id, action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
-                    @Html.ActionLink("+", "Viewing", "Records", new { id = element.id, action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("-", "Viewing", "Records", new { id = element.id, rating_action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
+                    @Html.ActionLink("+", "Viewing", "Records", new { id = element.id, rating_action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("");
