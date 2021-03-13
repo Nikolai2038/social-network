@@ -2,7 +2,7 @@
     SocialNetwork.Models.users user = ViewBag.User as SocialNetwork.Models.users;
     SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser as SocialNetwork.Models.users;
 
-    ViewBag.Title = "Изменения записи на странице пользователя " + viewing_user.name;
+    ViewBag.Title = "Изменение записи на странице пользователя " + viewing_user.name;
 
     SocialNetwork.Models.users user_from = user;
 
@@ -17,7 +17,7 @@
             ViewContext.Writer.WriteLine("<br/>");
             ViewContext.Writer.WriteLine("(" + user_from.special_name + ")");
             ViewContext.Writer.WriteLine("</td>");
-            ViewContext.Writer.WriteLine("<td class=\"record_text\" colspan=\"2\" rowspan=\"4\">");
+            ViewContext.Writer.WriteLine("<td class=\"record_textarea\" colspan=\"2\" rowspan=\"4\">");
             ViewContext.Writer.WriteLine("<textarea type=\"text\" name=\"text\" maxlength=\"512\" size=\"32\" rows=\"13\">" + @ViewBag.text + "</textarea>");
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("</tr>");
@@ -30,6 +30,7 @@
             ViewContext.Writer.WriteLine("<tr>");
             ViewContext.Writer.Write(user.getActivityStatusAsString());
             ViewContext.Writer.WriteLine("</tr>");
+
             ViewContext.Writer.WriteLine("<tr>");
             ViewContext.Writer.WriteLine("<td class=\"td_text_center\">");
             ViewContext.Writer.Write("Общий рейтинг: " + user.getRating());

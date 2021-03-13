@@ -3,13 +3,14 @@
     SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser as SocialNetwork.Models.users;
     SocialNetwork.Models.records record = ViewBag.Record as SocialNetwork.Models.records;
 
-    ViewBag.Title = "Запись пользователя " + viewing_user.name;
+    ViewBag.Title = "Запись на странице пользователя " + viewing_user.name;
 
     Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
 
     SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(SocialNetwork.MyFunctions.getUserIdFromObject(record));
 
     ViewContext.Writer.WriteLine("<table class=\"black_table\">");
+
     ViewContext.Writer.WriteLine("<tr>");
     ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
     @Html.ActionLink(user_from.name, "Viewing", "Users", new { id = user_from.special_name }, new { @class = "" });
@@ -29,6 +30,7 @@
     ViewContext.Writer.WriteLine("<tr>");
     ViewContext.Writer.Write(@viewing_user.getActivityStatusAsString());
     ViewContext.Writer.WriteLine("</tr>");
+
     ViewContext.Writer.WriteLine("<tr>");
     ViewContext.Writer.WriteLine("<td class=\"td_text_center\">");
     ViewContext.Writer.Write("Общий рейтинг: " + viewing_user.getRating());

@@ -81,17 +81,17 @@ namespace SocialNetwork.Controllers
 
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == false)
             {
-                return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+                return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
             }
             
-            if (Request.Form["ok"] != null) // если была нажата кнопка добавления записи
+            if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
             {
                 ViewBag.text = Request.Form["text"];
 
                 record.text = ViewBag.text;
                 MyFunctions.database.SaveChanges();
 
-                return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя на страницу настроек
+                return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
             }
 
             ViewBag.text = record.text;
@@ -118,13 +118,16 @@ namespace SocialNetwork.Controllers
             records record = MyFunctions.database.records.Where(p => (p.id == record_id)).FirstOrDefault();
             Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user, record);
 
+            users viewing_user = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
+
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == false)
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
+                return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
 
             ViewBag.User = user;
-            ViewBag.ViewingUser = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
+            ViewBag.ViewingUser = viewing_user;
             ViewBag.Record = record;
 
             return View();
@@ -145,19 +148,26 @@ namespace SocialNetwork.Controllers
 
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == false)
             {
-                return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+                return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
             }
 
-            ViewBag.text = Request.Form["text"];
+            users viewing_user = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
+
+            if (Request.Form["ok"] != null) // если была нажата кнопка удаления записи
+            {
+                ViewBag.text = Request.Form["text"];
+
+                MyFunctions.database.records.Remove(record);
+                MyFunctions.database.SaveChanges();
+
+                return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
+            }
 
             ViewBag.User = user;
-            ViewBag.ViewingUser = MyFunctions.database.users.Where(p => (p.id == record.user_id_to)).FirstOrDefault();
+            ViewBag.ViewingUser = viewing_user;
             ViewBag.Record = record;
 
-            MyFunctions.database.records.Remove(record);
-            MyFunctions.database.SaveChanges();
-
-            return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
+            return View();
         }
     }
 }
