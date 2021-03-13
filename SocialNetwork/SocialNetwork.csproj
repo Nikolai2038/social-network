@@ -223,9 +223,6 @@
     <Compile Include="Models\records.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\records_simple.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\users.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>

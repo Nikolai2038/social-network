@@ -294,7 +294,7 @@ namespace SocialNetwork
         // возвращает список записей на текущей странице из списка всех записей
         public static List<object> pageNavigation_getListOnPage(List<object> list, ref int elements_on_page, ref int total_page_id)
         {
-            int min_element_id = 0;
+            //int min_element_id = 0;
             int max_element_id = list.Count - 1;
 
             int min_page_id = 1;
@@ -423,6 +423,41 @@ namespace SocialNetwork
         public static int getUserIdFromObject(object obj)
         {
             return getBasicObjectFromObject(obj).user_id_from;
+        }
+
+        public static void changeObjectRating(objects obj, users user_from, bool is_down_rating)
+        {
+            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToObject = SocialNetwork.Models.users.getUserPermissionsToObject(user_from, obj);
+
+            if (userPermissionsToObject[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
+            {
+                ratings_to_objects_with_rating rating = SocialNetwork.MyFunctions.database.ratings_to_objects_with_rating.Where(p => ((p.object_id == obj.id) && (p.user_id_from == user_from.id))).FirstOrDefault();
+                if (rating != null) // если рейтинг ещё не был установлен
+                {
+                    ratings_to_objects_with_rating new_rating = new ratings_to_objects_with_rating();
+                    new_rating.object_id = obj.id;
+                    new_rating.user_id_from = user_from.id;
+                    if (is_down_rating == true)
+                    {
+                        new_rating.value = -1;
+                    }
+                    else
+                    {
+                        new_rating.value = 1;
+                    }
+                    database.ratings_to_objects_with_rating.Add(new_rating);
+                    database.SaveChanges();
+                }
+                else // если рейтинг уже был установлен
+                {
+                    if (((rating.value == 1) && (is_down_rating == true)) ||
+                        ((rating.value == -1) && (is_down_rating == false))) // если рейтинг идёт в сторону, противоположную выставленному
+                    {
+                        database.ratings_to_objects_with_rating.Remove(rating);
+                        database.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }

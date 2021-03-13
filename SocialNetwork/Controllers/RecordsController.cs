@@ -140,9 +140,29 @@ namespace SocialNetwork.Controllers
 
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == false)
             {
-                return RedirectToAction("Index", "Users"); // перенаправляем пользователя
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
+
+            objects record_as_object = MyFunctions.getBasicObjectFromObject(record);
+            if (action == "up_rating")
+            {
+                MyFunctions.changeObjectRating(record_as_object, user, false);
+            }
+            else if (action == "up_rating_plus_return_to_user_page")
+            {
+                MyFunctions.changeObjectRating(record_as_object, user, false);
+                return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
+            }
+            else if (action == "down_rating")
+            {
+                MyFunctions.changeObjectRating(record_as_object, user, false);
+            }
+            else if (action == "down_rating_plus_return_to_user_page")
+            {
+                MyFunctions.changeObjectRating(record_as_object, user, false);
+                return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
+            }
+
 
             ViewBag.User = user;
             ViewBag.ViewingUser = viewing_user;

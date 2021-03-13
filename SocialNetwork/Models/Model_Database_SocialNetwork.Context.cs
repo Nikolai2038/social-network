@@ -52,7 +52,6 @@ namespace SocialNetwork.Models
         public virtual DbSet<records> records { get; set; }
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<users_to_dialogs> users_to_dialogs { get; set; }
-        public virtual DbSet<records_simple> records_simple { get; set; }
     
         public virtual int isObjectAFileOrAnArticle(Nullable<int> object_type_id)
         {

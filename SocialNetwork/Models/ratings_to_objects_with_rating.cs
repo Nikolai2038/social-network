@@ -17,7 +17,7 @@ namespace SocialNetwork.Models
         public int id { get; set; }
         public int user_id_from { get; set; }
         public int object_id { get; set; }
-        public byte value { get; set; }
+        public int value { get; set; }
     
         public virtual objects objects { get; set; }
         public virtual users users { get; set; }

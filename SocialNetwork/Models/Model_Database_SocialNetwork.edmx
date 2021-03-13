@@ -214,14 +214,6 @@
           <Property Name="text" Type="nvarchar" MaxLength="1024" Nullable="false" />
           <Property Name="attached_record_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="records_simple">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="text" Type="nvarchar" MaxLength="1024" />
-          <Property Name="user_id_to" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="id" />
@@ -761,7 +753,6 @@
           <EntitySet Name="privacy_settings_to_users" EntityType="Self.privacy_settings_to_users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ratings_to_objects_with_rating" EntityType="Self.ratings_to_objects_with_rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="records" EntityType="Self.records" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="records_simple" EntityType="Self.records_simple" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users_to_dialogs" EntityType="Self.users_to_dialogs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_1_bans_TO_users" Association="Self.FK_1_bans_TO_users">
@@ -1907,16 +1898,7 @@
           <FunctionImport Name="isObjectAnObjectWithRating">
           <Parameter Name="object_type_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="records_simple" EntityType="Namespace_Model_Database_SocialNetwork.records_simple" />
         </EntityContainer>
-        <EntityType Name="records_simple">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="text" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <Property Name="user_id_to" Type="Int32" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2188,15 +2170,6 @@
           <FunctionImportMapping FunctionImportName="isObjectAnObjectWithCommentary" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAnObjectWithCommentary" />
           <FunctionImportMapping FunctionImportName="isObjectAnObjectWithName" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAnObjectWithName" />
           <FunctionImportMapping FunctionImportName="isObjectAnObjectWithRating" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAnObjectWithRating" />
-          <EntitySetMapping Name="records_simple">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.records_simple">
-              <MappingFragment StoreEntitySet="records_simple">
-                <ScalarProperty Name="user_id_to" ColumnName="user_id_to" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

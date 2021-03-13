@@ -69,7 +69,6 @@
         <AssociationConnector Association="Namespace_Model_Database_SocialNetwork.FK_records_TO_records" ManuallyRouted="false" />
         <AssociationConnector Association="Namespace_Model_Database_SocialNetwork.FK_records_TO_users" ManuallyRouted="false" />
         <AssociationConnector Association="Namespace_Model_Database_SocialNetwork.FK_users_to_dialogs_TO_users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Namespace_Model_Database_SocialNetwork.records_simple" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
