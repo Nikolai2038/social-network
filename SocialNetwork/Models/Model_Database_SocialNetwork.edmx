@@ -364,7 +364,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_commentaries_to_objects_with_commentaries_TO_commentaries">
-          <End Role="commentaries" Type="Self.commentaries" Multiplicity="1" />
+          <End Role="commentaries" Type="Self.commentaries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="commentaries_to_objects_with_commentaries" Type="Self.commentaries_to_objects_with_commentaries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="commentaries">

@@ -162,12 +162,22 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
 
+            if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
+            {
+                commentary_action = null;
+                commentary_id = -1;
+            }
+
             if (commentary_action != null)
             {
                 commentaries commentary = MyFunctions.database.commentaries.Where(p => (p.id == commentary_id)).FirstOrDefault();
                 if (commentary_action == "delete")
                 {
+                    commentaries_to_objects_with_commentaries commentary_info = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.commentary_id == commentary_id)).FirstOrDefault();
+                    MyFunctions.database.commentaries_to_objects_with_commentaries.Remove(commentary_info);
                     MyFunctions.database.commentaries.Remove(commentary);
+                    //objects commentary_as_object = MyFunctions.getBasicObjectFromObject(commentary);
+                    //MyFunctions.database.objects.Remove(commentary_as_object);
                     MyFunctions.database.SaveChanges();
                 }
                 else if (commentary_action == "up_rating")
@@ -250,6 +260,14 @@ namespace SocialNetwork.Controllers
             {
                 ViewBag.text = Request.Form["text"];
 
+                objects record_as_object = MyFunctions.getBasicObjectFromObject(record);
+                List<commentaries_to_objects_with_commentaries> all_info_commentaries_to_record = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.object_id == record_as_object.id)).ToList();
+                foreach (commentaries_to_objects_with_commentaries commentary_info in all_info_commentaries_to_record)
+                {
+                    commentaries commentary = MyFunctions.database.commentaries.Where(p => (p.id == commentary_info.commentary_id)).FirstOrDefault();
+                    MyFunctions.database.commentaries_to_objects_with_commentaries.Remove(commentary_info);
+                    MyFunctions.database.commentaries.Remove(commentary);
+                }
                 MyFunctions.database.records.Remove(record);
                 MyFunctions.database.SaveChanges();
 
