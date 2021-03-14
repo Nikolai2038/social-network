@@ -121,7 +121,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Viewing(string id, string rating_action)
+        public ActionResult Viewing(string id, string rating_action, string commentary_action = null, int commentary_id = -1)
         {
             int record_id = Convert.ToInt32(id);
             if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
@@ -162,6 +162,62 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
 
+            if (commentary_action != null)
+            {
+                commentaries commentary = MyFunctions.database.commentaries.Where(p => (p.id == commentary_id)).FirstOrDefault();
+                if (commentary_action == "delete")
+                {
+                    MyFunctions.database.commentaries.Remove(commentary);
+                    MyFunctions.database.SaveChanges();
+                }
+                else if (commentary_action == "up_rating")
+                {
+                    MyFunctions.changeObjectRating(commentary, user, false);
+                }
+                else if (commentary_action == "down_rating")
+                {
+                    MyFunctions.changeObjectRating(commentary, user, true);
+                }
+            }
+
+            if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
+            {
+                try
+                {
+                    ViewBag.text = Request.Form["text"];
+
+                    objects object_commentary = new objects();
+                    object_commentary.object_type_id = Convert.ToInt32(ObjectsTypes.COMMENTARY);
+                    object_commentary.user_id_from = user.id;
+                    object_commentary.creation_datetime_int = Convert.ToInt32((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+                    MyFunctions.database.objects.Add(object_commentary);
+                    MyFunctions.database.SaveChanges(); // сохраняем изменения, чтобы установился id для объекта
+
+                    commentaries new_commentary = new commentaries();
+                    new_commentary.object_id = object_commentary.id;
+                    new_commentary.text = ViewBag.text;
+                    MyFunctions.database.commentaries.Add(new_commentary);
+                    MyFunctions.database.SaveChanges();
+
+                    commentaries_to_objects_with_commentaries commentary_info = new commentaries_to_objects_with_commentaries();
+                    commentary_info.commentary_id = new_commentary.id;
+                    commentary_info.object_id = record.object_id;
+                    MyFunctions.database.commentaries_to_objects_with_commentaries.Add(commentary_info);
+                    MyFunctions.database.SaveChanges();
+
+                    return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
+                }
+                catch
+                {
+                    List<string> errors = new List<string>();
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
+                    ViewBag.Errors = errors;
+                }
+            }
+
+            List<commentaries> list = MyFunctions.getCommentaries(record);
+            List<object> list_object = list.ToList<object>();
+            ViewBag.ListOnPage = list_object;
 
             ViewBag.User = user;
             ViewBag.ViewingUser = viewing_user;

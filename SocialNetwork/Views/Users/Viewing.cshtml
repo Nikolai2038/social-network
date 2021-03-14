@@ -279,13 +279,13 @@
                     }
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
-                    ViewContext.Writer.WriteLine("Рейтинг: " + element.getRating());
+                    ViewContext.Writer.WriteLine("Рейтинг: " + SocialNetwork.MyFunctions.getRating(element));
                     @Html.ActionLink("-", "Viewing", "Records", new { id = element.id, rating_action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
                     @Html.ActionLink("+", "Viewing", "Records", new { id = element.id, rating_action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
                     ViewContext.Writer.WriteLine("");
-                    @Html.ActionLink("Комментарии: " + element.getCommentariesCount(), "Viewing", "Records", new { id = element.id }, new { @class = "my_button_2" })
+                    @Html.ActionLink("Комментарии: " + SocialNetwork.MyFunctions.getCommentariesCount(element), "Viewing", "Records", new { id = element.id }, new { @class = "my_button_2" })
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("</tr>");
 
@@ -311,12 +311,12 @@
                 @Html.ActionLink("Добавить запись", "Create", "Records", new { id = viewing_user.special_name }, new { @class = "my_button_3" })
                 ViewContext.Writer.WriteLine("</td>");
                 ViewContext.Writer.WriteLine("</tr>");
-
-                ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
-                ViewContext.Writer.WriteLine("<td colspan=\"4\">");
-                ViewContext.Writer.WriteLine("</td>");
-                ViewContext.Writer.WriteLine("</tr>");
             }
+
+            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+            ViewContext.Writer.WriteLine("<td colspan=\"4\">");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
         }
     </table>
     @{

@@ -460,5 +460,38 @@ namespace SocialNetwork
                 }
             }
         }
+
+        public static int getCommentariesCount(object obj)
+        {
+            objects obj_as_objects = getBasicObjectFromObject(obj);
+            return MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.object_id == obj_as_objects.id)).Count();
+        }
+
+        public static int getRating(object obj)
+        {
+            objects obj_as_objects = getBasicObjectFromObject(obj);
+
+            int all_rating_to_object = 0;
+            try // обработка исключения, когда у объекта нет ни одного рейтинга
+            {
+                all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == obj_as_objects.id)).Sum(p => p.value);
+            }
+            catch { }
+            return all_rating_to_object;
+        }
+
+        public static List<commentaries> getCommentaries(object obj)
+        {
+            objects obj_as_objects = getBasicObjectFromObject(obj);
+
+            List<commentaries> result = new List<commentaries>();
+            List<commentaries_to_objects_with_commentaries> list = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.object_id == obj_as_objects.id)).ToList();
+            foreach (commentaries_to_objects_with_commentaries comment_info in list)
+            {
+                commentaries commentary = MyFunctions.database.commentaries.Where(p => (p.id == comment_info.commentary_id)).FirstOrDefault();
+                result.Add(commentary);
+            }
+            return result;
+        }
     }
 }

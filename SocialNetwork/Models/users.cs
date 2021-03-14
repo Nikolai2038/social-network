@@ -559,6 +559,16 @@ namespace SocialNetwork.Models
                     result[PermissionsToObject.CAN_SHARE] = true;
                 }
             }
+            else if (object_to is commentaries)
+            {
+                commentaries commentary = object_to as commentaries;
+                commentaries_to_objects_with_commentaries commentary_info = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.commentary_id == commentary.id)).FirstOrDefault();
+                records record_with_commentary = MyFunctions.database.records.Where(p => (p.object_id == commentary_info.object_id)).FirstOrDefault();
+
+                Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user_from, record_with_commentary);
+
+                result[PermissionsToObject.CAN_SEE] = userPermissionsToRecord[PermissionsToObject.CAN_SEE]; // если пользователь видит запись, то он может видеть все комментарии
+            }
 
             if (user_from != null) // если пользователь, просматривающий страницу - не гость
             {

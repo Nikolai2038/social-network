@@ -37,21 +37,5 @@ namespace SocialNetwork.Models
         public virtual ICollection<records> records1 { get; set; }
         public virtual records records2 { get; set; }
         public virtual users users { get; set; }
-
-        public int getCommentariesCount()
-        {
-            return MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.object_id == this.object_id)).Count();
-        }
-
-        public int getRating()
-        {
-            int all_rating_to_object = 0;
-            try // обработка исключения, когда у объекта нет ни одного рейтинга
-            {
-                all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == this.object_id)).Sum(p => p.value);
-            }
-            catch { }
-            return all_rating_to_object;
-        }
     }
 }
