@@ -11,17 +11,12 @@ namespace SocialNetwork.Controllers
     {
         public ActionResult Index(string id, string sort_key, string sort_asc, int total_page_id = 1, int elements_on_page = 10)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -99,17 +94,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Ban(string id)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -150,17 +140,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Unban(string id, int ban_id)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -180,7 +165,7 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
             }
 
-            bans ban = MyFunctions.database.bans.Where(p => ((p.user_id_to == user_id) && (p.id == ban_id))).FirstOrDefault();
+            bans ban = MyFunctions.database.bans.Where(p => ((p.user_id_to == viewing_user.id) && (p.id == ban_id))).FirstOrDefault();
             ban.unban_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
             MyFunctions.database.SaveChanges();
 
@@ -189,17 +174,12 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Delete(string id, int ban_id)
         {
-            int user_id = -1;
-            if (id == null) // если id пользователя не указан
+            if (id == null) // если специальное имя пользователя не указано
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
             }
-            else
-            {
-                user_id = Convert.ToInt32(id);
-            }
 
-            users viewing_user = users.getUserFromUserId(user_id); // пользователь, страница которого открыта
+            users viewing_user = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
 
             if (viewing_user == null) // если указанного пользователя не существует
             {
@@ -219,7 +199,7 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
             }
 
-            bans ban = MyFunctions.database.bans.Where(p => ((p.user_id_to == user_id) && (p.id == ban_id))).FirstOrDefault();
+            bans ban = MyFunctions.database.bans.Where(p => ((p.user_id_to == viewing_user.id) && (p.id == ban_id))).FirstOrDefault();
             MyFunctions.database.bans.Remove(ban);
             MyFunctions.database.SaveChanges();
 
