@@ -31,91 +31,94 @@
 
         string sort_key = ViewBag.SortKey;
         string sort_asc = ViewBag.SortAsc;
-
-        @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user_id }, new { @class = "my_button" })
+        
         if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_BAN_AND_UNBAN] == true)
         {
-            @Html.ActionLink("Выдать бан", "Ban", "Bans", new { id = viewing_user.id }, new { @class = "my_button" })
+            @Html.ActionLink("Выдать бан", "Ban", "Bans", new { id = viewing_user.special_name }, new { @class = "my_button" })
         }
         <br /><br />
 
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Bans/Index/{viewing_user_id}?page{ total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+       /* ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Bans/Index/{viewing_user.special_name}?page{total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-        ViewContext.Writer.WriteLine("</form>");
+        ViewContext.Writer.WriteLine("</form>");*/
     }
-    <table class="black_table">
-        <tr>
-            <td>
-                ID
-            </td>
-            <td>
-                Кем выдан
-            </td>
-            <td>
-                Дата и время блокировки
-            </td>
-            <td>
-                Навсегда ли
-            </td>
-            <td>
-                Дата и время разблокировки
-            </td>
-            @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_BAN_AND_UNBAN] == true)
-            {
-                <td colspan="2">
-                    Действие
-                </td>
-            }
-        </tr>
-        @{
-            foreach (SocialNetwork.Models.bans element in list)
-            {
-                ViewContext.Writer.WriteLine("<tr>");
+              <table class="black_table">
+                  <tr>
+                      <td>
+                          ID
+                      </td>
+                      <td>
+                          Кем выдан
+                      </td>
+                      <td>
+                          Дата и время блокировки
+                      </td>
+                      <td>
+                          Навсегда ли
+                      </td>
+                      <td>
+                          Дата и время разблокировки
+                      </td>
+                      @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_BAN_AND_UNBAN] == true)
+                      {
+                          <td colspan="2">
+                              Действие
+                          </td>
+                      }
+                  </tr>
+                  @{
+                      foreach (SocialNetwork.Models.bans element in list)
+                      {
+                          ViewContext.Writer.WriteLine("<tr>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(element.id);
-                ViewContext.Writer.WriteLine("</td>");
+                          ViewContext.Writer.WriteLine("<td>");
+                          ViewContext.Writer.WriteLine(element.id);
+                          ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                @Html.ActionLink(SocialNetwork.Models.users.getUserFromUserId(element.user_id_from).special_name, "Viewing", "Users", new { id = element.id }, new { @class = "my_button_3" })
-                ViewContext.Writer.WriteLine("</td>");
+                          ViewContext.Writer.WriteLine("<td>");
+                          SocialNetwork.Models.users user_ban_from = SocialNetwork.Models.users.getUserFromUserId(element.user_id_from);
+                          @Html.ActionLink(user_ban_from.special_name, "Viewing", "Users", new { id = user_ban_from.special_name }, new { @class = "my_button_3" })
+                          ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(element.ban_datetime_int));
-                ViewContext.Writer.WriteLine("</td>");
+                          ViewContext.Writer.WriteLine("<td>");
+                          ViewContext.Writer.WriteLine(SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(element.ban_datetime_int));
+                          ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                if (element.is_permanent == 1)
-                {
-                    ViewContext.Writer.WriteLine("Да");
-                }
-                else
-                {
-                    ViewContext.Writer.WriteLine("Нет");
-                }
-                ViewContext.Writer.WriteLine("</td>");
+                          ViewContext.Writer.WriteLine("<td>");
+                          if (element.is_permanent == 1)
+                          {
+                              ViewContext.Writer.WriteLine("Да");
+                          }
+                          else
+                          {
+                              ViewContext.Writer.WriteLine("Нет");
+                          }
+                          ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(element.unban_datetime_int)));
-                ViewContext.Writer.WriteLine("</td>");
+                          ViewContext.Writer.WriteLine("<td>");
+                          ViewContext.Writer.WriteLine(SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(element.unban_datetime_int)));
+                          ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                @Html.ActionLink("Снять", "Unban", "Bans", new { id = viewing_user.id, ban_id = element.id }, new { @class = "my_button_3" })
-                ViewContext.Writer.WriteLine("</td>");
+                          if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_BAN_AND_UNBAN] == true)
+                          {
+                              ViewContext.Writer.WriteLine("<td>");
+                              @Html.ActionLink("Снять", "Unban", "Bans", new { id = viewing_user.special_name, ban_id = element.id }, new { @class = "my_button_3" })
+                              ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine("<td>");
-                @Html.ActionLink("Удалить", "Delete", "Bans", new { id = viewing_user.id, ban_id = element.id }, new { @class = "my_button_3" })
-                ViewContext.Writer.WriteLine("</td>");
+                              ViewContext.Writer.WriteLine("<td>");
+                              @Html.ActionLink("Удалить", "Delete", "Bans", new { id = viewing_user.special_name, ban_id = element.id }, new { @class = "my_button_3" })
+                              ViewContext.Writer.WriteLine("</td>");
+                          }
 
-                ViewContext.Writer.WriteLine("</tr>");
-            }
-        }
-    </table>
+                          ViewContext.Writer.WriteLine("</tr>");
+                      }
+                  }
+              </table>
     @{
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Bans/Index/{viewing_user_id}?page{ total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Bans/Index/{viewing_user.special_name}?page{ total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
         ViewContext.Writer.WriteLine("</form>");
     }
     <br />
-    @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user_id }, new { @class = "my_button" })
+    @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user.special_name }, new { @class = "my_button" })
 </div>
