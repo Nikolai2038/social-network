@@ -9,8 +9,58 @@ namespace SocialNetwork.Controllers
 {
     public class RecordsController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
+            users user = users.getUserFromUserId(Convert.ToInt32(Session["id"])); // пользователь, просматривающий страницу (может совпадать с пользователем, страница которого открыта)
+
+            ViewBag.User = user;
+
+            List<records> list = MyFunctions.getSubscriptionsRecordsToUser(user);
+
+            if (search_key == "id")
+            {
+                list = list.Where(p => (p.id.ToString().Contains(search_text))).ToList();
+            }
+            else if (search_key == "text")
+            {
+                list = list.Where(p => (p.text.ToString().Contains(search_text))).ToList();
+            }
+
+            if (sort_asc == "asc")
+            {
+                if (sort_key == "id")
+                {
+                    list = list.OrderBy(p => p.id).ToList();
+                }
+                else if (sort_key == "text")
+                {
+                    list = list.OrderBy(p => p.text).ToList();
+                }
+            }
+            else if (sort_asc == "desc")
+            {
+                if (sort_key == "id")
+                {
+                    list = list.OrderByDescending(p => p.id).ToList();
+                }
+                else if (sort_key == "text")
+                {
+                    list = list.OrderByDescending(p => p.text).ToList();
+                }
+            }
+
+            List<object> list_object = list.ToList<object>();
+
+            ViewBag.ListOnPage = MyFunctions.pageNavigation_getListOnPage(list_object, ref elements_on_page, ref total_page_id);
+
+            ViewBag.ElementsOnPage = elements_on_page;
+            ViewBag.TotalPageId = total_page_id;
+            ViewBag.SortKey = sort_key;
+            ViewBag.SortAsc = sort_asc;
+
+            ViewBag.SearchText = search_text;
+            ViewBag.SearchKey = search_key;
+
             return View();
         }
 
@@ -121,7 +171,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Viewing(string id, string rating_action, string commentary_action = null, int commentary_id = -1)
+        public ActionResult Viewing(string id, string rating_action, string commentary_action = null, int commentary_id = -1, string plus_return_to_page = null)
         {
             int record_id = Convert.ToInt32(id);
             if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
@@ -143,24 +193,31 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }
 
+            if (plus_return_to_page != null)
+            {
+                return Redirect(plus_return_to_page); // перенаправляем пользователя
+            }
+
             if (rating_action == "up_rating")
             {
                 MyFunctions.changeObjectRating(record, user, false);
+                return RedirectToAction("Viewing", "Records", new { id = id, plus_return_to_page = plus_return_to_page }); // перенаправляем пользователя
             }
-            else if (rating_action == "up_rating_plus_return_to_user_page")
+            /*else if (rating_action == "up_rating_plus_return_to_user_page")
             {
                 MyFunctions.changeObjectRating(record, user, false);
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
-            }
+            }*/
             else if (rating_action == "down_rating")
             {
                 MyFunctions.changeObjectRating(record, user, true);
+                return RedirectToAction("Viewing", "Records", new { id = id, plus_return_to_page = plus_return_to_page }); // перенаправляем пользователя
             }
-            else if (rating_action == "down_rating_plus_return_to_user_page")
+            /*else if (rating_action == "down_rating_plus_return_to_user_page")
             {
                 MyFunctions.changeObjectRating(record, user, true);
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
-            }
+            }*/
 
             if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
             {

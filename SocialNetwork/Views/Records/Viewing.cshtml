@@ -127,8 +127,8 @@
             ViewContext.Writer.WriteLine("Рейтинг: " + SocialNetwork.MyFunctions.getRating(element));
             if (user != null)
             {
-                @Html.ActionLink("-", "Viewing", "Records", new { id = record.id, commentary_action = "down_rating", commentary_id = element.id }, new { @class = "my_button_2" });
-                @Html.ActionLink("+", "Viewing", "Records", new { id = record.id, commentary_action = "up_rating", commentary_id = element.id }, new { @class = "my_button_2" });
+                @Html.ActionLink("-", "Viewing", "Records", new { id = record.id, commentary_action = "down_rating", commentary_id = element.id, plus_return_to_page = $"/Records/Viewing/{record.id}" }, new { @class = "my_button_2" });
+                @Html.ActionLink("+", "Viewing", "Records", new { id = record.id, commentary_action = "up_rating", commentary_id = element.id, plus_return_to_page = $"/Records/Viewing/{record.id}" }, new { @class = "my_button_2" });
             }
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("</tr>");

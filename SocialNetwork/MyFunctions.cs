@@ -493,5 +493,23 @@ namespace SocialNetwork
             }
             return result;
         }
+
+        public static List<records> getSubscriptionsRecordsToUser(users user)
+        {
+            if (user == null)
+            {
+                return database.records.Where(p => (p.id >= 0)).ToList();
+            }
+            else
+            {
+                List<friends_and_subscriptions> subscriptions = database.friends_and_subscriptions.Where(p => (p.user_id_from == user.id)).ToList();
+                List<records> result = new List<records>();
+                foreach (friends_and_subscriptions subscription in subscriptions)
+                {
+                    result.AddRange(database.records.Where(p => (p.user_id_to == subscription.user_id_to)).ToList());
+                }
+                return result;
+            }
+        }
     }
 }

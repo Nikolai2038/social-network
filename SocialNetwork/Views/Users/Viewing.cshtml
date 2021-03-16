@@ -249,7 +249,7 @@
 
                     ViewContext.Writer.WriteLine("<tr>");
                     ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
-                    ViewContext.Writer.WriteLine($"<img src=\"{@viewing_user.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
+                    ViewContext.Writer.WriteLine($"<img src=\"{user_from.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
                     ViewContext.Writer.WriteLine("</td>");
 
                     /*ViewContext.Writer.WriteLine("<td>");
@@ -261,11 +261,11 @@
                     ViewContext.Writer.WriteLine("</td>");*/
 
                     ViewContext.Writer.WriteLine("<tr>");
-                    ViewContext.Writer.Write(@viewing_user.getActivityStatusAsString());
+                    ViewContext.Writer.Write(user_from.getActivityStatusAsString());
                     ViewContext.Writer.WriteLine("</tr>");
                     ViewContext.Writer.WriteLine("<tr>");
                     ViewContext.Writer.WriteLine("<td>");
-                    ViewContext.Writer.Write("Общий рейтинг: " + viewing_user.getRating());
+                    ViewContext.Writer.Write("Общий рейтинг: " + user_from.getRating());
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
                     ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
@@ -282,8 +282,8 @@
                     ViewContext.Writer.WriteLine("Рейтинг: " + SocialNetwork.MyFunctions.getRating(element));
                     if (user != null)
                     {
-                        @Html.ActionLink("-", "Viewing", "Records", new { id = element.id, rating_action = "down_rating_plus_return_to_user_page" }, new { @class = "my_button_2" });
-                        @Html.ActionLink("+", "Viewing", "Records", new { id = element.id, rating_action = "up_rating_plus_return_to_user_page" }, new { @class = "my_button_2" });
+                        @Html.ActionLink("-", "Viewing", "Records", new { id = element.id, rating_action = "down_rating", plus_return_to_page = $"/Users/Viewing/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}" }, new { @class = "my_button_2" });
+                        @Html.ActionLink("+", "Viewing", "Records", new { id = element.id, rating_action = "up_rating", plus_return_to_page = $"/Users/Viewing/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}" }, new { @class = "my_button_2" });
                     }
                     ViewContext.Writer.WriteLine("</td>");
                     ViewContext.Writer.WriteLine("<td>");
