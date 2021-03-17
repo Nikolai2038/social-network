@@ -35,61 +35,68 @@ namespace SocialNetwork.Controllers
             {
                 List<string> errors = new List<string>();
 
-                if (Request.Form["ok"] != null)
+                try
                 {
-                    string login = Request.Form["login"];
-                    string name = Request.Form["name"];
-                    string password = Request.Form["password"];
-                    string password_2 = Request.Form["password_2"];
-                    string secret_question = Request.Form["secret_question"];
-                    string secret_answer = Request.Form["secret_answer"];
-
-                    MyFunctions.checkLogin(login, ref errors);
-                    if (name != "")
+                    if (Request.Form["ok"] != null)
                     {
-                        MyFunctions.checkName(name, ref errors);
-                    }
-                    MyFunctions.checkPassword(password, ref errors);
-                    MyFunctions.checkPassword2(password, password_2, ref errors);
-                    MyFunctions.checkSecretQuestion(secret_question, secret_answer, ref errors);
-                    MyFunctions.checkSecretAnswer(secret_answer, false, ref errors);
+                        string login = Request.Form["login"];
+                        string name = Request.Form["name"];
+                        string password = Request.Form["password"];
+                        string password_2 = Request.Form["password_2"];
+                        string secret_question = Request.Form["secret_question"];
+                        string secret_answer = Request.Form["secret_answer"];
 
-                    if (errors.Count == 0)
-                    {
-                        MyFunctions.checkLoginNotExistInDatabase(login, ref errors);
+                        MyFunctions.checkLogin(login, ref errors);
+                        if (name != "")
+                        {
+                            MyFunctions.checkName(name, ref errors);
+                        }
+                        MyFunctions.checkPassword(password, ref errors);
+                        MyFunctions.checkPassword2(password, password_2, ref errors);
+                        MyFunctions.checkSecretQuestion(secret_question, secret_answer, ref errors);
+                        MyFunctions.checkSecretAnswer(secret_answer, false, ref errors);
 
                         if (errors.Count == 0)
                         {
-                            users user = new users(); // новый пользователь
-                            user.login = login;
-                            user.name = name;
-                            user.password_sha512 = users.generateSha512(password);
-                            if (secret_question != "") // если был указан секретный вопрос - сохраняем и его, ответ на него
+                            MyFunctions.checkLoginNotExistInDatabase(login, ref errors);
+
+                            if (errors.Count == 0)
                             {
-                                user.secret_question = secret_question;
-                                user.secret_answer_sha512 = users.generateSha512(secret_answer);
+                                users user = new users(); // новый пользователь
+                                user.login = login;
+                                user.name = name;
+                                user.password_sha512 = users.generateSha512(password);
+                                if (secret_question != "") // если был указан секретный вопрос - сохраняем и его, ответ на него
+                                {
+                                    user.secret_question = secret_question;
+                                    user.secret_answer_sha512 = users.generateSha512(secret_answer);
+                                }
+                                user.permissions_rank = 0; // ранг: 0 – пользователь; 1 – модератор; 2 – администратор; 3 – главный администратор
+                                user.registration_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+
+                                MyFunctions.database.users.Add(user); // добавляем пользователя в БД
+                                MyFunctions.database.SaveChanges(); // сохраняем БД
+
+                                // после добавления пользователя в БД, добавим для него имя и уникальное специальное имя
+                                users user_found = MyFunctions.database.users.Where(p => (p.login == user.login) && (p.password_sha512 == user.password_sha512)).FirstOrDefault();
+                                user.special_name = "id" + user_found.id;
+
+                                if (user.name == "")
+                                {
+                                    user.name = user.special_name;
+                                }
+
+                                MyFunctions.database.SaveChanges(); // сохраняем БД
+                                users.SaveSession(user);
+
+                                return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
                             }
-                            user.permissions_rank = 0; // ранг: 0 – пользователь; 1 – модератор; 2 – администратор; 3 – главный администратор
-                            user.registration_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
-
-                            MyFunctions.database.users.Add(user); // добавляем пользователя в БД
-                            MyFunctions.database.SaveChanges(); // сохраняем БД
-
-                            // после добавления пользователя в БД, добавим для него имя и уникальное специальное имя
-                            users user_found = MyFunctions.database.users.Where(p => (p.login == user.login) && (p.password_sha512 == user.password_sha512)).FirstOrDefault();
-                            user.special_name = "id" + user_found.id;
-
-                            if (user.name == "")
-                            {
-                                user.name = user.special_name;
-                            }
-
-                            MyFunctions.database.SaveChanges(); // сохраняем БД
-                            users.SaveSession(user);
-
-                            return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
                         }
                     }
+                }
+                catch
+                {
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
                 }
 
                 ViewBag.Errors = errors;
@@ -107,26 +114,33 @@ namespace SocialNetwork.Controllers
             {
                 List<string> errors = new List<string>();
 
-                if (Request.Form["ok"] != null)
+                try
                 {
-                    string login = Request.Form["login"];
-                    string password = Request.Form["password"];
-
-                    MyFunctions.checkLogin(login, ref errors);
-                    MyFunctions.checkPassword(password, ref errors);
-
-                    if (errors.Count == 0)
+                    if (Request.Form["ok"] != null)
                     {
-                        string password_sha512 = users.generateSha512(password);
+                        string login = Request.Form["login"];
+                        string password = Request.Form["password"];
 
-                        users user_found = MyFunctions.checkLoginAndPasswordSha512ExistInDatabase(login, password_sha512, ref errors);
+                        MyFunctions.checkLogin(login, ref errors);
+                        MyFunctions.checkPassword(password, ref errors);
 
                         if (errors.Count == 0)
                         {
-                            users.SaveSession(user_found); // сохраняем сессию
-                            return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
+                            string password_sha512 = users.generateSha512(password);
+
+                            users user_found = MyFunctions.checkLoginAndPasswordSha512ExistInDatabase(login, password_sha512, ref errors);
+
+                            if (errors.Count == 0)
+                            {
+                                users.SaveSession(user_found); // сохраняем сессию
+                                return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
+                            }
                         }
                     }
+                }
+                catch
+                {
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
                 }
 
                 ViewBag.Errors = errors;
@@ -145,53 +159,56 @@ namespace SocialNetwork.Controllers
                 List<string> errors = new List<string>();
 
                 // стадия ввода логина
-                if ((Request.Form["next"] != null) || (Request.Form["next_2"] != null) || (Request.Form["ok"] != null))
+                try
                 {
-                    string login = Request.Form["login"];
-
-                    MyFunctions.checkLogin(login, ref errors);
-
-                    if (errors.Count == 0)
+                    if ((Request.Form["next"] != null) || (Request.Form["next_2"] != null) || (Request.Form["ok"] != null))
                     {
-                        users user_found = MyFunctions.checkLoginExistInDatabase(login, ref errors);
-                        ViewBag.IsLoginCorrect = false;
+                        string login = Request.Form["login"];
+
+                        MyFunctions.checkLogin(login, ref errors);
+
                         if (errors.Count == 0)
                         {
-                            ViewBag.IsLoginCorrect = true;
-
-                            ViewBag.SecretQuestion = user_found.secret_question; // получение текста секретного вопроса из БД
-
-                            // стадия ввода ответа на секретный вопрос
-                            if ((Request.Form["next_2"] != null) || (Request.Form["ok"] != null))
+                            users user_found = MyFunctions.checkLoginExistInDatabase(login, ref errors);
+                            ViewBag.IsLoginCorrect = false;
+                            if (errors.Count == 0)
                             {
-                                string secret_answer = Request.Form["secret_answer"];
-                                string secret_answer_sha512 = users.generateSha512(secret_answer);
+                                ViewBag.IsLoginCorrect = true;
 
-                                MyFunctions.checkSecretAnswer(secret_answer, true, ref errors);
+                                ViewBag.SecretQuestion = user_found.secret_question; // получение текста секретного вопроса из БД
 
-                                ViewBag.IsSecretAnswerCorrect = false;
-                                if (errors.Count == 0)
+                                // стадия ввода ответа на секретный вопрос
+                                if ((Request.Form["next_2"] != null) || (Request.Form["ok"] != null))
                                 {
-                                    user_found = MyFunctions.checkSecretAnswerSha512InDatabase(secret_answer_sha512, login, ref errors);
+                                    string secret_answer = Request.Form["secret_answer"];
+                                    string secret_answer_sha512 = users.generateSha512(secret_answer);
+
+                                    MyFunctions.checkSecretAnswer(secret_answer, true, ref errors);
+
+                                    ViewBag.IsSecretAnswerCorrect = false;
                                     if (errors.Count == 0)
                                     {
-                                        ViewBag.IsSecretAnswerCorrect = true;
-
-                                        // стадия ввода нового пароля
-                                        if (Request.Form["ok"] != null)
+                                        user_found = MyFunctions.checkSecretAnswerSha512InDatabase(secret_answer_sha512, login, ref errors);
+                                        if (errors.Count == 0)
                                         {
-                                            string password = Request.Form["password"];
-                                            string password_2 = Request.Form["password_2"];
+                                            ViewBag.IsSecretAnswerCorrect = true;
 
-                                            MyFunctions.checkPassword(password, ref errors);
-                                            MyFunctions.checkPassword2(password, password_2, ref errors);
-                                            if (errors.Count == 0)
+                                            // стадия ввода нового пароля
+                                            if (Request.Form["ok"] != null)
                                             {
-                                                string password_sha512 = users.generateSha512(password);
-                                                user_found.password_sha512 = password_sha512; // меняем пароль пользователя в БД
-                                                MyFunctions.database.SaveChanges(); // сохраняем БД
-                                                users.SaveSession(user_found); // сохраняем сессию
-                                                return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
+                                                string password = Request.Form["password"];
+                                                string password_2 = Request.Form["password_2"];
+
+                                                MyFunctions.checkPassword(password, ref errors);
+                                                MyFunctions.checkPassword2(password, password_2, ref errors);
+                                                if (errors.Count == 0)
+                                                {
+                                                    string password_sha512 = users.generateSha512(password);
+                                                    user_found.password_sha512 = password_sha512; // меняем пароль пользователя в БД
+                                                    MyFunctions.database.SaveChanges(); // сохраняем БД
+                                                    users.SaveSession(user_found); // сохраняем сессию
+                                                    return RedirectToAction("Viewing", "Users"); // перенаправляем пользователя в его профиль
+                                                }
                                             }
                                         }
                                     }
@@ -199,7 +216,10 @@ namespace SocialNetwork.Controllers
                             }
                         }
                     }
-
+                }
+                catch
+                {
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
                 }
 
                 ViewBag.Errors = errors;

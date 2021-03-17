@@ -9,7 +9,16 @@
                 <b>Логин <span class="required_asterisk">*</span>:<b>
             </td>
             <td>
-                <input type="text" name="login" maxlength="32" size="32" value="@Request.Form["login"]" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"login\" maxlength=\"32\" size=\"32\" value=\"");
+                    string text = Request.Unvalidated.Form.Get("login");
+                    if (text == null)
+                    {
+                        text = ViewBag.text;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -17,7 +26,16 @@
                 <b>Пароль <span class="required_asterisk">*</span>:<b>
             </td>
             <td>
-                <input type="password" name="password" maxlength="128" size="32" value="@Request.Form["password"]" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"password\" name=\"password\" maxlength=\"128\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("password");
+                    if (text == null)
+                    {
+                        text = ViewBag.text;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))
