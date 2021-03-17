@@ -29,102 +29,109 @@ namespace SocialNetwork.Controllers
             }
             else
             {
-                ViewBag.name = Request.Form["name"];
-                ViewBag.special_name = Request.Form["special_name"];
-                ViewBag.new_password = Request.Form["new_password"];
-                ViewBag.new_password_2 = Request.Form["new_password_2"];
-                ViewBag.new_secret_question = Request.Form["new_secret_question"];
-                ViewBag.new_secret_answer = Request.Form["new_secret_answer"];
-
-                int user_id = Convert.ToInt32(Session["id"]);
-                users user = users.getUserFromUserId(user_id);
-
                 List<string> errors = new List<string>();
 
-                if (Request.Form["ok"] != null) // если была нажата кнопка сохранения настроек
+                try
                 {
-                    string name = Request.Form["name"];
-                    string special_name = Request.Form["special_name"];
-                    MyFunctions.checkName(name, ref errors);
-                    MyFunctions.checkSpecialName(special_name, ref errors);
+                    ViewBag.name = Request.Form["name"];
+                    ViewBag.special_name = Request.Form["special_name"];
+                    ViewBag.new_password = Request.Form["new_password"];
+                    ViewBag.new_password_2 = Request.Form["new_password_2"];
+                    ViewBag.new_secret_question = Request.Form["new_secret_question"];
+                    ViewBag.new_secret_answer = Request.Form["new_secret_answer"];
 
-                    string new_password = Request.Form["new_password"];
-                    string new_password_2 = Request.Form["new_password_2"];
-                    if (new_password.Length != 0)
+                    int user_id = Convert.ToInt32(Session["id"]);
+                    users user = users.getUserFromUserId(user_id);
+
+                    if (Request.Form["ok"] != null) // если была нажата кнопка сохранения настроек
                     {
-                        MyFunctions.checkPassword(new_password, ref errors);
-                        MyFunctions.checkPassword2(new_password, new_password_2, ref errors);
+                        string name = Request.Form["name"];
+                        string special_name = Request.Form["special_name"];
+                        MyFunctions.checkName(name, ref errors);
+                        MyFunctions.checkSpecialName(special_name, ref errors);
+
+                        string new_password = Request.Form["new_password"];
+                        string new_password_2 = Request.Form["new_password_2"];
+                        if (new_password.Length != 0)
+                        {
+                            MyFunctions.checkPassword(new_password, ref errors);
+                            MyFunctions.checkPassword2(new_password, new_password_2, ref errors);
+                        }
+                        else
+                        {
+                            if (new_password_2.Length != 0)
+                            {
+                                errors.Add("Для подтверждения пароля введите сам пароль!");
+                            }
+                        }
+
+                        string new_secret_question = Request.Form["new_secret_question"];
+                        string new_secret_answer = Request.Form["new_secret_answer"];
+                        MyFunctions.checkSecretQuestion(new_secret_question, new_secret_answer, ref errors);
+
+                        string password = Request.Form["password"];
+                        bool is_password_ok = MyFunctions.checkTotalPassword(password, ref errors);
+
+                        if (is_password_ok == true)
+                        {
+                            string password_sha512 = users.generateSha512(password);
+                            if (password_sha512 != user.password_sha512)
+                            {
+                                errors.Add("Неверный пароль!");
+                            }
+                        }
+
+                        if (errors.Count == 0)
+                        {
+                            string saved_name = user.name;
+                            string saved_special_name = user.special_name;
+                            string saved_password_sha512 = user.password_sha512;
+                            string saved_secret_question = user.secret_question;
+                            string saved_secret_answer_sha512 = user.secret_answer_sha512;
+
+                            user.name = name;
+                            user.special_name = special_name;
+                            if (new_password.Length != 0)
+                            {
+                                user.password_sha512 = users.generateSha512(new_password);
+                            }
+                            if (new_secret_question.Length != 0)
+                            {
+                                user.secret_question = new_secret_question;
+                                user.secret_answer_sha512 = users.generateSha512(new_secret_answer);
+                            }
+
+                            try
+                            {
+                                MyFunctions.database.SaveChanges(); // сохраняем БД
+
+                                return RedirectToAction("Index", "Settings"); // перенаправляем пользователя в его профиль
+                            }
+                            catch
+                            {
+                                user.name = saved_name;
+                                user.special_name = saved_special_name;
+                                user.password_sha512 = saved_password_sha512;
+                                user.secret_question = saved_secret_question;
+                                user.secret_answer_sha512 = saved_secret_answer_sha512;
+
+                                errors.Add("Введённое специальное имя пользователя уже занято!");
+                            }
+                        }
                     }
                     else
                     {
-                        if (new_password_2.Length != 0)
-                        {
-                            errors.Add("Для подтверждения пароля введите сам пароль!");
-                        }
-                    }
-
-                    string new_secret_question = Request.Form["new_secret_question"];
-                    string new_secret_answer = Request.Form["new_secret_answer"];
-                    MyFunctions.checkSecretQuestion(new_secret_question, new_secret_answer, ref errors);
-
-                    string password = Request.Form["password"];
-                    bool is_password_ok = MyFunctions.checkTotalPassword(password, ref errors);
-
-                    if (is_password_ok == true)
-                    {
-                        string password_sha512 = users.generateSha512(password);
-                        if (password_sha512 != user.password_sha512)
-                        {
-                            errors.Add("Неверный пароль!");
-                        }
-                    }
-
-                    if (errors.Count == 0)
-                    {
-                        string saved_name = user.name;
-                        string saved_special_name = user.special_name;
-                        string saved_password_sha512 = user.password_sha512;
-                        string saved_secret_question = user.secret_question;
-                        string saved_secret_answer_sha512 = user.secret_answer_sha512;
-
-                        user.name = name;
-                        user.special_name = special_name;
-                        if (new_password.Length != 0)
-                        {
-                            user.password_sha512 = users.generateSha512(new_password);
-                        }
-                        if (new_secret_question.Length != 0)
-                        {
-                            user.secret_question = new_secret_question;
-                            user.secret_answer_sha512 = users.generateSha512(new_secret_answer);
-                        }
-
-                        try
-                        {
-                            MyFunctions.database.SaveChanges(); // сохраняем БД
-
-                            return RedirectToAction("Index", "Settings"); // перенаправляем пользователя в его профиль
-                        }
-                        catch
-                        {
-                            user.name = saved_name;
-                            user.special_name = saved_special_name;
-                            user.password_sha512 = saved_password_sha512;
-                            user.secret_question = saved_secret_question;
-                            user.secret_answer_sha512 = saved_secret_answer_sha512;
-
-                            errors.Add("Введённое специальное имя пользователя уже занято!");
-                        }
+                        ViewBag.name = user.name;
+                        ViewBag.special_name = user.special_name;
+                        ViewBag.new_password = "";
+                        ViewBag.new_password_2 = "";
+                        ViewBag.new_secret_question = "";
+                        ViewBag.new_secret_answer = "";
                     }
                 }
-                else
+                catch
                 {
-                    ViewBag.name = user.name;
-                    ViewBag.special_name = user.special_name;
-                    ViewBag.new_password = "";
-                    ViewBag.new_password_2 = "";
-                    ViewBag.new_secret_question = "";
-                    ViewBag.new_secret_answer = "";
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
                 }
 
                 ViewBag.Errors = errors;
@@ -215,25 +222,35 @@ namespace SocialNetwork.Controllers
                 int user_id = Convert.ToInt32(Session["id"]);
                 users user = users.getUserFromUserId(user_id);
 
-                if (Request.Form["ok"] != null) // если была нажата кнопка сохранения настроек
+                List<string> errors = new List<string>();
+
+                try
                 {
-                    ViewBag.status = Request.Form["status"];
-                    ViewBag.info = Request.Form["info"];
-                    ViewBag.avatar_file_url = Request.Form["avatar_file_url"];
+                    if (Request.Form["ok"] != null) // если была нажата кнопка сохранения настроек
+                    {
+                        ViewBag.status = Request.Form["status"];
+                        ViewBag.info = Request.Form["info"];
+                        ViewBag.avatar_file_url = Request.Form["avatar_file_url"];
 
-                    user.status = ViewBag.status;
-                    user.info = ViewBag.info;
-                    user.avatar_file_url = ViewBag.avatar_file_url;
+                        user.status = ViewBag.status;
+                        user.info = ViewBag.info;
+                        user.avatar_file_url = ViewBag.avatar_file_url;
 
-                    return RedirectToAction("Index", "Settings"); // перенаправляем пользователя на страницу настроек
+                        return RedirectToAction("Index", "Settings"); // перенаправляем пользователя на страницу настроек
+                    }
+                    else
+                    {
+                        ViewBag.status = user.status;
+                        ViewBag.info = user.info;
+                        ViewBag.avatar_file_url = user.avatar_file_url;
+                    }
                 }
-                else
+                catch
                 {
-                    ViewBag.status = user.status;
-                    ViewBag.info = user.info;
-                    ViewBag.avatar_file_url = user.avatar_file_url;
+                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
                 }
 
+                ViewBag.Errors = errors;
                 return View();
             }
         }

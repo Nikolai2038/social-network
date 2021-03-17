@@ -14,7 +14,7 @@
                     string text = Request.Unvalidated.Form.Get("login");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.login;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
@@ -31,7 +31,7 @@
                     text = Request.Unvalidated.Form.Get("name");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.name;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
@@ -48,7 +48,7 @@
                     text = Request.Unvalidated.Form.Get("password");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.password;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
@@ -65,7 +65,7 @@
                     text = Request.Unvalidated.Form.Get("password_2");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.password_2;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
@@ -82,7 +82,7 @@
                     text = Request.Unvalidated.Form.Get("secret_question");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.secret_question;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
@@ -99,7 +99,7 @@
                     text = Request.Unvalidated.Form.Get("secret_answer");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.secret_answer;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");

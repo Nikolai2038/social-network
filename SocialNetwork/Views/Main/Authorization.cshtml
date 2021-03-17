@@ -14,7 +14,7 @@
                     string text = Request.Unvalidated.Form.Get("login");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.login;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
@@ -31,7 +31,7 @@
                     text = Request.Unvalidated.Form.Get("password");
                     if (text == null)
                     {
-                        text = ViewBag.text;
+                        text = ViewBag.password;
                     }
                     ViewContext.Writer.Write(text);
                     ViewContext.Writer.Write("\"/>");
