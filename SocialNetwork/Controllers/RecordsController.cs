@@ -171,7 +171,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Viewing(string id, string rating_action, string commentary_action = null, int commentary_id = -1, string plus_return_to_page = null)
+        public ActionResult Viewing(string id, string rating_action, string commentary_action, int commentary_id = -1, string plus_return_to_page = null)
         {
             int record_id = Convert.ToInt32(id);
             if (MyFunctions.database.records.Where(p => (p.id == record_id)).Count() == 0) // если указанной записи не существует
@@ -191,11 +191,6 @@ namespace SocialNetwork.Controllers
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == false)
             {
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
-            }
-
-            if (plus_return_to_page != null)
-            {
-                return Redirect(plus_return_to_page); // перенаправляем пользователя
             }
 
             if (rating_action == "up_rating")
@@ -219,7 +214,7 @@ namespace SocialNetwork.Controllers
                 return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
             }*/
 
-            if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
+            if (Request.Form["ok"] != null) // если была нажата кнопка добавления комментария
             {
                 commentary_action = null;
                 commentary_id = -1;
@@ -247,9 +242,9 @@ namespace SocialNetwork.Controllers
                 }
             }
 
-            if (Request.Form["ok"] != null) // если была нажата кнопка изменения записи
+            try
             {
-                try
+                if (Request.Form["ok"] != null) // если была нажата кнопка добавления комментария
                 {
                     ViewBag.text = Request.Form["text"];
 
@@ -274,12 +269,17 @@ namespace SocialNetwork.Controllers
 
                     return RedirectToAction("Viewing", "Records", new { id = id }); // перенаправляем пользователя
                 }
-                catch
-                {
-                    List<string> errors = new List<string>();
-                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
-                    ViewBag.Errors = errors;
-                }
+            }
+            catch
+            {
+                List<string> errors = new List<string>();
+                errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
+                ViewBag.Errors = errors;
+            }
+
+            if (plus_return_to_page != null)
+            {
+                return Redirect(plus_return_to_page); // перенаправляем пользователя
             }
 
             List<commentaries> list = MyFunctions.getCommentaries(record);
@@ -289,7 +289,7 @@ namespace SocialNetwork.Controllers
             ViewBag.User = user;
             ViewBag.ViewingUser = viewing_user;
             ViewBag.Record = record;
-
+            
             return View();
         }
 
