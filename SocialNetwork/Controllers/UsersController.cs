@@ -8,12 +8,14 @@ using System.Data.Entity.Infrastructure;
 using System.Security.Cryptography;
 using System.Text;
 using SocialNetwork.Models;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace SocialNetwork.Controllers
 {
     public class UsersController : Controller
     {
-        private ActionResult UsersSearch(List<users> list, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        private List<object> getUsersSearch(List<users> list, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (search_key == "id")
             {
@@ -77,7 +79,12 @@ namespace SocialNetwork.Controllers
 
             List<object> list_object = list.ToList<object>();
 
-            ViewBag.ListOnPage = MyFunctions.pageNavigation_getListOnPage(list_object, ref elements_on_page, ref total_page_id);
+            return MyFunctions.pageNavigation_getListOnPage(list_object, ref elements_on_page, ref total_page_id);
+        }
+
+        private ActionResult UsersSearch(List<users> list, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        {
+            ViewBag.ListOnPage = getUsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
 
             ViewBag.ElementsOnPage = elements_on_page;
             ViewBag.TotalPageId = total_page_id;
@@ -90,9 +97,66 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Index(string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult Index(string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30, bool is_download = false)
         {
             List<users> list = MyFunctions.database.users.Where(p => (p.id >= 0)).ToList();
+
+            if (is_download == true) // выгрузка в файл
+            {
+                List<object> searched_list = getUsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
+                List<users> searched_list_users = new List<users>();
+                foreach (object user_obj in searched_list)
+                {
+                    searched_list_users.Add(user_obj as users);
+                }
+
+                using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
+                {
+                    // Примечание: нумерация строк и столбцов начинается с индекса 1 (не 0)
+
+                    var worksheet = workbook.Worksheets.Add("Пользователи");
+
+                    // первая строчка - заголовки
+                    worksheet.Cell("A1").Value = "ID";
+                    worksheet.Cell("B1").Value = "Имя пользователя";
+                    worksheet.Cell("C1").Value = "Специальное имя пользователя";
+                    worksheet.Cell("D1").Value = "Дата регистрации";
+                    worksheet.Cell("E1").Value = "Дата последнего онлайна";
+                    worksheet.Cell("F1").Value = "Общий рейтинг";
+
+                    worksheet.Column(1).Width = 7;
+                    worksheet.Column(2).Width = 17;
+                    worksheet.Column(3).Width = 30;
+                    worksheet.Column(4).Width = 30;
+                    worksheet.Column(5).Width = 30;
+                    worksheet.Column(6).Width = 15;
+
+                    worksheet.Row(1).Style.Font.Bold = true;
+
+                    for (int i = 0; i < searched_list_users.Count; i++)
+                    {
+                        worksheet.Cell(i + 2, 1).Value = searched_list_users[i].id;
+                        worksheet.Cell(i + 2, 2).Value = searched_list_users[i].name;
+                        worksheet.Cell(i + 2, 3).Value = searched_list_users[i].special_name;
+                        worksheet.Cell(i + 2, 4).Value = users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(searched_list_users[i].registration_datetime_int));
+                        worksheet.Cell(i + 2, 5).Value = users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(searched_list_users[i].last_activity_datetime_int));
+                        worksheet.Cell(i + 2, 6).Value = searched_list_users[i].getRating();
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        stream.Flush();
+
+                        int total_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+                        return new FileContentResult(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                        {
+                            FileDownloadName = "Данные пользователей от " + users.getDatetimeStringFromDatetimeInt(total_datetime_int) + ".xlsx"
+                        };
+                    }
+                }
+            }
+
             return UsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
         }
 
@@ -114,8 +178,7 @@ namespace SocialNetwork.Controllers
             {
                 ViewBag.ViewingUser = users.getUserFromUserSpecialName(id); // пользователь, страница которого открыта
             }
-
-
+            
             if (ViewBag.ViewingUser == null) // если не понятно, профиль какого пользователя открывается
             {
                 return RedirectToAction("Index", "Users"); // перенаправляем пользователя
@@ -194,21 +257,7 @@ namespace SocialNetwork.Controllers
 
                 return RedirectToAction("Viewing", "Users", new { id = id }); // перенаправляем пользователя
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
             List<records> list = user_to.getRecords();
 
             if (search_key == "id")

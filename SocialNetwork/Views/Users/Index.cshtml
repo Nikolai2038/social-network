@@ -7,6 +7,8 @@
     {
         list.Add(o as SocialNetwork.Models.users);
     }
+
+    SocialNetwork.Models.users user = ViewBag.User as SocialNetwork.Models.users;
 }
 
 <div class="center_content">
@@ -93,6 +95,20 @@
             ViewContext.Writer.WriteLine("<td colspan=\"2\">");
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("</tr>");
+
+            //if ((user != null) && (user.permissions_rank >= 2)) // если пользователь - администратор или выше
+            {
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td colspan=\"6\">");
+                @Html.ActionLink("Сохранить список в файл", "Index", "Users", new { is_download = true }, new { @class = "my_button_3" })
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+
+                ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+                ViewContext.Writer.WriteLine("<td colspan=\"2\">");
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+            }
         }
     </table>
     @{
