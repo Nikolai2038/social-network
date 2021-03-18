@@ -298,6 +298,10 @@ namespace SocialNetwork
             int max_element_id = list.Count - 1;
 
             int min_page_id = 1;
+            if (elements_on_page == 0)
+            {
+                elements_on_page = 1;
+            }
             int max_page_id = max_element_id / elements_on_page + 1;
 
             if (total_page_id < min_page_id)
