@@ -5,8 +5,6 @@
     ViewBag.Title = "Профиль пользователя " + viewing_user.login;
 
     Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUser = SocialNetwork.Models.users.getUserPermissionsToUser(user, viewing_user);
-
-    userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SHOWCASE] = false; //// ВИТРИНА ВРЕМЕННО УБРАНА
 }
 
 <div class="profile">
@@ -17,15 +15,8 @@
             </td>
         </tr>
         <tr>
-            @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SHOWCASE] == true)
-            {
-                ViewContext.Writer.WriteLine("<td colspan=\"6\" rowspan=\"5\" class=\"td_avatar\">");
-            }
-            else
-            {
-                ViewContext.Writer.WriteLine("<td colspan=\"6\" rowspan=\"3\" class=\"td_avatar\">");
-            }
-            <img src="@viewing_user.avatar_file_url" alt="&nbsp;&nbsp;&nbsp;Аватар не установлен" />
+            <td colspan="6" rowspan="3" class="td_avatar">
+                <img src="@viewing_user.avatar_file_url" alt="&nbsp;&nbsp;&nbsp;Аватар не установлен" />
             </td>
             <td colspan="12">
                 @if ((viewing_user.status == null) || (viewing_user.status.Trim().Length == 0))
@@ -50,28 +41,6 @@
                 }
             </td>
         </tr>
-        @if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_SEE_MY_SHOWCASE] == true)
-        {
-            <tr>
-                <td colspan="12" class="td_text">
-                    Витрина:
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" class="td_attachment">
-                    [Вложение 1]
-                </td>
-                <td colspan="3" class="td_attachment">
-                    [Вложение 2]
-                </td>
-                <td colspan="3" class="td_attachment">
-                    [Вложение 3]
-                </td>
-                <td colspan="3" class="td_attachment">
-                    [Вложение 4]
-                </td>
-            </tr>
-        }
         <tr>
             <td colspan="6">
                 Дата регистрации:<br />
@@ -149,11 +118,6 @@
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_UNSUBSCRIBE] == true)
             {
                 @Html.ActionLink("Отписаться", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "unsubscribe" }, new { @class = "my_button_3" })
-            }
-
-            if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_MESSAGE_ME] == true)
-            {
-                @Html.ActionLink("Отправить сообщение", "Viewing", "Users", new { id = viewing_user.special_name, tr_action = "message" }, new { @class = "my_button_3" })
             }
 
             if (userPermissionsToUser[SocialNetwork.Models.PermissionsToUser.CAN_ADD_TO_BLACK_LIST] == true)

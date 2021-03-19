@@ -22,7 +22,7 @@ namespace SocialNetwork
 
     public class MyFunctions
     {
-        public static Entities_Database_SocialNetwork database = new Entities_Database_SocialNetwork();
+        public static Entities database = new Entities();
 
         private class Range
         {
@@ -398,19 +398,7 @@ namespace SocialNetwork
         {
             int object_id = -1;
 
-            if (obj is files)
-            {
-                object_id = (obj as files).object_id;
-            }
-            else if (obj is articles)
-            {
-                object_id = (obj as articles).object_id;
-            }
-            else if (obj is collections)
-            {
-                object_id = (obj as collections).object_id;
-            }
-            else if (obj is records)
+            if (obj is records)
             {
                 object_id = (obj as records).object_id;
             }

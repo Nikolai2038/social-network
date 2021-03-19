@@ -139,17 +139,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BansController.cs" />
-    <Compile Include="Controllers\DialogsController.cs" />
     <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\ObjectsController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\articles.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\authorization_history.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
@@ -160,31 +155,13 @@
     <Compile Include="Models\black_list.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\collections.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\commentaries.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\commentaries_to_objects_with_commentaries.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\dialogs.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\files.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\files_or_articles_to_collections.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\files_to_articles.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\friends_and_subscriptions.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\messages.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model_Database_SocialNetwork.Context.cs">
@@ -192,30 +169,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_Database_SocialNetwork.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model_Database_SocialNetwork.cs" />
-    <Compile Include="Models\Model_Database_SocialNetwork.Designer.cs">
-      <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Models\Model_Database_SocialNetwork1.cs">
+    <Compile Include="Models\Model_Database_SocialNetwork.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_Database_SocialNetwork.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\objects.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\objects_with_name_to_commentaries.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\objects_with_name_to_messages.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\objects_with_name_to_records.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\objects_with_name_to_showcases.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\object_types.cs">
@@ -236,9 +200,6 @@
     <Compile Include="Models\users.cs">
       <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\users_to_dialogs.cs">
-      <DependentUpon>Model_Database_SocialNetwork.tt</DependentUpon>
-    </Compile>
     <Compile Include="MyFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -257,13 +218,13 @@
     <Content Include="Global.asax" />
     <Content Include="Models\Model_Database_SocialNetwork.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model_Database_SocialNetwork.Context.cs</LastGenOutput>
       <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
+      <LastGenOutput>Model_Database_SocialNetwork.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model_Database_SocialNetwork.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model_Database_SocialNetwork.edmx</DependentUpon>
-      <LastGenOutput>Model_Database_SocialNetwork1.cs</LastGenOutput>
+      <LastGenOutput>Model_Database_SocialNetwork.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -300,38 +261,17 @@
     <Content Include="Views\Bans\Delete.cshtml" />
     <Content Include="Views\Bans\Index.cshtml" />
     <Content Include="Views\Bans\Unban.cshtml" />
-    <Content Include="Views\Dialogs\Create.cshtml" />
-    <Content Include="Views\Dialogs\CreateGroup.cshtml" />
-    <Content Include="Views\Dialogs\Delete.cshtml" />
-    <Content Include="Views\Dialogs\EditGroup.cshtml" />
-    <Content Include="Views\Dialogs\Index.cshtml" />
-    <Content Include="Views\Dialogs\Search.cshtml" />
-    <Content Include="Views\Dialogs\Viewing.cshtml" />
     <Content Include="Views\Main\Authorization.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Main\Logout.cshtml" />
     <Content Include="Views\Main\PasswordRecovery.cshtml" />
     <Content Include="Views\Main\Registration.cshtml" />
-    <Content Include="Views\Objects\ArticleCreate.cshtml" />
-    <Content Include="Views\Objects\ArticleDelete.cshtml" />
-    <Content Include="Views\Objects\ArticleEdit.cshtml" />
-    <Content Include="Views\Objects\ArticleViewing.cshtml" />
-    <Content Include="Views\Objects\CollectionCreate.cshtml" />
-    <Content Include="Views\Objects\CollectionDelete.cshtml" />
-    <Content Include="Views\Objects\CollectionEdit.cshtml" />
-    <Content Include="Views\Objects\CollectionViewing.cshtml" />
-    <Content Include="Views\Objects\FileCreate.cshtml" />
-    <Content Include="Views\Objects\FileDelete.cshtml" />
-    <Content Include="Views\Objects\FileEdit.cshtml" />
-    <Content Include="Views\Objects\FileViewing.cshtml" />
-    <Content Include="Views\Objects\Index.cshtml" />
     <Content Include="Views\Records\Create.cshtml" />
     <Content Include="Views\Records\Delete.cshtml" />
     <Content Include="Views\Records\Edit.cshtml" />
     <Content Include="Views\Records\Index.cshtml" />
     <Content Include="Views\Records\Viewing.cshtml" />
     <Content Include="Views\Settings\Account.cshtml" />
-    <Content Include="Views\Settings\BlackList.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Page.cshtml" />
     <Content Include="Views\Settings\Private.cshtml" />

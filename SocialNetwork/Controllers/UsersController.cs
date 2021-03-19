@@ -235,10 +235,6 @@ namespace SocialNetwork.Controllers
                     MyFunctions.database.friends_and_subscriptions.Remove(friendsAndSubscriptions);
                     MyFunctions.database.SaveChanges();
                 }
-                else if ((tr_action == "message") && (userPermissionsToUser[PermissionsToUser.CAN_MESSAGE_ME]))
-                {
-                    //// перенаправление в action Dialogs
-                }
                 else if ((tr_action == "add_to_black_list") && (userPermissionsToUser[PermissionsToUser.CAN_ADD_TO_BLACK_LIST]))
                 {
                     black_list blackList = new black_list();

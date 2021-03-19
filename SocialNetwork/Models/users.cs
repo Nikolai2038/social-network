@@ -29,15 +29,11 @@ namespace SocialNetwork.Models
             this.bans1 = new HashSet<bans>();
             this.black_list = new HashSet<black_list>();
             this.black_list1 = new HashSet<black_list>();
-            this.dialogs = new HashSet<dialogs>();
             this.friends_and_subscriptions = new HashSet<friends_and_subscriptions>();
             this.friends_and_subscriptions1 = new HashSet<friends_and_subscriptions>();
-            this.messages = new HashSet<messages>();
-            this.objects_with_name_to_showcases = new HashSet<objects_with_name_to_showcases>();
             this.privacy_settings_to_users = new HashSet<privacy_settings_to_users>();
             this.ratings_to_objects_with_rating = new HashSet<ratings_to_objects_with_rating>();
             this.records = new HashSet<records>();
-            this.users_to_dialogs = new HashSet<users_to_dialogs>();
         }
 
         public int id { get; set; }
@@ -65,23 +61,15 @@ namespace SocialNetwork.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<black_list> black_list1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<dialogs> dialogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<friends_and_subscriptions> friends_and_subscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<friends_and_subscriptions> friends_and_subscriptions1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<messages> messages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<objects_with_name_to_showcases> objects_with_name_to_showcases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<privacy_settings_to_users> privacy_settings_to_users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ratings_to_objects_with_rating> ratings_to_objects_with_rating { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<records> records { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_to_dialogs> users_to_dialogs { get; set; }
 
         public static string generateSha512(string text)
         {
@@ -308,7 +296,7 @@ namespace SocialNetwork.Models
 
             if (user_from == null) // если первый пользователь не авторизован
             {
-                for (int i = 0; i < 11; i++) // (начиная с 11 права - необходим аккаунт, поэтому незарегистрированному пользователю автоматически будет всё запрещено)
+                for (int i = 0; i < 4; i++) // (начиная с 11 права - необходим аккаунт, поэтому незарегистрированному пользователю автоматически будет всё запрещено)
                 {
                     result[(PermissionsToUser)i] = (is_other && (privacySettingsToUsers.ElementAt(i).for_others == 1));
                 }
@@ -391,11 +379,7 @@ namespace SocialNetwork.Models
                     }
                 }
 
-                if (user_from.id == user_to.id) // сообщения к самому себе запрещены
-                {
-                    result[PermissionsToUser.CAN_MESSAGE_ME] = false;
-                }
-                else
+                if (user_from.id != user_to.id)
                 {
                     if (user_from.isFriendToUser(user_to)) // если заявка принята с обеих сторон (отправлена одной, принята другой, принятие генерирует автоматическое создание второй заявки в обратном направлении и автоматическое её принятие)
                     {
@@ -445,102 +429,8 @@ namespace SocialNetwork.Models
             {
                 result.Add((PermissionsToObject)i, false);
             }
-
-            if (object_to is files)
-            {
-                files file = object_to as files;
-                if (file.object_id == Convert.ToInt32(ObjectsTypes.IMAGE))
-                {
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_IMAGES] == true)
-                    {
-                        result[PermissionsToObject.CAN_SEE] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_IMAGES] == true)
-                    {
-                        result[PermissionsToObject.CAN_COMMENT] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_IMAGES] == true)
-                    {
-                        result[PermissionsToObject.CAN_SHARE] = true;
-                    }
-                }
-                else if (file.object_id == Convert.ToInt32(ObjectsTypes.VIDEO))
-                {
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_VIDEOS] == true)
-                    {
-                        result[PermissionsToObject.CAN_SEE] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_VIDEOS] == true)
-                    {
-                        result[PermissionsToObject.CAN_COMMENT] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_VIDEOS] == true)
-                    {
-                        result[PermissionsToObject.CAN_SHARE] = true;
-                    }
-                }
-                else if (file.object_id == Convert.ToInt32(ObjectsTypes.AUDIO))
-                {
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_AUDIOS] == true)
-                    {
-                        result[PermissionsToObject.CAN_SEE] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_AUDIOS] == true)
-                    {
-                        result[PermissionsToObject.CAN_COMMENT] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_AUDIOS] == true)
-                    {
-                        result[PermissionsToObject.CAN_SHARE] = true;
-                    }
-                }
-                else if (file.object_id == Convert.ToInt32(ObjectsTypes.DOCUMENT))
-                {
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_DOCUMENTS] == true)
-                    {
-                        result[PermissionsToObject.CAN_SEE] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_DOCUMENTS] == true)
-                    {
-                        result[PermissionsToObject.CAN_COMMENT] = true;
-                    }
-                    if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_DOCUMENTS] == true)
-                    {
-                        result[PermissionsToObject.CAN_SHARE] = true;
-                    }
-                }
-            }
-            else if (object_to is articles)
-            {
-                if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_ARTICLES] == true)
-                {
-                    result[PermissionsToObject.CAN_SEE] = true;
-                }
-                if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_ARTICLES] == true)
-                {
-                    result[PermissionsToObject.CAN_COMMENT] = true;
-                }
-                if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_ARTICLES] == true)
-                {
-                    result[PermissionsToObject.CAN_SHARE] = true;
-                }
-            }
-            else if (object_to is collections)
-            {
-                if (userPermissionsToUser[PermissionsToUser.CAN_SEE_MY_COLLECTIONS] == true)
-                {
-                    result[PermissionsToObject.CAN_SEE] = true;
-                }
-                if (userPermissionsToUser[PermissionsToUser.CAN_COMMENT_MY_COLLECTIONS] == true)
-                {
-                    result[PermissionsToObject.CAN_COMMENT] = true;
-                }
-                if (userPermissionsToUser[PermissionsToUser.CAN_SHARE_MY_COLLECTIONS] == true)
-                {
-                    result[PermissionsToObject.CAN_SHARE] = true;
-                }
-            }
-            else if (object_to is records)
+            
+            if (object_to is records)
             {
                 records record = object_to as records;
                 users user_with_record = getUserFromUserId(record.user_id_to);
@@ -553,10 +443,6 @@ namespace SocialNetwork.Models
                 if (userPermissionsToUserPage[PermissionsToUser.CAN_COMMENT_RECORDS_ON_MY_PAGE] == true)
                 {
                     result[PermissionsToObject.CAN_COMMENT] = true;
-                }
-                if (userPermissionsToUserPage[PermissionsToUser.CAN_SHARE_RECORDS_ON_MY_PAGE] == true)
-                {
-                    result[PermissionsToObject.CAN_SHARE] = true;
                 }
             }
             else if (object_to is commentaries)

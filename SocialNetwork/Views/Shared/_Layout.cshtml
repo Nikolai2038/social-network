@@ -36,8 +36,6 @@
                     {
                         SocialNetwork.Models.users this_user = SocialNetwork.Models.users.getUserFromUserId(Convert.ToInt32(Session["id"]));
                         <li>@Html.ActionLink("Моя страница", "Viewing", "Users", new { id = this_user.special_name }, new { @class = "" })</li>
-                        //<li>@Html.ActionLink("Мои переписки", "Index", "Dialogs")</li>
-                        //<li>@Html.ActionLink("Мои объекты", "Index", "Objects")</li>
                     }
                     <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
                     @if (ViewBag.isUserLoggedIn == true)

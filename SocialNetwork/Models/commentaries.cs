@@ -18,7 +18,6 @@ namespace SocialNetwork.Models
         public commentaries()
         {
             this.commentaries_to_objects_with_commentaries = new HashSet<commentaries_to_objects_with_commentaries>();
-            this.objects_with_name_to_commentaries = new HashSet<objects_with_name_to_commentaries>();
         }
     
         public int id { get; set; }
@@ -28,7 +27,5 @@ namespace SocialNetwork.Models
         public virtual objects objects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<commentaries_to_objects_with_commentaries> commentaries_to_objects_with_commentaries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<objects_with_name_to_commentaries> objects_with_name_to_commentaries { get; set; }
     }
 }
