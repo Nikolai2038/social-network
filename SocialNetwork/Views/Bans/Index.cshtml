@@ -37,9 +37,6 @@
             @Html.ActionLink("Выдать бан", "Ban", "Bans", new { id = viewing_user.special_name }, new { @class = "my_button" })
         }
 
-        /* ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Bans/Index/{viewing_user.special_name}?page{total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
-         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-         ViewContext.Writer.WriteLine("</form>");*/
         @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user.special_name }, new { @class = "my_button" })
     }
     <br />

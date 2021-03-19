@@ -35,12 +35,6 @@
         string search_text = ViewBag.SearchText;
         string search_key = ViewBag.SearchKey;
 
-        /*ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Index?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
-        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
-        <br />
-        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-        ViewContext.Writer.WriteLine("</form>");*/
-
         @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user.special_name }, new { @class = "my_button" })
     }
     <br />

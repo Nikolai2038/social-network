@@ -198,21 +198,11 @@ namespace SocialNetwork.Controllers
                 MyFunctions.changeObjectRating(record, user, false);
                 return RedirectToAction("Viewing", "Records", new { id = id, plus_return_to_page = plus_return_to_page }); // перенаправляем пользователя
             }
-            /*else if (rating_action == "up_rating_plus_return_to_user_page")
-            {
-                MyFunctions.changeObjectRating(record, user, false);
-                return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
-            }*/
             else if (rating_action == "down_rating")
             {
                 MyFunctions.changeObjectRating(record, user, true);
                 return RedirectToAction("Viewing", "Records", new { id = id, plus_return_to_page = plus_return_to_page }); // перенаправляем пользователя
             }
-            /*else if (rating_action == "down_rating_plus_return_to_user_page")
-            {
-                MyFunctions.changeObjectRating(record, user, true);
-                return RedirectToAction("Viewing", "Users", new { id = viewing_user.special_name }); // перенаправляем пользователя
-            }*/
 
             if (Request.Form["ok"] != null) // если была нажата кнопка добавления комментария
             {
@@ -228,8 +218,6 @@ namespace SocialNetwork.Controllers
                     commentaries_to_objects_with_commentaries commentary_info = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.commentary_id == commentary_id)).FirstOrDefault();
                     MyFunctions.database.commentaries_to_objects_with_commentaries.Remove(commentary_info);
                     MyFunctions.database.commentaries.Remove(commentary);
-                    //objects commentary_as_object = MyFunctions.getBasicObjectFromObject(commentary);
-                    //MyFunctions.database.objects.Remove(commentary_as_object);
                     MyFunctions.database.SaveChanges();
                 }
                 else if (commentary_action == "up_rating")

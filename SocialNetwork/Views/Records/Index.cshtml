@@ -44,12 +44,7 @@
             if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
             {
                 SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(SocialNetwork.MyFunctions.getUserIdFromObject(element));
-
-                /*int object_id = element.object_id;
-                SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
-                int user_id_from = obj.user_id_from;
-                SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
-                */
+                
                 ViewContext.Writer.WriteLine("<tr>");
                 ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
                 @Html.ActionLink(user_from.name, "Viewing", "Users", new { id = user_from.special_name }, new { @class = "" });
@@ -65,14 +60,6 @@
                 ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
                 ViewContext.Writer.WriteLine($"<img src=\"{user_from.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
                 ViewContext.Writer.WriteLine("</td>");
-
-                /*ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(user_from.name);
-                ViewContext.Writer.WriteLine("</td>");
-
-                ViewContext.Writer.WriteLine("<td>");
-                ViewContext.Writer.WriteLine(user_from.special_name);
-                ViewContext.Writer.WriteLine("</td>");*/
 
                 ViewContext.Writer.WriteLine("<tr>");
                 ViewContext.Writer.Write(user_from.getActivityStatusAsString());

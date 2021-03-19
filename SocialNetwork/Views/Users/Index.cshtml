@@ -34,12 +34,6 @@
 
         string search_text = ViewBag.SearchText;
         string search_key = ViewBag.SearchKey;
-
-        /*ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Index?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
-        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
-        <br />
-        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-        ViewContext.Writer.WriteLine("</form>");*/
     }
     <table class="black_table">
         <tr>
@@ -96,7 +90,7 @@
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("</tr>");
 
-            //if ((user != null) && (user.permissions_rank >= 2)) // если пользователь - администратор или выше
+            if ((user != null) && (user.permissions_rank >= 2)) // если пользователь - администратор или выше
             {
                 ViewContext.Writer.WriteLine("<tr>");
                 ViewContext.Writer.WriteLine("<td colspan=\"6\">");

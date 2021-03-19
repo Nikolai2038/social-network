@@ -210,12 +210,6 @@
 
         string search_text = ViewBag.SearchText;
         string search_key = ViewBag.SearchKey;
-
-        /*ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Viewing/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
-        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
-        <br />
-        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-        ViewContext.Writer.WriteLine("</form>");*/
     }
     <table class="black_table">
         @{
@@ -230,12 +224,7 @@
                 if (userPermissionsToRecord[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
                 {
                     SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(SocialNetwork.MyFunctions.getUserIdFromObject(element));
-
-                    /*int object_id = element.object_id;
-                    SocialNetwork.Models.objects obj = MyFunctions.database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
-                    int user_id_from = obj.user_id_from;
-                    SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(user_id_from);
-                    */
+                    
                     ViewContext.Writer.WriteLine("<tr>");
                     ViewContext.Writer.WriteLine("<td class=\"record_user_name\">");
                     @Html.ActionLink(user_from.name, "Viewing", "Users", new { id = user_from.special_name }, new { @class = "" });
@@ -251,14 +240,6 @@
                     ViewContext.Writer.WriteLine("<td class=\"record_avatar\">");
                     ViewContext.Writer.WriteLine($"<img src=\"{user_from.avatar_file_url}\" alt=\"&nbsp;&nbsp;&nbsp;Аватар не установлен\" />");
                     ViewContext.Writer.WriteLine("</td>");
-
-                    /*ViewContext.Writer.WriteLine("<td>");
-                    ViewContext.Writer.WriteLine(user_from.name);
-                    ViewContext.Writer.WriteLine("</td>");
-
-                    ViewContext.Writer.WriteLine("<td>");
-                    ViewContext.Writer.WriteLine(user_from.special_name);
-                    ViewContext.Writer.WriteLine("</td>");*/
 
                     ViewContext.Writer.WriteLine("<tr>");
                     ViewContext.Writer.Write(user_from.getActivityStatusAsString());

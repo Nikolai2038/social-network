@@ -120,10 +120,6 @@
             ViewContext.Writer.WriteLine("</td>");
             ViewContext.Writer.WriteLine("<td class=\"record_buttons\">");
             ViewContext.Writer.WriteLine("Дата отправки: " + SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(SocialNetwork.MyFunctions.getBasicObjectFromObject(element).creation_datetime_int) + " ");
-            /*if (userPermissionsToCommentary[SocialNetwork.Models.PermissionsToObject.CAN_EDIT] == true)
-            {
-                @Html.ActionLink("Изменить", "Edit", "Records", new { id = record.id }, new { @class = "my_button_2" })
-            }*/
             if (userPermissionsToCommentary[SocialNetwork.Models.PermissionsToObject.CAN_DELETE] == true)
             {
                 @Html.ActionLink("Удалить", "Viewing", "Records", new { id = record.id, commentary_action = "delete", commentary_id = element.id }, new { @class = "my_button_2" })
