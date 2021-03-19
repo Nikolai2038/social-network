@@ -11,6 +11,12 @@
 
     SocialNetwork.Models.users user_from = SocialNetwork.Models.users.getUserFromUserId(SocialNetwork.MyFunctions.getUserIdFromObject(record));
 
+
+    ViewContext.Writer.WriteLine("<center>");
+    @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user.special_name }, new { @class = "my_button" })
+    ViewContext.Writer.WriteLine("</center>");
+    ViewContext.Writer.WriteLine("<br/>");
+
     ViewContext.Writer.WriteLine("<table class=\"black_table\">");
 
     ViewContext.Writer.WriteLine("<tr>");
