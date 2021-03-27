@@ -14,6 +14,7 @@ namespace SocialNetwork.Models
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
+    using System.Configuration;
     
     public partial class Entities : DbContext
     {
