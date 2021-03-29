@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SocialNetwork;
 using SocialNetwork.Controllers;
 using SocialNetwork.Models;
 using System;
@@ -30,11 +29,11 @@ namespace UnitTest
         [TestMethod]
         public void IndexViewEqualIndexCshtml()
         {
-            Assert.AreEqual("UsersSearch", view.ViewName);
+            Assert.AreEqual("Index", view.ViewName);
         }
 
         [TestMethod]
-        public void IndexStringInViewbag()
+        public void IndexListOnPageInViewBag()
         {
             List<object> list = view.ViewBag.ListOnPage as List<object>;
             Assert.IsNotNull(list);

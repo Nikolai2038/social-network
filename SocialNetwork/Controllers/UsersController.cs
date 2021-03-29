@@ -82,7 +82,7 @@ namespace SocialNetwork.Controllers
             return MyFunctions.pageNavigation_getListOnPage(list_object, ref elements_on_page, ref total_page_id);
         }
 
-        private ActionResult UsersSearch(List<users> list, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        private ActionResult UsersSearch(string view_name, List<users> list, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             ViewBag.ListOnPage = getUsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
 
@@ -94,7 +94,14 @@ namespace SocialNetwork.Controllers
             ViewBag.SearchText = search_text;
             ViewBag.SearchKey = search_key;
 
-            return View("UsersSearch");
+            if (view_name == null)
+            {
+                return View("UsersSearch");
+            }
+            else
+            {
+                return View(view_name);
+            }
         }
 
         public ActionResult Index(string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30, bool is_download = false)
@@ -157,10 +164,10 @@ namespace SocialNetwork.Controllers
                 }
             }
 
-            return UsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
+            return UsersSearch("Index", list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
         }
 
-        public ActionResult Viewing(string id, string tr_action = "", string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult Viewing(string id, string tr_action = null, string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (id == null) // если специальное имя пользователя не указано - будем использовать id пользователя текущей сессии
             {
@@ -303,7 +310,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult SpecialPermissions(string id, string specials_permissions_action = "")
+        public ActionResult SpecialPermissions(string id, string specials_permissions_action = null)
         {
             if (users.isUserLoggedIn() == false) // если пользователь не авторизован
             {
@@ -461,7 +468,7 @@ namespace SocialNetwork.Controllers
             else
             {
                 List<users> list = viewing_user.getFriends();
-                return UsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
+                return UsersSearch("Friends", list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
             }
         }
 
@@ -492,7 +499,7 @@ namespace SocialNetwork.Controllers
             else
             {
                 List<users> list = viewing_user.getSubscribers();
-                return UsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
+                return UsersSearch("Subscribers", list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
             }
         }
 
@@ -523,7 +530,7 @@ namespace SocialNetwork.Controllers
             else
             {
                 List<users> list = viewing_user.getSubscriptions();
-                return UsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
+                return UsersSearch("Subscriptions", list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
             }
         }
     }

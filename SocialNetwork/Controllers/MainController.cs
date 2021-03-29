@@ -35,7 +35,7 @@ namespace SocialNetwork.Controllers
             {
                 List<string> errors = new List<string>();
 
-                try
+                //try
                 {
                     if (Request.Form["ok"] != null)
                     {
@@ -94,9 +94,9 @@ namespace SocialNetwork.Controllers
                         }
                     }
                 }
-                catch
+                //catch
                 {
-                    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
+                //    errors.Add("Недопустимый текст! Можно вводить только обычный текст, использование HTML-тегов не разрешено!");
                 }
 
                 ViewBag.Errors = errors;
