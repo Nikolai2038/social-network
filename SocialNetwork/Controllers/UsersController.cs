@@ -94,7 +94,7 @@ namespace SocialNetwork.Controllers
             ViewBag.SearchText = search_text;
             ViewBag.SearchKey = search_key;
 
-            return View();
+            return View("UsersSearch");
         }
 
         public ActionResult Index(string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30, bool is_download = false)
@@ -160,7 +160,7 @@ namespace SocialNetwork.Controllers
             return UsersSearch(list, sort_key, sort_asc, search_key, search_text, total_page_id, elements_on_page);
         }
 
-        public ActionResult Viewing(string id, string tr_action, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult Viewing(string id, string tr_action = "", string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (id == null) // если специальное имя пользователя не указано - будем использовать id пользователя текущей сессии
             {
@@ -303,7 +303,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult SpecialPermissions(string id, string specials_permissions_action)
+        public ActionResult SpecialPermissions(string id, string specials_permissions_action = "")
         {
             if (users.isUserLoggedIn() == false) // если пользователь не авторизован
             {
@@ -356,7 +356,7 @@ namespace SocialNetwork.Controllers
             }
         }
 
-        public ActionResult AuthorizationHistory(string id, string sort_key, string sort_asc, int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult AuthorizationHistory(string id, string sort_key = "", string sort_asc = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (users.isUserLoggedIn() == false) // если пользователь не авторизован
             {
@@ -434,7 +434,7 @@ namespace SocialNetwork.Controllers
             return View();
         }
 
-        public ActionResult Friends(string id, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult Friends(string id, string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (id == null) // если специальное имя пользователя не указано
             {
@@ -465,7 +465,7 @@ namespace SocialNetwork.Controllers
             }
         }
 
-        public ActionResult Subscribers(string id, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult Subscribers(string id, string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (id == null) // если специальное имя пользователя не указано
             {
@@ -496,7 +496,7 @@ namespace SocialNetwork.Controllers
             }
         }
 
-        public ActionResult Subscriptions(string id, string sort_key, string sort_asc, string search_key, string search_text = "", int total_page_id = 1, int elements_on_page = 30)
+        public ActionResult Subscriptions(string id, string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30)
         {
             if (id == null) // если специальное имя пользователя не указано
             {

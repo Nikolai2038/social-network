@@ -2,6 +2,8 @@
 using SocialNetwork;
 using SocialNetwork.Controllers;
 using SocialNetwork.Models;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace UnitTest
@@ -10,33 +12,46 @@ namespace UnitTest
     public class UsersControllerTest
     {
         private UsersController controller;
-        private ViewResult result;
+        private ViewResult view;
 
         [TestInitialize]
         public void SetupContext()
         {
             controller = new UsersController();
-            //MyFunctions.database = new Entities();
-            ActionResult r = controller.Index();
-            //result = controller.Index() as ViewResult;
+            view = controller.Index() as ViewResult;
         }
 
         [TestMethod]
         public void IndexViewResultNotNull()
         {
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(view);
         }
 
         [TestMethod]
         public void IndexViewEqualIndexCshtml()
         {
-            Assert.AreEqual("Index", result.ViewName);
+            Assert.AreEqual("UsersSearch", view.ViewName);
         }
 
         [TestMethod]
         public void IndexStringInViewbag()
         {
-            Assert.AreEqual("Hello world!", result.ViewBag.Message);
+            List<object> list = view.ViewBag.ListOnPage as List<object>;
+            Assert.IsNotNull(list);
+            foreach (object obj in list)
+            {
+                Assert.IsNotNull(obj);
+                users user = null;
+                try
+                {
+                    user = obj as users;
+                }
+                catch
+                {
+                    throw new Exception("Ошибка преобразования объекта списка пользователей!");
+                }
+                Assert.IsNotNull(user);
+            }
         }
 
     }
