@@ -106,7 +106,7 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Index(string sort_key = "", string sort_asc = "", string search_key = "", string search_text = "", int total_page_id = 1, int elements_on_page = 30, bool is_download = false)
         {
-            List<users> list = MyFunctions.database.users.Where(p => (p.id >= 0)).ToList();
+            List<users> list = MyFunctions.database.users.Where(p => (p.id >= 1)).ToList();
 
             if (is_download == true) // выгрузка в файл
             {
