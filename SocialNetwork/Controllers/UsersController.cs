@@ -94,6 +94,8 @@ namespace SocialNetwork.Controllers
             ViewBag.SearchText = search_text;
             ViewBag.SearchKey = search_key;
 
+            ViewBag.User = users.getUserFromUserId(Convert.ToInt32(Session["id"]));
+
             if (view_name == null)
             {
                 return View("UsersSearch");
