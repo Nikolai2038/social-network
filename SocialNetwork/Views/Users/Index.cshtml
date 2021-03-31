@@ -85,6 +85,16 @@
 
                 ViewContext.Writer.WriteLine("</tr>");
             }
+
+            if (list.Count == 0)
+            {
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td colspan=\"6\">");
+                ViewContext.Writer.WriteLine("Нет пользователей");
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+            }
+
             ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
             ViewContext.Writer.WriteLine("<td colspan=\"2\">");
             ViewContext.Writer.WriteLine("</td>");
