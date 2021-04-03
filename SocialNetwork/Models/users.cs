@@ -29,15 +29,11 @@ namespace SocialNetwork.Models
             this.bans1 = new HashSet<bans>();
             this.black_list = new HashSet<black_list>();
             this.black_list1 = new HashSet<black_list>();
-            this.dialogs = new HashSet<dialogs>();
             this.friends_and_subscriptions = new HashSet<friends_and_subscriptions>();
             this.friends_and_subscriptions1 = new HashSet<friends_and_subscriptions>();
-            this.messages = new HashSet<messages>();
-            this.objects_with_name_to_showcases = new HashSet<objects_with_name_to_showcases>();
             this.privacy_settings_to_users = new HashSet<privacy_settings_to_users>();
             this.ratings_to_objects_with_rating = new HashSet<ratings_to_objects_with_rating>();
             this.records = new HashSet<records>();
-            this.users_to_dialogs = new HashSet<users_to_dialogs>();
         }
 
         public int id { get; set; }
@@ -65,23 +61,15 @@ namespace SocialNetwork.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<black_list> black_list1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<dialogs> dialogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<friends_and_subscriptions> friends_and_subscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<friends_and_subscriptions> friends_and_subscriptions1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<messages> messages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<objects_with_name_to_showcases> objects_with_name_to_showcases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<privacy_settings_to_users> privacy_settings_to_users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ratings_to_objects_with_rating> ratings_to_objects_with_rating { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<records> records { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_to_dialogs> users_to_dialogs { get; set; }
 
         public static string generateSha512(string text)
         {
@@ -160,6 +148,12 @@ namespace SocialNetwork.Models
             return user_found;
         }
 
+        public static users getUserFromUserSpecialName(string special_name)
+        {
+            users user_found = MyFunctions.database.users.Where(p => (p.special_name == special_name)).FirstOrDefault();
+            return user_found;
+        }
+
         public List<users> getFriends()
         {
             List<friends_and_subscriptions> friendsAndSubscriptions = MyFunctions.database.friends_and_subscriptions.Where(p => ((p.user_id_from == id) && (p.is_accepted == 1))).ToList();
@@ -218,9 +212,9 @@ namespace SocialNetwork.Models
         {
             return MyFunctions.database.bans.Where(p => ((p.user_id_to == id))).ToList();
         }
-        public List<records_simple> getRecords()
+        public List<records> getRecords()
         {
-            return MyFunctions.database.records_simple.Where(p => ((p.user_id_to == id))).ToList();
+            return MyFunctions.database.records.Where(p => ((p.user_id_to == id))).ToList();
         }
 
         public int getBansCount()
@@ -302,7 +296,7 @@ namespace SocialNetwork.Models
 
             if (user_from == null) // если первый пользователь не авторизован
             {
-                for (int i = 0; i < 11; i++) // (начиная с 11 права - необходим аккаунт, поэтому незарегистрированному пользователю автоматически будет всё запрещено)
+                for (int i = 0; i < 4; i++) // (начиная с 11 права - необходим аккаунт, поэтому незарегистрированному пользователю автоматически будет всё запрещено)
                 {
                     result[(PermissionsToUser)i] = (is_other && (privacySettingsToUsers.ElementAt(i).for_others == 1));
                 }
@@ -385,11 +379,7 @@ namespace SocialNetwork.Models
                     }
                 }
 
-                if (user_from.id == user_to.id) // сообщения к самому себе запрещены
-                {
-                    result[PermissionsToUser.CAN_MESSAGE_ME] = false;
-                }
-                else
+                if (user_from.id != user_to.id)
                 {
                     if (user_from.isFriendToUser(user_to)) // если заявка принята с обеих сторон (отправлена одной, принята другой, принятие генерирует автоматическое создание второй заявки в обратном направлении и автоматическое её принятие)
                     {
@@ -427,7 +417,62 @@ namespace SocialNetwork.Models
             return result;
         }
 
-        public string getLastActivityStatusAsString()
+        public static Dictionary<PermissionsToObject, bool> getUserPermissionsToObject(users user_from, object object_to)
+        {
+            users user_to = getUserFromUserId(MyFunctions.getUserIdFromObject(object_to));
+
+            Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUser = SocialNetwork.Models.users.getUserPermissionsToUser(user_from, user_to);
+
+            Dictionary<PermissionsToObject, bool> result = new Dictionary<PermissionsToObject, bool>();
+
+            for (int i = 0; i < (int)PermissionsToObject.COUNT; i++)
+            {
+                result.Add((PermissionsToObject)i, false);
+            }
+            
+            if (object_to is records)
+            {
+                records record = object_to as records;
+                users user_with_record = getUserFromUserId(record.user_id_to);
+                Dictionary<SocialNetwork.Models.PermissionsToUser, bool> userPermissionsToUserPage = SocialNetwork.Models.users.getUserPermissionsToUser(user_from, user_with_record);
+
+                if (userPermissionsToUserPage[PermissionsToUser.CAN_SEE_RECORDS_ON_MY_PAGE] == true)
+                {
+                    result[PermissionsToObject.CAN_SEE] = true;
+                }
+                if (userPermissionsToUserPage[PermissionsToUser.CAN_COMMENT_RECORDS_ON_MY_PAGE] == true)
+                {
+                    result[PermissionsToObject.CAN_COMMENT] = true;
+                }
+            }
+            else if (object_to is commentaries)
+            {
+                commentaries commentary = object_to as commentaries;
+                commentaries_to_objects_with_commentaries commentary_info = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.commentary_id == commentary.id)).FirstOrDefault();
+                records record_with_commentary = MyFunctions.database.records.Where(p => (p.object_id == commentary_info.object_id)).FirstOrDefault();
+
+                Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToRecord = SocialNetwork.Models.users.getUserPermissionsToObject(user_from, record_with_commentary);
+
+                result[PermissionsToObject.CAN_SEE] = userPermissionsToRecord[PermissionsToObject.CAN_SEE]; // если пользователь видит запись, то он может видеть все комментарии
+            }
+
+            if (user_from != null) // если пользователь, просматривающий страницу - не гость
+            {
+                if (user_from.id == user_to.id)
+                {
+                    result[PermissionsToObject.CAN_EDIT] = true;
+                    result[PermissionsToObject.CAN_DELETE] = true;
+                }
+                else if (user_to.permissions_rank < user_from.permissions_rank) // при ранге выше ранга просматриваемого пользователя, первый пользователь может удалять объекты
+                {
+                    result[PermissionsToObject.CAN_DELETE] = true;
+                }
+            }
+
+            return result;
+        }
+
+        public string getLastActivityStatusAsString(int colspan = 0)
         {
             string result = "";
 
@@ -435,16 +480,37 @@ namespace SocialNetwork.Models
 
             if (total_datetime_int - this.last_activity_datetime_int <= 60 * 5)
             {
-                result += "<td colspan=\"6\" class=\"status_online\">";
+                result += "<td class=\"status_online\" colspan=\"" + colspan + "\">";
                 result += "<span>Онлайн</span>";
             }
             else
             {
-                result += "<td colspan=\"6\" class=\"status_offline\">";
+                result += "<td class=\"status_offline\" colspan=\"" + colspan + "\">";
                 result += "<span>Оффлайн</span>";
             }
             result += "<br />";
             result += "[" + getDatetimeStringFromDatetimeInt(Convert.ToInt32(this.last_activity_datetime_int)) + "]";
+            result += "</td>";
+
+            return result;
+        }
+
+        public string getActivityStatusAsString()
+        {
+            string result = "";
+
+            int total_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+
+            if (total_datetime_int - this.last_activity_datetime_int <= 60 * 5)
+            {
+                result += "<td class=\"status_online\">";
+                result += "<span>Онлайн</span>";
+            }
+            else
+            {
+                result += "<td class=\"status_offline\">";
+                result += "<span>Оффлайн</span>";
+            }
             result += "</td>";
 
             return result;
@@ -467,6 +533,25 @@ namespace SocialNetwork.Models
             int total_datetime_int = (int)((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
             bans _bans = MyFunctions.database.bans.Where(p => (p.user_id_to == this.id) && (p.unban_datetime_int > total_datetime_int)).FirstOrDefault();
             return (_bans != null);
+        }
+
+        public int getRating()
+        {
+            int result = 0;
+            List<objects> objects_from_user = MyFunctions.database.objects.Where(p => (p.user_id_from == this.id)).ToList();
+
+            foreach (objects object_from_user in objects_from_user)
+            {
+                int all_rating_to_object = 0;
+                try // обработка исключения, когда у объекта нет ни одного рейтинга
+                {
+                    all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == object_from_user.id)).Sum(p => p.value);
+                }
+                catch { }
+                result += all_rating_to_object;
+            }
+
+            return result;
         }
     }
 }

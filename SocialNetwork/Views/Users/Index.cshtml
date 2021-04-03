@@ -7,6 +7,8 @@
     {
         list.Add(o as SocialNetwork.Models.users);
     }
+
+    SocialNetwork.Models.users user = ViewBag.User as SocialNetwork.Models.users;
 }
 
 <div class="center_content">
@@ -32,12 +34,6 @@
 
         string search_text = ViewBag.SearchText;
         string search_key = ViewBag.SearchKey;
-
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Index?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
-        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
-        <br />
-        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-        ViewContext.Writer.WriteLine("</form>");
     }
     <table class="black_table">
         <tr>
@@ -45,16 +41,19 @@
                 ID
             </td>
             <td>
-                Имя
+                Имя пользователя
             </td>
             <td>
-                Специальное имя
+                Специальное имя пользователя
             </td>
             <td>
                 Дата регистрации
             </td>
             <td>
                 Дата последнего онлайна
+            </td>
+            <td>
+                Общий рейтинг
             </td>
         </tr>
         @{
@@ -71,15 +70,47 @@
                 ViewContext.Writer.WriteLine("</td>");
 
                 ViewContext.Writer.WriteLine("<td>");
-                @Html.ActionLink(element.special_name, "Viewing", "Users", new { id = element.id }, new { @class = "my_button_3" })
+                @Html.ActionLink(element.special_name, "Viewing", "Users", new { id = element.special_name }, new { @class = "my_button_3" })
                 ViewContext.Writer.WriteLine("</td>");
 
                 ViewContext.Writer.WriteLine("<td>");
                 ViewContext.Writer.WriteLine(SocialNetwork.Models.users.getDatetimeStringFromDatetimeInt(Convert.ToInt32(element.registration_datetime_int)));
                 ViewContext.Writer.WriteLine("</td>");
 
-                ViewContext.Writer.WriteLine(element.getLastActivityStatusAsString());
+                ViewContext.Writer.WriteLine(element.getLastActivityStatusAsString(0));
 
+                ViewContext.Writer.WriteLine("<td>");
+                ViewContext.Writer.WriteLine(element.getRating());
+                ViewContext.Writer.WriteLine("</td>");
+
+                ViewContext.Writer.WriteLine("</tr>");
+            }
+
+            if (list.Count == 0)
+            {
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td colspan=\"6\">");
+                ViewContext.Writer.WriteLine("Нет пользователей");
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+            }
+
+            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+            ViewContext.Writer.WriteLine("<td colspan=\"2\">");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
+
+            if ((user != null) && (user.permissions_rank >= 2)) // если пользователь - администратор или выше
+            {
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td colspan=\"6\">");
+                @Html.ActionLink("Сохранить список в файл", "Index", "Users", new { is_download = true }, new { @class = "my_button_3" })
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+
+                ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+                ViewContext.Writer.WriteLine("<td colspan=\"2\">");
+                ViewContext.Writer.WriteLine("</td>");
                 ViewContext.Writer.WriteLine("</tr>");
             }
         }

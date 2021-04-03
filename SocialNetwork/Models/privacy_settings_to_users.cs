@@ -17,30 +17,9 @@ namespace SocialNetwork.Models
         CAN_SEE_MY_FRIENDS,
         CAN_SEE_MY_SUBSCRIBERS,
         CAN_SEE_MY_SUBSCRIPTIONS,
-        CAN_SEE_MY_SHOWCASE,
-        CAN_SEE_MY_IMAGES,
-        CAN_SEE_MY_VIDEOS,
-        CAN_SEE_MY_AUDIOS,
-        CAN_SEE_MY_DOCUMENTS,
-        CAN_SEE_MY_ARTICLES,
-        CAN_SEE_MY_COLLECTIONS,
         CAN_SEE_RECORDS_ON_MY_PAGE,
-        CAN_MESSAGE_ME, // отправка сообщений
         CAN_CREATE_RECORDS_ON_MY_PAGE,
-        CAN_COMMENT_MY_IMAGES,
-        CAN_COMMENT_MY_VIDEOS,
-        CAN_COMMENT_MY_AUDIOS,
-        CAN_COMMENT_MY_DOCUMENTS,
-        CAN_COMMENT_MY_ARTICLES,
-        CAN_COMMENT_MY_COLLECTIONS,
         CAN_COMMENT_RECORDS_ON_MY_PAGE,
-        CAN_SHARE_MY_IMAGES,
-        CAN_SHARE_MY_VIDEOS,
-        CAN_SHARE_MY_AUDIOS,
-        CAN_SHARE_MY_DOCUMENTS,
-        CAN_SHARE_MY_ARTICLES,
-        CAN_SHARE_MY_COLLECTIONS,
-        CAN_SHARE_RECORDS_ON_MY_PAGE,
 
         CAN_BAN_AND_UNBAN,
 
@@ -54,6 +33,16 @@ namespace SocialNetwork.Models
         CAN_CHANGE_SPECIAL_PERMISSIONS,
 
         CAN_SEE_ACTIONS_TR,
+
+        COUNT
+    }
+
+    public enum PermissionsToObject
+    {
+        CAN_SEE,
+        CAN_EDIT,
+        CAN_DELETE,
+        CAN_COMMENT,
 
         COUNT
     }

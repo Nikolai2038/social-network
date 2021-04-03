@@ -9,7 +9,16 @@
                 <b>Имя пользователя <span class="required_asterisk">*</span>:<b>
 </td>
             <td>
-                <input type="text" name="name" maxlength="64" size="32" value="@ViewBag.name" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"name\" maxlength=\"64\" size=\"32\" value=\"");
+                    string text = Request.Unvalidated.Form.Get("name");
+                    if (text == null)
+                    {
+                        text = ViewBag.name;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -17,7 +26,16 @@
                 <b>Специальное имя пользователя <span class="required_asterisk">*</span>:<b>
 </td>
             <td>
-                <input type="text" name="special_name" maxlength="32" size="32" value="@ViewBag.special_name" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"special_name\" maxlength=\"32\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("special_name");
+                    if (text == null)
+                    {
+                        text = ViewBag.special_name;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -25,7 +43,16 @@
                 <b>Новый пароль:<b>
             </td>
             <td>
-                <input type="text" name="new_password" maxlength="128" size="32" value="@ViewBag.new_password" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"new_password\" maxlength=\"128\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("new_password");
+                    if (text == null)
+                    {
+                        text = ViewBag.new_password;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -33,7 +60,16 @@
                 <b>Подтверждение нового пароля:<b>
             </td>
             <td>
-                <input type="text" name="new_password_2" maxlength="128" size="32" value="@ViewBag.new_password_2" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"new_password_2\" maxlength=\"128\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("new_password_2");
+                    if (text == null)
+                    {
+                        text = ViewBag.new_password_2;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -41,7 +77,16 @@
                 <b>Новый секретный вопрос:<b>
             </td>
             <td>
-                <input type="text" name="new_secret_question" maxlength="128" size="32" value="@ViewBag.new_secret_question" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"new_secret_question\" maxlength=\"128\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("new_secret_question");
+                    if (text == null)
+                    {
+                        text = ViewBag.new_secret_question;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -49,7 +94,16 @@
                 <b>Новый ответ на секретный вопрос:<b>
             </td>
             <td>
-                <input type="text" name="new_secret_answer" maxlength="128" size="32" value="@ViewBag.new_secret_answer" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"new_secret_answer\" maxlength=\"128\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("new_secret_answer");
+                    if (text == null)
+                    {
+                        text = ViewBag.new_secret_answer;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -57,7 +111,16 @@
                 <b>Текущий пароль <span class="required_asterisk">*</span>:<b>
             </td>
             <td>
-                <input type="password" name="password" maxlength="128" size="32" value="@Request.Form["password"]" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"password\" name=\"password\" maxlength=\"128\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("password");
+                    if (text == null)
+                    {
+                        text = ViewBag.password;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))

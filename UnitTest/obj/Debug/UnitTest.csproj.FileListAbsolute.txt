@@ -1,0 +1,147 @@
+C:\TEMP\000\social-network\UnitTest\obj\Debug\UnitTest.csprojAssemblyReference.cache
+C:\TEMP\000\social-network\UnitTest\obj\Debug\UnitTest.csproj.CoreCompileInputs.cache
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\UnitTest.dll.config
+C:\TEMP\000\social-network\UnitTest\bin\Debug\UnitTest.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\UnitTest.pdb
+C:\TEMP\000\social-network\UnitTest\bin\Debug\EntityFramework.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\EntityFramework.SqlServer.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\SocialNetwork.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Helpers.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Mvc.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Razor.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.WebPages.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.WebPages.Razor.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Optimization.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ClosedXML.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\DocumentFormat.OpenXml.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ExcelNumberFormat.dll
+C:\TEMP\000\social-network\UnitTest\bin\Debug\SocialNetwork.pdb
+C:\TEMP\000\social-network\UnitTest\bin\Debug\SocialNetwork.dll.config
+C:\TEMP\000\social-network\UnitTest\bin\Debug\EntityFramework.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\EntityFramework.SqlServer.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Helpers.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Mvc.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Razor.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.WebPages.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.WebPages.Razor.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\System.Web.Optimization.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ClosedXML.pdb
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ClosedXML.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\DocumentFormat.OpenXml.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ExcelNumberFormat.xml
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ru\System.Web.Optimization.resources.dll
+C:\TEMP\000\social-network\UnitTest\obj\Debug\UnitTest.csproj.CopyComplete
+C:\TEMP\000\social-network\UnitTest\obj\Debug\UnitTest.dll
+C:\TEMP\000\social-network\UnitTest\obj\Debug\UnitTest.pdb
+C:\TEMP\000\social-network\UnitTest\bin\Debug\ru\System.Web.Mvc.resources.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\UnitTest.dll.config
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\UnitTest.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\UnitTest.pdb
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\EntityFramework.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\SocialNetwork.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Helpers.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Mvc.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Razor.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.WebPages.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Optimization.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ClosedXML.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\DocumentFormat.OpenXml.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ExcelNumberFormat.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\SocialNetwork.pdb
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\SocialNetwork.dll.config
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\EntityFramework.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Helpers.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Mvc.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Razor.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.WebPages.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\System.Web.Optimization.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ClosedXML.pdb
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ClosedXML.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\DocumentFormat.OpenXml.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ExcelNumberFormat.xml
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ru\System.Web.Mvc.resources.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\bin\Debug\ru\System.Web.Optimization.resources.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\obj\Debug\UnitTest.csprojAssemblyReference.cache
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\obj\Debug\UnitTest.csproj.CoreCompileInputs.cache
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\obj\Debug\UnitTest.csproj.CopyComplete
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\obj\Debug\UnitTest.dll
+D:\Users\Nikolai\Documents\Git Repositories\social-network\UnitTest\obj\Debug\UnitTest.pdb
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\UnitTest.dll.config
+C:\TEMP\social-network\UnitTest\bin\Debug\UnitTest.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\UnitTest.pdb
+C:\TEMP\social-network\UnitTest\bin\Debug\EntityFramework.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\EntityFramework.SqlServer.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\SocialNetwork.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Helpers.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Mvc.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Razor.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.WebPages.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.WebPages.Razor.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Optimization.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\ClosedXML.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\DocumentFormat.OpenXml.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\ExcelNumberFormat.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\SocialNetwork.pdb
+C:\TEMP\social-network\UnitTest\bin\Debug\SocialNetwork.dll.config
+C:\TEMP\social-network\UnitTest\bin\Debug\EntityFramework.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\EntityFramework.SqlServer.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Helpers.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Mvc.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Razor.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.WebPages.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.WebPages.Razor.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\System.Web.Optimization.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\ClosedXML.pdb
+C:\TEMP\social-network\UnitTest\bin\Debug\ClosedXML.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\DocumentFormat.OpenXml.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\ExcelNumberFormat.xml
+C:\TEMP\social-network\UnitTest\bin\Debug\ru\System.Web.Mvc.resources.dll
+C:\TEMP\social-network\UnitTest\bin\Debug\ru\System.Web.Optimization.resources.dll
+C:\TEMP\social-network\UnitTest\obj\Debug\UnitTest.csprojAssemblyReference.cache
+C:\TEMP\social-network\UnitTest\obj\Debug\UnitTest.csproj.CoreCompileInputs.cache
+C:\TEMP\social-network\UnitTest\obj\Debug\UnitTest.csproj.CopyComplete
+C:\TEMP\social-network\UnitTest\obj\Debug\UnitTest.dll
+C:\TEMP\social-network\UnitTest\obj\Debug\UnitTest.pdb

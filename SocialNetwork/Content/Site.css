@@ -129,7 +129,7 @@ textarea
     text-align: center;
 }
 
-.form_two_columns table tr .td_errors
+.td_errors
 {
     color: #ff0000;
     text-align: center;
@@ -253,7 +253,7 @@ textarea
     text-align: center;
 }
 
-.form_private_settings table tr .td_errors
+.td_errors
 {
     color: #ff0000;
     text-align: center;
@@ -381,6 +381,12 @@ textarea
 
 .profile table tr .td_avatar
 {
+    max-height: 300px;
+}
+
+.profile table tr .td_avatar img
+{
+    width: 100%;
 }
 
 .profile table tr .td_info
@@ -396,6 +402,11 @@ textarea
 .profile table .tr_mini_avatars
 {
     height: 100px;
+}
+
+.status_offline, .status_online, .record_avatar, .td_text_center
+{
+    text-align: center;
 }
 
 .status_offline span
@@ -427,6 +438,11 @@ textarea
     color: #ffffff;
     background-color: #000000;
     border: 1px solid #ffffff;
+}
+
+.black_table tr .td_errors
+{
+    color: #ff0000;
 }
 /* ======================================================== */
 
@@ -468,20 +484,74 @@ textarea
 .record_avatar
 {
     width: 150px;
+    min-height: 150px;
     max-height: 150px;
+    height: 150px;
 }
 .record_avatar img
 {
     max-width: 150px;
     max-height: 150px;
 }
+
 .record_text
 {
+    padding: 5px;
     text-align: left;
     vertical-align: top;
 }
+
+.record_user_name
+{
+    text-align: center;
+}
+
+.record_user_name a, .record_user_name a:active, .record_user_name a:visited
+{
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.record_user_name a:hover
+{
+    color: #ff00dc;
+    text-decoration: underline;
+}
+
 .record_buttons
 {
+    text-align: left;
     height: 20px;
+}
+
+#records_white_line td
+{
+    background-color: #ffffff;
+}
+/* ======================================================== */
+
+/* ======================================================== */
+/* Форма создания или редактирования записи */
+/* ======================================================== */
+.form_record_create_or_edit table tr .record_textarea
+{
+    padding: 5px;
+}
+
+.form_record_create_or_edit table tr .record_text textarea,
+.form_record_create_or_edit table tr .record_textarea textarea
+{
+    width: 100%;
+    height: 100%;
+    margin-bottom: -5px;
+    color: #000000;
+    max-width: none;
+    resize: vertical;
+}
+
+.form_record_create_or_edit table tr .td_text_center a,
+.form_record_create_or_edit table tr .td_text_center input
+{
+    color: #000000;
 }
 /* ======================================================== */

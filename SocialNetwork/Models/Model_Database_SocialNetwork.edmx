@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище Namespace_Model_Database_SocialNetwork" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="articles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="description" Type="nvarchar" MaxLength="256" />
-          <Property Name="formatted_text" Type="nvarchar" MaxLength="2048" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="Хранилище Model_Database_SocialNetwork" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="authorization_history">
           <Key>
             <PropertyRef Name="id" />
@@ -44,15 +34,6 @@
           <Property Name="user_id_blocked" Type="int" Nullable="false" />
           <Property Name="block_datetime_int" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="collections">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="description" Type="nvarchar" MaxLength="256" />
-        </EntityType>
         <EntityType Name="commentaries">
           <Key>
             <PropertyRef Name="id" />
@@ -69,43 +50,6 @@
           <Property Name="commentary_id" Type="int" Nullable="false" />
           <Property Name="object_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="dialogs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id_from" Type="int" Nullable="false" />
-          <Property Name="creation_datetime_int" Type="int" Nullable="false" />
-          <Property Name="is_group" Type="tinyint" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="32" />
-        </EntityType>
-        <EntityType Name="files">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_type_id" Type="int" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="path" Type="nvarchar" MaxLength="512" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="description" Type="nvarchar" MaxLength="256" />
-        </EntityType>
-        <EntityType Name="files_or_articles_to_collections">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="collection_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="files_to_articles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="file_id" Type="int" Nullable="false" />
-          <Property Name="article_id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="friends_and_subscriptions">
           <Key>
             <PropertyRef Name="id" />
@@ -114,17 +58,6 @@
           <Property Name="user_id_from" Type="int" Nullable="false" />
           <Property Name="user_id_to" Type="int" Nullable="false" />
           <Property Name="is_accepted" Type="tinyint" Nullable="false" />
-        </EntityType>
-        <EntityType Name="messages">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id_from" Type="int" Nullable="false" />
-          <Property Name="dialog_id" Type="int" Nullable="false" />
-          <Property Name="creation_datetime_int" Type="int" Nullable="false" />
-          <Property Name="text" Type="nvarchar" MaxLength="1024" Nullable="false" />
-          <Property Name="attached_record_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="object_types">
           <Key>
@@ -141,38 +74,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="object_type_id" Type="int" Nullable="false" />
           <Property Name="user_id_from" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_commentaries">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="commentary_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_messages">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="message_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_records">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="record_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_showcases">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="creation_datetime_int" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="privacy_settings">
           <Key>
@@ -201,7 +103,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id_from" Type="int" Nullable="false" />
           <Property Name="object_id" Type="int" Nullable="false" />
-          <Property Name="value" Type="tinyint" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="records">
           <Key>
@@ -211,15 +113,6 @@
           <Property Name="object_id" Type="int" Nullable="false" />
           <Property Name="user_id_to" Type="int" Nullable="false" />
           <Property Name="text" Type="nvarchar" MaxLength="1024" Nullable="false" />
-          <Property Name="attached_record_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="records_simple">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="text" Type="nvarchar" MaxLength="1024" />
-          <Property Name="user_id_to" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -238,15 +131,6 @@
           <Property Name="last_activity_datetime_int" Type="int" />
           <Property Name="status" Type="nvarchar" MaxLength="64" />
           <Property Name="info" Type="nvarchar" MaxLength="256" />
-        </EntityType>
-        <EntityType Name="users_to_dialogs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" Nullable="false" />
-          <Property Name="dialog_id" Type="int" Nullable="false" />
-          <Property Name="is_admin_of_the_dialog" Type="tinyint" />
         </EntityType>
         <Association Name="FK_1_bans_TO_users">
           <End Role="users" Type="Self.users" Multiplicity="1" />
@@ -320,18 +204,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_articles_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="articles" Type="Self.articles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="articles">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_authorization_history_TO_users">
           <End Role="users" Type="Self.users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -343,18 +215,6 @@
             </Principal>
             <Dependent Role="authorization_history">
               <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_collections_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="collections" Type="Self.collections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="collections">
-              <PropertyRef Name="object_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -394,126 +254,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dialogs_to_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="dialogs" Type="Self.dialogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="dialogs">
-              <PropertyRef Name="user_id_from" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_or_articles_to_collections_TO_collections">
-          <End Role="collections" Type="Self.collections" Multiplicity="1" />
-          <End Role="files_or_articles_to_collections" Type="Self.files_or_articles_to_collections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="collections">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_or_articles_to_collections">
-              <PropertyRef Name="collection_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_or_articles_to_collections_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="files_or_articles_to_collections" Type="Self.files_or_articles_to_collections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_or_articles_to_collections">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_to_articles_TO_articles">
-          <End Role="articles" Type="Self.articles" Multiplicity="1" />
-          <End Role="files_to_articles" Type="Self.files_to_articles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="articles">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_to_articles">
-              <PropertyRef Name="article_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_to_articles_TO_files">
-          <End Role="files" Type="Self.files" Multiplicity="1" />
-          <End Role="files_to_articles" Type="Self.files_to_articles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="files">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_to_articles">
-              <PropertyRef Name="file_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_TO_object_types">
-          <End Role="object_types" Type="Self.object_types" Multiplicity="1" />
-          <End Role="files" Type="Self.files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="object_types">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files">
-              <PropertyRef Name="object_type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="files" Type="Self.files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_messages_TO_dialogs">
-          <End Role="dialogs" Type="Self.dialogs" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dialogs">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="dialog_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_messages_TO_records">
-          <End Role="records" Type="Self.records" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="records">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="attached_record_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_messages_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="user_id_from" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_objects_TO_object_types">
           <End Role="object_types" Type="Self.object_types" Multiplicity="1" />
           <End Role="objects" Type="Self.objects" Multiplicity="*" />
@@ -523,102 +263,6 @@
             </Principal>
             <Dependent Role="objects">
               <PropertyRef Name="object_type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_commentaries_TO_commentaries">
-          <End Role="commentaries" Type="Self.commentaries" Multiplicity="1" />
-          <End Role="objects_with_name_to_commentaries" Type="Self.objects_with_name_to_commentaries" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="commentaries">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_commentaries">
-              <PropertyRef Name="commentary_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_commentaries_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_commentaries" Type="Self.objects_with_name_to_commentaries" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_commentaries">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_messages_TO_messages">
-          <End Role="messages" Type="Self.messages" Multiplicity="1" />
-          <End Role="objects_with_name_to_messages" Type="Self.objects_with_name_to_messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="messages">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_messages">
-              <PropertyRef Name="message_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_messages_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_messages" Type="Self.objects_with_name_to_messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_messages">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_records_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_records" Type="Self.objects_with_name_to_records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_records">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_records_TO_records">
-          <End Role="records" Type="Self.records" Multiplicity="1" />
-          <End Role="objects_with_name_to_records" Type="Self.objects_with_name_to_records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="records">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_records">
-              <PropertyRef Name="record_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_showcases_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_showcases" Type="Self.objects_with_name_to_showcases" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_showcases">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_showcases_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="objects_with_name_to_showcases" Type="Self.objects_with_name_to_showcases" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_showcases">
-              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -649,7 +293,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ratings_to_objects_with_rating_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
+          <End Role="objects" Type="Self.objects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ratings_to_objects_with_rating" Type="Self.ratings_to_objects_with_rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="objects">
@@ -672,18 +318,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_records_TO_records">
-          <End Role="records" Type="Self.records" Multiplicity="1" />
-          <End Role="records1" Type="Self.records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="records">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="records1">
-              <PropertyRef Name="attached_record_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_records_TO_users">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="records" Type="Self.records" Multiplicity="*" />
@@ -693,34 +327,6 @@
             </Principal>
             <Dependent Role="records">
               <PropertyRef Name="user_id_to" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_users_to_dialogs_TO_dialogs">
-          <End Role="dialogs" Type="Self.dialogs" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="users_to_dialogs" Type="Self.users_to_dialogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dialogs">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="users_to_dialogs">
-              <PropertyRef Name="dialog_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_users_to_dialogs_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="users_to_dialogs" Type="Self.users_to_dialogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="users_to_dialogs">
-              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -736,33 +342,20 @@
         <Function Name="isObjectAnObjectWithRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="object_type_id" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="Хранилище Namespace_Model_Database_SocialNetworkContainer">
-          <EntitySet Name="articles" EntityType="Self.articles" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="Хранилище Model_Database_SocialNetworkContainer">
           <EntitySet Name="authorization_history" EntityType="Self.authorization_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bans" EntityType="Self.bans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="black_list" EntityType="Self.black_list" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="collections" EntityType="Self.collections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="commentaries" EntityType="Self.commentaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="commentaries_to_objects_with_commentaries" EntityType="Self.commentaries_to_objects_with_commentaries" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="dialogs" EntityType="Self.dialogs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="files" EntityType="Self.files" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="files_or_articles_to_collections" EntityType="Self.files_or_articles_to_collections" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="files_to_articles" EntityType="Self.files_to_articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="friends_and_subscriptions" EntityType="Self.friends_and_subscriptions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="object_types" EntityType="Self.object_types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="objects" EntityType="Self.objects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="objects_with_name_to_commentaries" EntityType="Self.objects_with_name_to_commentaries" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="objects_with_name_to_messages" EntityType="Self.objects_with_name_to_messages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="objects_with_name_to_records" EntityType="Self.objects_with_name_to_records" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="objects_with_name_to_showcases" EntityType="Self.objects_with_name_to_showcases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="privacy_settings" EntityType="Self.privacy_settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="privacy_settings_to_users" EntityType="Self.privacy_settings_to_users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ratings_to_objects_with_rating" EntityType="Self.ratings_to_objects_with_rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="records" EntityType="Self.records" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="records_simple" EntityType="Self.records_simple" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="users_to_dialogs" EntityType="Self.users_to_dialogs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_1_bans_TO_users" Association="Self.FK_1_bans_TO_users">
             <End Role="users" EntitySet="users" />
             <End Role="bans" EntitySet="bans" />
@@ -787,17 +380,9 @@
             <End Role="users" EntitySet="users" />
             <End Role="friends_and_subscriptions" EntitySet="friends_and_subscriptions" />
           </AssociationSet>
-          <AssociationSet Name="FK_articles_TO_objects" Association="Self.FK_articles_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="articles" EntitySet="articles" />
-          </AssociationSet>
           <AssociationSet Name="FK_authorization_history_TO_users" Association="Self.FK_authorization_history_TO_users">
             <End Role="users" EntitySet="users" />
             <End Role="authorization_history" EntitySet="authorization_history" />
-          </AssociationSet>
-          <AssociationSet Name="FK_collections_TO_objects" Association="Self.FK_collections_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="collections" EntitySet="collections" />
           </AssociationSet>
           <AssociationSet Name="FK_commentaries_TO_objects" Association="Self.FK_commentaries_TO_objects">
             <End Role="objects" EntitySet="objects" />
@@ -811,81 +396,9 @@
             <End Role="objects" EntitySet="objects" />
             <End Role="commentaries_to_objects_with_commentaries" EntitySet="commentaries_to_objects_with_commentaries" />
           </AssociationSet>
-          <AssociationSet Name="FK_dialogs_to_users" Association="Self.FK_dialogs_to_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="dialogs" EntitySet="dialogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_or_articles_to_collections_TO_collections" Association="Self.FK_files_or_articles_to_collections_TO_collections">
-            <End Role="collections" EntitySet="collections" />
-            <End Role="files_or_articles_to_collections" EntitySet="files_or_articles_to_collections" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_or_articles_to_collections_TO_objects" Association="Self.FK_files_or_articles_to_collections_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="files_or_articles_to_collections" EntitySet="files_or_articles_to_collections" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_to_articles_TO_articles" Association="Self.FK_files_to_articles_TO_articles">
-            <End Role="articles" EntitySet="articles" />
-            <End Role="files_to_articles" EntitySet="files_to_articles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_to_articles_TO_files" Association="Self.FK_files_to_articles_TO_files">
-            <End Role="files" EntitySet="files" />
-            <End Role="files_to_articles" EntitySet="files_to_articles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_TO_object_types" Association="Self.FK_files_TO_object_types">
-            <End Role="object_types" EntitySet="object_types" />
-            <End Role="files" EntitySet="files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_TO_objects" Association="Self.FK_files_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="files" EntitySet="files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_messages_TO_dialogs" Association="Self.FK_messages_TO_dialogs">
-            <End Role="dialogs" EntitySet="dialogs" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_messages_TO_records" Association="Self.FK_messages_TO_records">
-            <End Role="records" EntitySet="records" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_messages_TO_users" Association="Self.FK_messages_TO_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
           <AssociationSet Name="FK_objects_TO_object_types" Association="Self.FK_objects_TO_object_types">
             <End Role="object_types" EntitySet="object_types" />
             <End Role="objects" EntitySet="objects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_commentaries_TO_commentaries" Association="Self.FK_objects_with_name_to_commentaries_TO_commentaries">
-            <End Role="commentaries" EntitySet="commentaries" />
-            <End Role="objects_with_name_to_commentaries" EntitySet="objects_with_name_to_commentaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_commentaries_TO_objects" Association="Self.FK_objects_with_name_to_commentaries_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_commentaries" EntitySet="objects_with_name_to_commentaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_messages_TO_messages" Association="Self.FK_objects_with_name_to_messages_TO_messages">
-            <End Role="messages" EntitySet="messages" />
-            <End Role="objects_with_name_to_messages" EntitySet="objects_with_name_to_messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_messages_TO_objects" Association="Self.FK_objects_with_name_to_messages_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_messages" EntitySet="objects_with_name_to_messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_records_TO_objects" Association="Self.FK_objects_with_name_to_records_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_records" EntitySet="objects_with_name_to_records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_records_TO_records" Association="Self.FK_objects_with_name_to_records_TO_records">
-            <End Role="records" EntitySet="records" />
-            <End Role="objects_with_name_to_records" EntitySet="objects_with_name_to_records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_showcases_TO_objects" Association="Self.FK_objects_with_name_to_showcases_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_showcases" EntitySet="objects_with_name_to_showcases" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_showcases_TO_users" Association="Self.FK_objects_with_name_to_showcases_TO_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="objects_with_name_to_showcases" EntitySet="objects_with_name_to_showcases" />
           </AssociationSet>
           <AssociationSet Name="FK_privacy_settings_to_users_TO_privacy_settings" Association="Self.FK_privacy_settings_to_users_TO_privacy_settings">
             <End Role="privacy_settings" EntitySet="privacy_settings" />
@@ -903,39 +416,15 @@
             <End Role="users" EntitySet="users" />
             <End Role="ratings_to_objects_with_rating" EntitySet="ratings_to_objects_with_rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_records_TO_records" Association="Self.FK_records_TO_records">
-            <End Role="records" EntitySet="records" />
-            <End Role="records1" EntitySet="records" />
-          </AssociationSet>
           <AssociationSet Name="FK_records_TO_users" Association="Self.FK_records_TO_users">
             <End Role="users" EntitySet="users" />
             <End Role="records" EntitySet="records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_to_dialogs_TO_dialogs" Association="Self.FK_users_to_dialogs_TO_dialogs">
-            <End Role="dialogs" EntitySet="dialogs" />
-            <End Role="users_to_dialogs" EntitySet="users_to_dialogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_to_dialogs_TO_users" Association="Self.FK_users_to_dialogs_TO_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="users_to_dialogs" EntitySet="users_to_dialogs" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Namespace_Model_Database_SocialNetwork" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="articles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="formatted_text" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_articles_TO_objects" FromRole="articles" ToRole="objects" />
-          <NavigationProperty Name="files_to_articles" Relationship="Self.FK_files_to_articles_TO_articles" FromRole="articles" ToRole="files_to_articles" />
-        </EntityType>
+      <Schema Namespace="Model_Database_SocialNetwork" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="authorization_history">
           <Key>
             <PropertyRef Name="id" />
@@ -970,17 +459,6 @@
           <NavigationProperty Name="users" Relationship="Self.FK_1_black_list_TO_users" FromRole="black_list" ToRole="users" />
           <NavigationProperty Name="users1" Relationship="Self.FK_2_black_list_to_users" FromRole="black_list" ToRole="users" />
         </EntityType>
-        <EntityType Name="collections">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_collections_TO_objects" FromRole="collections" ToRole="objects" />
-          <NavigationProperty Name="files_or_articles_to_collections" Relationship="Self.FK_files_or_articles_to_collections_TO_collections" FromRole="collections" ToRole="files_or_articles_to_collections" />
-        </EntityType>
         <EntityType Name="commentaries">
           <Key>
             <PropertyRef Name="id" />
@@ -990,7 +468,6 @@
           <Property Name="text" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="objects" Relationship="Self.FK_commentaries_TO_objects" FromRole="commentaries" ToRole="objects" />
           <NavigationProperty Name="commentaries_to_objects_with_commentaries" Relationship="Self.FK_commentaries_to_objects_with_commentaries_TO_commentaries" FromRole="commentaries" ToRole="commentaries_to_objects_with_commentaries" />
-          <NavigationProperty Name="objects_with_name_to_commentaries" Relationship="Self.FK_objects_with_name_to_commentaries_TO_commentaries" FromRole="commentaries" ToRole="objects_with_name_to_commentaries" />
         </EntityType>
         <EntityType Name="commentaries_to_objects_with_commentaries">
           <Key>
@@ -1001,53 +478,6 @@
           <Property Name="object_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="commentaries" Relationship="Self.FK_commentaries_to_objects_with_commentaries_TO_commentaries" FromRole="commentaries_to_objects_with_commentaries" ToRole="commentaries" />
           <NavigationProperty Name="objects" Relationship="Self.FK_commentaries_to_objects_with_commentaries_TO_objects" FromRole="commentaries_to_objects_with_commentaries" ToRole="objects" />
-        </EntityType>
-        <EntityType Name="dialogs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id_from" Type="Int32" Nullable="false" />
-          <Property Name="creation_datetime_int" Type="Int32" Nullable="false" />
-          <Property Name="is_group" Type="Byte" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users" Relationship="Self.FK_dialogs_to_users" FromRole="dialogs" ToRole="users" />
-          <NavigationProperty Name="messages" Relationship="Self.FK_messages_TO_dialogs" FromRole="dialogs" ToRole="messages" />
-          <NavigationProperty Name="users_to_dialogs" Relationship="Self.FK_users_to_dialogs_TO_dialogs" FromRole="dialogs" ToRole="users_to_dialogs" />
-        </EntityType>
-        <EntityType Name="files">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_type_id" Type="Int32" Nullable="false" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="path" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="files_to_articles" Relationship="Self.FK_files_to_articles_TO_files" FromRole="files" ToRole="files_to_articles" />
-          <NavigationProperty Name="object_types" Relationship="Self.FK_files_TO_object_types" FromRole="files" ToRole="object_types" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_files_TO_objects" FromRole="files" ToRole="objects" />
-        </EntityType>
-        <EntityType Name="files_or_articles_to_collections">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="collection_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="collections" Relationship="Self.FK_files_or_articles_to_collections_TO_collections" FromRole="files_or_articles_to_collections" ToRole="collections" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_files_or_articles_to_collections_TO_objects" FromRole="files_or_articles_to_collections" ToRole="objects" />
-        </EntityType>
-        <EntityType Name="files_to_articles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="file_id" Type="Int32" Nullable="false" />
-          <Property Name="article_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="articles" Relationship="Self.FK_files_to_articles_TO_articles" FromRole="files_to_articles" ToRole="articles" />
-          <NavigationProperty Name="files" Relationship="Self.FK_files_to_articles_TO_files" FromRole="files_to_articles" ToRole="files" />
         </EntityType>
         <EntityType Name="friends_and_subscriptions">
           <Key>
@@ -1060,21 +490,6 @@
           <NavigationProperty Name="users" Relationship="Self.FK_1_friends_and_subscriptions_TO_users" FromRole="friends_and_subscriptions" ToRole="users" />
           <NavigationProperty Name="users1" Relationship="Self.FK_2_friends_and_subscriptions_TO_users" FromRole="friends_and_subscriptions" ToRole="users" />
         </EntityType>
-        <EntityType Name="messages">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id_from" Type="Int32" Nullable="false" />
-          <Property Name="dialog_id" Type="Int32" Nullable="false" />
-          <Property Name="creation_datetime_int" Type="Int32" Nullable="false" />
-          <Property Name="text" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="attached_record_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="dialogs" Relationship="Self.FK_messages_TO_dialogs" FromRole="messages" ToRole="dialogs" />
-          <NavigationProperty Name="records" Relationship="Self.FK_messages_TO_records" FromRole="messages" ToRole="records" />
-          <NavigationProperty Name="users" Relationship="Self.FK_messages_TO_users" FromRole="messages" ToRole="users" />
-          <NavigationProperty Name="objects_with_name_to_messages" Relationship="Self.FK_objects_with_name_to_messages_TO_messages" FromRole="messages" ToRole="objects_with_name_to_messages" />
-        </EntityType>
         <EntityType Name="object_types">
           <Key>
             <PropertyRef Name="id" />
@@ -1082,7 +497,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="extra_info" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="files" Relationship="Self.FK_files_TO_object_types" FromRole="object_types" ToRole="files" />
           <NavigationProperty Name="objects" Relationship="Self.FK_objects_TO_object_types" FromRole="object_types" ToRole="objects" />
         </EntityType>
         <EntityType Name="objects">
@@ -1092,58 +506,11 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="object_type_id" Type="Int32" Nullable="false" />
           <Property Name="user_id_from" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="articles" Relationship="Self.FK_articles_TO_objects" FromRole="objects" ToRole="articles" />
-          <NavigationProperty Name="collections" Relationship="Self.FK_collections_TO_objects" FromRole="objects" ToRole="collections" />
+          <Property Name="creation_datetime_int" Type="Int32" Nullable="false" />
           <NavigationProperty Name="commentaries" Relationship="Self.FK_commentaries_TO_objects" FromRole="objects" ToRole="commentaries" />
           <NavigationProperty Name="commentaries_to_objects_with_commentaries" Relationship="Self.FK_commentaries_to_objects_with_commentaries_TO_objects" FromRole="objects" ToRole="commentaries_to_objects_with_commentaries" />
-          <NavigationProperty Name="files" Relationship="Self.FK_files_TO_objects" FromRole="objects" ToRole="files" />
-          <NavigationProperty Name="files_or_articles_to_collections" Relationship="Self.FK_files_or_articles_to_collections_TO_objects" FromRole="objects" ToRole="files_or_articles_to_collections" />
           <NavigationProperty Name="object_types" Relationship="Self.FK_objects_TO_object_types" FromRole="objects" ToRole="object_types" />
-          <NavigationProperty Name="objects_with_name_to_commentaries" Relationship="Self.FK_objects_with_name_to_commentaries_TO_objects" FromRole="objects" ToRole="objects_with_name_to_commentaries" />
-          <NavigationProperty Name="objects_with_name_to_messages" Relationship="Self.FK_objects_with_name_to_messages_TO_objects" FromRole="objects" ToRole="objects_with_name_to_messages" />
-          <NavigationProperty Name="objects_with_name_to_records" Relationship="Self.FK_objects_with_name_to_records_TO_objects" FromRole="objects" ToRole="objects_with_name_to_records" />
-          <NavigationProperty Name="objects_with_name_to_showcases" Relationship="Self.FK_objects_with_name_to_showcases_TO_objects" FromRole="objects" ToRole="objects_with_name_to_showcases" />
           <NavigationProperty Name="ratings_to_objects_with_rating" Relationship="Self.FK_ratings_to_objects_with_rating_TO_objects" FromRole="objects" ToRole="ratings_to_objects_with_rating" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_commentaries">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="commentary_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="commentaries" Relationship="Self.FK_objects_with_name_to_commentaries_TO_commentaries" FromRole="objects_with_name_to_commentaries" ToRole="commentaries" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_objects_with_name_to_commentaries_TO_objects" FromRole="objects_with_name_to_commentaries" ToRole="objects" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_messages">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="message_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="messages" Relationship="Self.FK_objects_with_name_to_messages_TO_messages" FromRole="objects_with_name_to_messages" ToRole="messages" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_objects_with_name_to_messages_TO_objects" FromRole="objects_with_name_to_messages" ToRole="objects" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_records">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="record_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_objects_with_name_to_records_TO_objects" FromRole="objects_with_name_to_records" ToRole="objects" />
-          <NavigationProperty Name="records" Relationship="Self.FK_objects_with_name_to_records_TO_records" FromRole="objects_with_name_to_records" ToRole="records" />
-        </EntityType>
-        <EntityType Name="objects_with_name_to_showcases">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="objects" Relationship="Self.FK_objects_with_name_to_showcases_TO_objects" FromRole="objects_with_name_to_showcases" ToRole="objects" />
-          <NavigationProperty Name="users" Relationship="Self.FK_objects_with_name_to_showcases_TO_users" FromRole="objects_with_name_to_showcases" ToRole="users" />
         </EntityType>
         <EntityType Name="privacy_settings">
           <Key>
@@ -1175,7 +542,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id_from" Type="Int32" Nullable="false" />
           <Property Name="object_id" Type="Int32" Nullable="false" />
-          <Property Name="value" Type="Byte" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
           <NavigationProperty Name="objects" Relationship="Self.FK_ratings_to_objects_with_rating_TO_objects" FromRole="ratings_to_objects_with_rating" ToRole="objects" />
           <NavigationProperty Name="users" Relationship="Self.FK_ratings_to_objects_with_rating_TO_users" FromRole="ratings_to_objects_with_rating" ToRole="users" />
         </EntityType>
@@ -1187,11 +554,6 @@
           <Property Name="object_id" Type="Int32" Nullable="false" />
           <Property Name="user_id_to" Type="Int32" Nullable="false" />
           <Property Name="text" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="attached_record_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="messages" Relationship="Self.FK_messages_TO_records" FromRole="records" ToRole="messages" />
-          <NavigationProperty Name="objects_with_name_to_records" Relationship="Self.FK_objects_with_name_to_records_TO_records" FromRole="records" ToRole="objects_with_name_to_records" />
-          <NavigationProperty Name="records1" Relationship="Self.FK_records_TO_records" FromRole="records" ToRole="records1" />
-          <NavigationProperty Name="records2" Relationship="Self.FK_records_TO_records" FromRole="records1" ToRole="records" />
           <NavigationProperty Name="users" Relationship="Self.FK_records_TO_users" FromRole="records" ToRole="users" />
         </EntityType>
         <EntityType Name="users">
@@ -1206,7 +568,7 @@
           <Property Name="password_sha512" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
           <Property Name="secret_question" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="secret_answer_sha512" Type="String" MaxLength="128" FixedLength="true" Unicode="true" />
-          <Property Name="avatar_file_url" Type="String" MaxLength="512" Unicode="true" FixedLength="false" />
+          <Property Name="avatar_file_url" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="registration_datetime_int" Type="Int32" />
           <Property Name="last_activity_datetime_int" Type="Int32" />
           <Property Name="status" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
@@ -1216,51 +578,12 @@
           <NavigationProperty Name="bans1" Relationship="Self.FK_2_bans_TO_users" FromRole="users" ToRole="bans" />
           <NavigationProperty Name="black_list" Relationship="Self.FK_1_black_list_TO_users" FromRole="users" ToRole="black_list" />
           <NavigationProperty Name="black_list1" Relationship="Self.FK_2_black_list_to_users" FromRole="users" ToRole="black_list" />
-          <NavigationProperty Name="dialogs" Relationship="Self.FK_dialogs_to_users" FromRole="users" ToRole="dialogs" />
           <NavigationProperty Name="friends_and_subscriptions" Relationship="Self.FK_1_friends_and_subscriptions_TO_users" FromRole="users" ToRole="friends_and_subscriptions" />
           <NavigationProperty Name="friends_and_subscriptions1" Relationship="Self.FK_2_friends_and_subscriptions_TO_users" FromRole="users" ToRole="friends_and_subscriptions" />
-          <NavigationProperty Name="messages" Relationship="Self.FK_messages_TO_users" FromRole="users" ToRole="messages" />
-          <NavigationProperty Name="objects_with_name_to_showcases" Relationship="Self.FK_objects_with_name_to_showcases_TO_users" FromRole="users" ToRole="objects_with_name_to_showcases" />
           <NavigationProperty Name="privacy_settings_to_users" Relationship="Self.FK_privacy_settings_to_users_TO_users" FromRole="users" ToRole="privacy_settings_to_users" />
           <NavigationProperty Name="ratings_to_objects_with_rating" Relationship="Self.FK_ratings_to_objects_with_rating_TO_users" FromRole="users" ToRole="ratings_to_objects_with_rating" />
           <NavigationProperty Name="records" Relationship="Self.FK_records_TO_users" FromRole="users" ToRole="records" />
-          <NavigationProperty Name="users_to_dialogs" Relationship="Self.FK_users_to_dialogs_TO_users" FromRole="users" ToRole="users_to_dialogs" />
         </EntityType>
-        <EntityType Name="users_to_dialogs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
-          <Property Name="dialog_id" Type="Int32" Nullable="false" />
-          <Property Name="is_admin_of_the_dialog" Type="Byte" />
-          <NavigationProperty Name="dialogs" Relationship="Self.FK_users_to_dialogs_TO_dialogs" FromRole="users_to_dialogs" ToRole="dialogs" />
-          <NavigationProperty Name="users" Relationship="Self.FK_users_to_dialogs_TO_users" FromRole="users_to_dialogs" ToRole="users" />
-        </EntityType>
-        <Association Name="FK_articles_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="articles" Type="Self.articles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="articles">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_to_articles_TO_articles">
-          <End Role="articles" Type="Self.articles" Multiplicity="1" />
-          <End Role="files_to_articles" Type="Self.files_to_articles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="articles">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_to_articles">
-              <PropertyRef Name="article_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_authorization_history_TO_users">
           <End Role="users" Type="Self.users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1323,30 +646,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_collections_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="collections" Type="Self.collections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="collections">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_or_articles_to_collections_TO_collections">
-          <End Role="collections" Type="Self.collections" Multiplicity="1" />
-          <End Role="files_or_articles_to_collections" Type="Self.files_or_articles_to_collections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="collections">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_or_articles_to_collections">
-              <PropertyRef Name="collection_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_commentaries_TO_objects">
           <End Role="objects" Type="Self.objects" Multiplicity="1" />
           <End Role="commentaries" Type="Self.commentaries" Multiplicity="*" />
@@ -1371,18 +670,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_objects_with_name_to_commentaries_TO_commentaries">
-          <End Role="commentaries" Type="Self.commentaries" Multiplicity="1" />
-          <End Role="objects_with_name_to_commentaries" Type="Self.objects_with_name_to_commentaries" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="commentaries">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_commentaries">
-              <PropertyRef Name="commentary_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_commentaries_to_objects_with_commentaries_TO_objects">
           <End Role="objects" Type="Self.objects" Multiplicity="1" />
           <End Role="commentaries_to_objects_with_commentaries" Type="Self.commentaries_to_objects_with_commentaries" Multiplicity="*" />
@@ -1391,92 +678,6 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="commentaries_to_objects_with_commentaries">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dialogs_to_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="dialogs" Type="Self.dialogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="dialogs">
-              <PropertyRef Name="user_id_from" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_messages_TO_dialogs">
-          <End Role="dialogs" Type="Self.dialogs" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dialogs">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="dialog_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_users_to_dialogs_TO_dialogs">
-          <End Role="dialogs" Type="Self.dialogs" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="users_to_dialogs" Type="Self.users_to_dialogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dialogs">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="users_to_dialogs">
-              <PropertyRef Name="dialog_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_to_articles_TO_files">
-          <End Role="files" Type="Self.files" Multiplicity="1" />
-          <End Role="files_to_articles" Type="Self.files_to_articles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="files">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_to_articles">
-              <PropertyRef Name="file_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_TO_object_types">
-          <End Role="object_types" Type="Self.object_types" Multiplicity="1" />
-          <End Role="files" Type="Self.files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="object_types">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files">
-              <PropertyRef Name="object_type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="files" Type="Self.files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_files_or_articles_to_collections_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="files_or_articles_to_collections" Type="Self.files_or_articles_to_collections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="files_or_articles_to_collections">
               <PropertyRef Name="object_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1505,42 +706,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_messages_TO_records">
-          <End Role="records" Type="Self.records" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="records">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="attached_record_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_messages_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="user_id_from" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_messages_TO_messages">
-          <End Role="messages" Type="Self.messages" Multiplicity="1" />
-          <End Role="objects_with_name_to_messages" Type="Self.objects_with_name_to_messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="messages">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_messages">
-              <PropertyRef Name="message_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_objects_TO_object_types">
           <End Role="object_types" Type="Self.object_types" Multiplicity="1" />
           <End Role="objects" Type="Self.objects" Multiplicity="*" />
@@ -1553,56 +718,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_objects_with_name_to_commentaries_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_commentaries" Type="Self.objects_with_name_to_commentaries" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_commentaries">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_messages_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_messages" Type="Self.objects_with_name_to_messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_messages">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_records_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_records" Type="Self.objects_with_name_to_records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_records">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_showcases_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
-          <End Role="objects_with_name_to_showcases" Type="Self.objects_with_name_to_showcases" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="objects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_showcases">
-              <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ratings_to_objects_with_rating_TO_objects">
-          <End Role="objects" Type="Self.objects" Multiplicity="1" />
+          <End Role="objects" Type="Self.objects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ratings_to_objects_with_rating" Type="Self.ratings_to_objects_with_rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="objects">
@@ -1610,30 +729,6 @@
             </Principal>
             <Dependent Role="ratings_to_objects_with_rating">
               <PropertyRef Name="object_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_records_TO_records">
-          <End Role="records" Type="Self.records" Multiplicity="1" />
-          <End Role="objects_with_name_to_records" Type="Self.objects_with_name_to_records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="records">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_records">
-              <PropertyRef Name="record_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_objects_with_name_to_showcases_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="objects_with_name_to_showcases" Type="Self.objects_with_name_to_showcases" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="objects_with_name_to_showcases">
-              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1650,7 +745,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_privacy_settings_to_users_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="privacy_settings_to_users" Type="Self.privacy_settings_to_users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
@@ -1673,18 +770,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_records_TO_records">
-          <End Role="records" Type="Self.records" Multiplicity="1" />
-          <End Role="records1" Type="Self.records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="records">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="records1">
-              <PropertyRef Name="attached_record_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_records_TO_users">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="records" Type="Self.records" Multiplicity="*" />
@@ -1697,54 +782,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_users_to_dialogs_TO_users">
-          <End Role="users" Type="Self.users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="users_to_dialogs" Type="Self.users_to_dialogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="users_to_dialogs">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Entities_Database_SocialNetwork" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="articles" EntityType="Self.articles" />
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="authorization_history" EntityType="Self.authorization_history" />
           <EntitySet Name="bans" EntityType="Self.bans" />
           <EntitySet Name="black_list" EntityType="Self.black_list" />
-          <EntitySet Name="collections" EntityType="Self.collections" />
           <EntitySet Name="commentaries" EntityType="Self.commentaries" />
           <EntitySet Name="commentaries_to_objects_with_commentaries" EntityType="Self.commentaries_to_objects_with_commentaries" />
-          <EntitySet Name="dialogs" EntityType="Self.dialogs" />
-          <EntitySet Name="files" EntityType="Self.files" />
-          <EntitySet Name="files_or_articles_to_collections" EntityType="Self.files_or_articles_to_collections" />
-          <EntitySet Name="files_to_articles" EntityType="Self.files_to_articles" />
           <EntitySet Name="friends_and_subscriptions" EntityType="Self.friends_and_subscriptions" />
-          <EntitySet Name="messages" EntityType="Self.messages" />
           <EntitySet Name="object_types" EntityType="Self.object_types" />
           <EntitySet Name="objects" EntityType="Self.objects" />
-          <EntitySet Name="objects_with_name_to_commentaries" EntityType="Self.objects_with_name_to_commentaries" />
-          <EntitySet Name="objects_with_name_to_messages" EntityType="Self.objects_with_name_to_messages" />
-          <EntitySet Name="objects_with_name_to_records" EntityType="Self.objects_with_name_to_records" />
-          <EntitySet Name="objects_with_name_to_showcases" EntityType="Self.objects_with_name_to_showcases" />
           <EntitySet Name="privacy_settings" EntityType="Self.privacy_settings" />
           <EntitySet Name="privacy_settings_to_users" EntityType="Self.privacy_settings_to_users" />
           <EntitySet Name="ratings_to_objects_with_rating" EntityType="Self.ratings_to_objects_with_rating" />
           <EntitySet Name="records" EntityType="Self.records" />
           <EntitySet Name="users" EntityType="Self.users" />
-          <EntitySet Name="users_to_dialogs" EntityType="Self.users_to_dialogs" />
-          <AssociationSet Name="FK_articles_TO_objects" Association="Self.FK_articles_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="articles" EntitySet="articles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_to_articles_TO_articles" Association="Self.FK_files_to_articles_TO_articles">
-            <End Role="articles" EntitySet="articles" />
-            <End Role="files_to_articles" EntitySet="files_to_articles" />
-          </AssociationSet>
           <AssociationSet Name="FK_authorization_history_TO_users" Association="Self.FK_authorization_history_TO_users">
             <End Role="users" EntitySet="users" />
             <End Role="authorization_history" EntitySet="authorization_history" />
@@ -1765,14 +816,6 @@
             <End Role="users" EntitySet="users" />
             <End Role="black_list" EntitySet="black_list" />
           </AssociationSet>
-          <AssociationSet Name="FK_collections_TO_objects" Association="Self.FK_collections_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="collections" EntitySet="collections" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_or_articles_to_collections_TO_collections" Association="Self.FK_files_or_articles_to_collections_TO_collections">
-            <End Role="collections" EntitySet="collections" />
-            <End Role="files_or_articles_to_collections" EntitySet="files_or_articles_to_collections" />
-          </AssociationSet>
           <AssociationSet Name="FK_commentaries_TO_objects" Association="Self.FK_commentaries_TO_objects">
             <End Role="objects" EntitySet="objects" />
             <End Role="commentaries" EntitySet="commentaries" />
@@ -1781,41 +824,9 @@
             <End Role="commentaries" EntitySet="commentaries" />
             <End Role="commentaries_to_objects_with_commentaries" EntitySet="commentaries_to_objects_with_commentaries" />
           </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_commentaries_TO_commentaries" Association="Self.FK_objects_with_name_to_commentaries_TO_commentaries">
-            <End Role="commentaries" EntitySet="commentaries" />
-            <End Role="objects_with_name_to_commentaries" EntitySet="objects_with_name_to_commentaries" />
-          </AssociationSet>
           <AssociationSet Name="FK_commentaries_to_objects_with_commentaries_TO_objects" Association="Self.FK_commentaries_to_objects_with_commentaries_TO_objects">
             <End Role="objects" EntitySet="objects" />
             <End Role="commentaries_to_objects_with_commentaries" EntitySet="commentaries_to_objects_with_commentaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dialogs_to_users" Association="Self.FK_dialogs_to_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="dialogs" EntitySet="dialogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_messages_TO_dialogs" Association="Self.FK_messages_TO_dialogs">
-            <End Role="dialogs" EntitySet="dialogs" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_to_dialogs_TO_dialogs" Association="Self.FK_users_to_dialogs_TO_dialogs">
-            <End Role="dialogs" EntitySet="dialogs" />
-            <End Role="users_to_dialogs" EntitySet="users_to_dialogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_to_articles_TO_files" Association="Self.FK_files_to_articles_TO_files">
-            <End Role="files" EntitySet="files" />
-            <End Role="files_to_articles" EntitySet="files_to_articles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_TO_object_types" Association="Self.FK_files_TO_object_types">
-            <End Role="object_types" EntitySet="object_types" />
-            <End Role="files" EntitySet="files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_TO_objects" Association="Self.FK_files_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="files" EntitySet="files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_files_or_articles_to_collections_TO_objects" Association="Self.FK_files_or_articles_to_collections_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="files_or_articles_to_collections" EntitySet="files_or_articles_to_collections" />
           </AssociationSet>
           <AssociationSet Name="FK_1_friends_and_subscriptions_TO_users" Association="Self.FK_1_friends_and_subscriptions_TO_users">
             <End Role="users" EntitySet="users" />
@@ -1825,49 +836,13 @@
             <End Role="users" EntitySet="users" />
             <End Role="friends_and_subscriptions" EntitySet="friends_and_subscriptions" />
           </AssociationSet>
-          <AssociationSet Name="FK_messages_TO_records" Association="Self.FK_messages_TO_records">
-            <End Role="records" EntitySet="records" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_messages_TO_users" Association="Self.FK_messages_TO_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_messages_TO_messages" Association="Self.FK_objects_with_name_to_messages_TO_messages">
-            <End Role="messages" EntitySet="messages" />
-            <End Role="objects_with_name_to_messages" EntitySet="objects_with_name_to_messages" />
-          </AssociationSet>
           <AssociationSet Name="FK_objects_TO_object_types" Association="Self.FK_objects_TO_object_types">
             <End Role="object_types" EntitySet="object_types" />
             <End Role="objects" EntitySet="objects" />
           </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_commentaries_TO_objects" Association="Self.FK_objects_with_name_to_commentaries_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_commentaries" EntitySet="objects_with_name_to_commentaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_messages_TO_objects" Association="Self.FK_objects_with_name_to_messages_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_messages" EntitySet="objects_with_name_to_messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_records_TO_objects" Association="Self.FK_objects_with_name_to_records_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_records" EntitySet="objects_with_name_to_records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_showcases_TO_objects" Association="Self.FK_objects_with_name_to_showcases_TO_objects">
-            <End Role="objects" EntitySet="objects" />
-            <End Role="objects_with_name_to_showcases" EntitySet="objects_with_name_to_showcases" />
-          </AssociationSet>
           <AssociationSet Name="FK_ratings_to_objects_with_rating_TO_objects" Association="Self.FK_ratings_to_objects_with_rating_TO_objects">
             <End Role="objects" EntitySet="objects" />
             <End Role="ratings_to_objects_with_rating" EntitySet="ratings_to_objects_with_rating" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_records_TO_records" Association="Self.FK_objects_with_name_to_records_TO_records">
-            <End Role="records" EntitySet="records" />
-            <End Role="objects_with_name_to_records" EntitySet="objects_with_name_to_records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_objects_with_name_to_showcases_TO_users" Association="Self.FK_objects_with_name_to_showcases_TO_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="objects_with_name_to_showcases" EntitySet="objects_with_name_to_showcases" />
           </AssociationSet>
           <AssociationSet Name="FK_privacy_settings_to_users_TO_privacy_settings" Association="Self.FK_privacy_settings_to_users_TO_privacy_settings">
             <End Role="privacy_settings" EntitySet="privacy_settings" />
@@ -1881,17 +856,9 @@
             <End Role="users" EntitySet="users" />
             <End Role="ratings_to_objects_with_rating" EntitySet="ratings_to_objects_with_rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_records_TO_records" Association="Self.FK_records_TO_records">
-            <End Role="records" EntitySet="records" />
-            <End Role="records1" EntitySet="records" />
-          </AssociationSet>
           <AssociationSet Name="FK_records_TO_users" Association="Self.FK_records_TO_users">
             <End Role="users" EntitySet="users" />
             <End Role="records" EntitySet="records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_to_dialogs_TO_users" Association="Self.FK_users_to_dialogs_TO_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="users_to_dialogs" EntitySet="users_to_dialogs" />
           </AssociationSet>
           <FunctionImport Name="isObjectAFileOrAnArticle">
           <Parameter Name="object_type_id" Mode="In" Type="Int32" />
@@ -1905,35 +872,15 @@
           <FunctionImport Name="isObjectAnObjectWithRating">
           <Parameter Name="object_type_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="records_simple" EntityType="Namespace_Model_Database_SocialNetwork.records_simple" />
         </EntityContainer>
-        <EntityType Name="records_simple">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="text" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <Property Name="user_id_to" Type="Int32" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Namespace_Model_Database_SocialNetworkContainer" CdmEntityContainer="Entities_Database_SocialNetwork">
-          <EntitySetMapping Name="articles">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.articles">
-              <MappingFragment StoreEntitySet="articles">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="formatted_text" ColumnName="formatted_text" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="Хранилище Model_Database_SocialNetworkContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="authorization_history">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.authorization_history">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.authorization_history">
               <MappingFragment StoreEntitySet="authorization_history">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -1943,7 +890,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="bans">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.bans">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.bans">
               <MappingFragment StoreEntitySet="bans">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
@@ -1955,7 +902,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="black_list">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.black_list">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.black_list">
               <MappingFragment StoreEntitySet="black_list">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
@@ -1964,18 +911,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="collections">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.collections">
-              <MappingFragment StoreEntitySet="collections">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="commentaries">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.commentaries">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.commentaries">
               <MappingFragment StoreEntitySet="commentaries">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="object_id" ColumnName="object_id" />
@@ -1984,7 +921,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="commentaries_to_objects_with_commentaries">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.commentaries_to_objects_with_commentaries">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.commentaries_to_objects_with_commentaries">
               <MappingFragment StoreEntitySet="commentaries_to_objects_with_commentaries">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="commentary_id" ColumnName="commentary_id" />
@@ -1992,49 +929,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="dialogs">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.dialogs">
-              <MappingFragment StoreEntitySet="dialogs">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
-                <ScalarProperty Name="creation_datetime_int" ColumnName="creation_datetime_int" />
-                <ScalarProperty Name="is_group" ColumnName="is_group" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="files">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.files">
-              <MappingFragment StoreEntitySet="files">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_type_id" ColumnName="object_type_id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="path" ColumnName="path" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="files_or_articles_to_collections">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.files_or_articles_to_collections">
-              <MappingFragment StoreEntitySet="files_or_articles_to_collections">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="collection_id" ColumnName="collection_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="files_to_articles">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.files_to_articles">
-              <MappingFragment StoreEntitySet="files_to_articles">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="file_id" ColumnName="file_id" />
-                <ScalarProperty Name="article_id" ColumnName="article_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="friends_and_subscriptions">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.friends_and_subscriptions">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.friends_and_subscriptions">
               <MappingFragment StoreEntitySet="friends_and_subscriptions">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
@@ -2043,20 +939,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.messages">
-              <MappingFragment StoreEntitySet="messages">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
-                <ScalarProperty Name="dialog_id" ColumnName="dialog_id" />
-                <ScalarProperty Name="creation_datetime_int" ColumnName="creation_datetime_int" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="attached_record_id" ColumnName="attached_record_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="object_types">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.object_types">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.object_types">
               <MappingFragment StoreEntitySet="object_types">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -2065,52 +949,17 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="objects">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.objects">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.objects">
               <MappingFragment StoreEntitySet="objects">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="object_type_id" ColumnName="object_type_id" />
                 <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="objects_with_name_to_commentaries">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.objects_with_name_to_commentaries">
-              <MappingFragment StoreEntitySet="objects_with_name_to_commentaries">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="commentary_id" ColumnName="commentary_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="objects_with_name_to_messages">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.objects_with_name_to_messages">
-              <MappingFragment StoreEntitySet="objects_with_name_to_messages">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="message_id" ColumnName="message_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="objects_with_name_to_records">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.objects_with_name_to_records">
-              <MappingFragment StoreEntitySet="objects_with_name_to_records">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="record_id" ColumnName="record_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="objects_with_name_to_showcases">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.objects_with_name_to_showcases">
-              <MappingFragment StoreEntitySet="objects_with_name_to_showcases">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="object_id" ColumnName="object_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="creation_datetime_int" ColumnName="creation_datetime_int" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="privacy_settings">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.privacy_settings">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.privacy_settings">
               <MappingFragment StoreEntitySet="privacy_settings">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -2118,7 +967,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="privacy_settings_to_users">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.privacy_settings_to_users">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.privacy_settings_to_users">
               <MappingFragment StoreEntitySet="privacy_settings_to_users">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="privacy_setting_id" ColumnName="privacy_setting_id" />
@@ -2132,7 +981,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ratings_to_objects_with_rating">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.ratings_to_objects_with_rating">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.ratings_to_objects_with_rating">
               <MappingFragment StoreEntitySet="ratings_to_objects_with_rating">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="user_id_from" ColumnName="user_id_from" />
@@ -2142,18 +991,17 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="records">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.records">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.records">
               <MappingFragment StoreEntitySet="records">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="object_id" ColumnName="object_id" />
                 <ScalarProperty Name="user_id_to" ColumnName="user_id_to" />
                 <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="attached_record_id" ColumnName="attached_record_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.users">
+            <EntityTypeMapping TypeName="Model_Database_SocialNetwork.users">
               <MappingFragment StoreEntitySet="users">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />
@@ -2171,29 +1019,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="users_to_dialogs">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.users_to_dialogs">
-              <MappingFragment StoreEntitySet="users_to_dialogs">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="dialog_id" ColumnName="dialog_id" />
-                <ScalarProperty Name="is_admin_of_the_dialog" ColumnName="is_admin_of_the_dialog" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="isObjectAFileOrAnArticle" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAFileOrAnArticle" />
-          <FunctionImportMapping FunctionImportName="isObjectAnObjectWithCommentary" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAnObjectWithCommentary" />
-          <FunctionImportMapping FunctionImportName="isObjectAnObjectWithName" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAnObjectWithName" />
-          <FunctionImportMapping FunctionImportName="isObjectAnObjectWithRating" FunctionName="Хранилище Namespace_Model_Database_SocialNetwork.isObjectAnObjectWithRating" />
-          <EntitySetMapping Name="records_simple">
-            <EntityTypeMapping TypeName="Namespace_Model_Database_SocialNetwork.records_simple">
-              <MappingFragment StoreEntitySet="records_simple">
-                <ScalarProperty Name="user_id_to" ColumnName="user_id_to" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="isObjectAFileOrAnArticle" FunctionName="Хранилище Model_Database_SocialNetwork.isObjectAFileOrAnArticle" />
+          <FunctionImportMapping FunctionImportName="isObjectAnObjectWithCommentary" FunctionName="Хранилище Model_Database_SocialNetwork.isObjectAnObjectWithCommentary" />
+          <FunctionImportMapping FunctionImportName="isObjectAnObjectWithName" FunctionName="Хранилище Model_Database_SocialNetwork.isObjectAnObjectWithName" />
+          <FunctionImportMapping FunctionImportName="isObjectAnObjectWithRating" FunctionName="Хранилище Model_Database_SocialNetwork.isObjectAnObjectWithRating" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

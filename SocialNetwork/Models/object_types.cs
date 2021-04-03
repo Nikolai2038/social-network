@@ -17,7 +17,6 @@ namespace SocialNetwork.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public object_types()
         {
-            this.files = new HashSet<files>();
             this.objects = new HashSet<objects>();
         }
     
@@ -25,8 +24,6 @@ namespace SocialNetwork.Models
         public string name { get; set; }
         public string extra_info { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<files> files { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<objects> objects { get; set; }
     }

@@ -9,7 +9,16 @@
                 Личный статус:
             </td>
             <td>
-                <input type="text" name="status" maxlength="64" size="32" value="@ViewBag.status" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"status\" maxlength=\"64\" size=\"32\" value=\"");
+                    string text = Request.Unvalidated.Form.Get("status");
+                    if (text == null)
+                    {
+                        text = ViewBag.status;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -17,7 +26,16 @@
                 Дополнительная информация:
             </td>
             <td>
-                <input type="text" name="info" maxlength="64" size="32" value="@ViewBag.info" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"info\" maxlength=\"64\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("info");
+                    if (text == null)
+                    {
+                        text = ViewBag.info;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         <tr>
@@ -25,7 +43,16 @@
                 Ссылка на аватар:
             </td>
             <td>
-                <input type="text" name="avatar_file_url" maxlength="512" size="32" value="@ViewBag.avatar_file_url" />
+                @{
+                    ViewContext.Writer.Write("<input type=\"text\" name=\"avatar_file_url\" maxlength=\"512\" size=\"32\" value=\"");
+                    text = Request.Unvalidated.Form.Get("avatar_file_url");
+                    if (text == null)
+                    {
+                        text = ViewBag.avatar_file_url;
+                    }
+                    ViewContext.Writer.Write(text);
+                    ViewContext.Writer.Write("\"/>");
+                }
             </td>
         </tr>
         @if ((ViewBag.Errors != null) && (ViewBag.Errors.Count != 0))

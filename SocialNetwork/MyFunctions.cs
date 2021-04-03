@@ -7,9 +7,22 @@ using System.Web;
 
 namespace SocialNetwork
 {
+    public enum ObjectsTypes
+    {
+        DELETED_FILE = -1,
+        IMAGE = 0,
+        VIDEO = 1,
+        AUDIO = 2,
+        DOCUMENT = 3,
+        ARTICLE = 4,
+        COLLECTION = 5,
+        RECORD = 6,
+        COMMENTARY = 7
+    }
+
     public class MyFunctions
     {
-        public static Entities_Database_SocialNetwork database = new Entities_Database_SocialNetwork();
+        public static Entities database = new Entities();
 
         private class Range
         {
@@ -26,7 +39,7 @@ namespace SocialNetwork
         private static readonly string SYMBOLS_RU               = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
         private static readonly string SYMBOLS_NUMBERS          = "0123456789";
         private static readonly string SYMBOLS_DASH             = "-";
-        private static readonly string SYMBOLS_SPECIAL_SYMBOLS  = "!$%^*()-=+<>.,{}[];;";
+        private static readonly string SYMBOLS_SPECIAL_SYMBOLS  = "!$%^*()-=+<>.,{}[];; ";
 
         private static readonly string ALLOWED_SYMBOLS_FOR_USER_LOGIN            = SYMBOLS_EN + SYMBOLS_NUMBERS + SYMBOLS_DASH;
         private static readonly string ALLOWED_SYMBOLS_FOR_USER_PASSWORD         = SYMBOLS_EN + SYMBOLS_NUMBERS + SYMBOLS_SPECIAL_SYMBOLS;
@@ -210,7 +223,7 @@ namespace SocialNetwork
                 }
             }
         }
-        public static users checkSecretAnswerSha512InDatabase(string secret_answer_sha512, string login, ref Entities_Database_SocialNetwork database, ref List<string> errors)
+        public static users checkSecretAnswerSha512InDatabase(string secret_answer_sha512, string login, ref List<string> errors)
         {
             users user_found = database.users.Where(p => (p.login == login) && (p.secret_answer_sha512 == secret_answer_sha512)).FirstOrDefault();
 
@@ -281,10 +294,14 @@ namespace SocialNetwork
         // возвращает список записей на текущей странице из списка всех записей
         public static List<object> pageNavigation_getListOnPage(List<object> list, ref int elements_on_page, ref int total_page_id)
         {
-            int min_element_id = 0;
+            //int min_element_id = 0;
             int max_element_id = list.Count - 1;
 
             int min_page_id = 1;
+            if (elements_on_page == 0)
+            {
+                elements_on_page = 1;
+            }
             int max_page_id = max_element_id / elements_on_page + 1;
 
             if (total_page_id < min_page_id)
@@ -375,6 +392,116 @@ namespace SocialNetwork
                 writer.WriteLine("</option>");
             }
             writer.WriteLine("</select>");
+        }
+
+        public static objects getBasicObjectFromObject(object obj)
+        {
+            int object_id = -1;
+
+            if (obj is records)
+            {
+                object_id = (obj as records).object_id;
+            }
+            else if (obj is commentaries)
+            {
+                object_id = (obj as commentaries).object_id;
+            }
+
+            objects object_found = database.objects.Where(p => (p.id == object_id)).FirstOrDefault();
+
+            return object_found;
+        }
+
+        public static int getUserIdFromObject(object obj)
+        {
+            return getBasicObjectFromObject(obj).user_id_from;
+        }
+
+        public static void changeObjectRating(object obj, users user_from, bool is_down_rating)
+        {
+            Dictionary<SocialNetwork.Models.PermissionsToObject, bool> userPermissionsToObject = SocialNetwork.Models.users.getUserPermissionsToObject(user_from, obj);
+
+            if (userPermissionsToObject[SocialNetwork.Models.PermissionsToObject.CAN_SEE] == true)
+            {
+                objects obj_as_objects = MyFunctions.getBasicObjectFromObject(obj);
+                ratings_to_objects_with_rating rating = SocialNetwork.MyFunctions.database.ratings_to_objects_with_rating.Where(p => ((p.object_id == obj_as_objects.id) && (p.user_id_from == user_from.id))).FirstOrDefault();
+                if (rating == null) // если рейтинг ещё не был установлен
+                {
+                    ratings_to_objects_with_rating new_rating = new ratings_to_objects_with_rating();
+                    new_rating.object_id = obj_as_objects.id;
+                    new_rating.user_id_from = user_from.id;
+                    if (is_down_rating == true)
+                    {
+                        new_rating.value = -1;
+                    }
+                    else
+                    {
+                        new_rating.value = 1;
+                    }
+                    database.ratings_to_objects_with_rating.Add(new_rating);
+                    database.SaveChanges();
+                }
+                else // если рейтинг уже был установлен
+                {
+                    if (((rating.value == 1) && (is_down_rating == true)) ||
+                        ((rating.value == -1) && (is_down_rating == false))) // если рейтинг идёт в сторону, противоположную выставленному
+                    {
+                        database.ratings_to_objects_with_rating.Remove(rating);
+                        database.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public static int getCommentariesCount(object obj)
+        {
+            objects obj_as_objects = getBasicObjectFromObject(obj);
+            return MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.object_id == obj_as_objects.id)).Count();
+        }
+
+        public static int getRating(object obj)
+        {
+            objects obj_as_objects = getBasicObjectFromObject(obj);
+
+            int all_rating_to_object = 0;
+            try // обработка исключения, когда у объекта нет ни одного рейтинга
+            {
+                all_rating_to_object = MyFunctions.database.ratings_to_objects_with_rating.Where(p => (p.object_id == obj_as_objects.id)).Sum(p => p.value);
+            }
+            catch { }
+            return all_rating_to_object;
+        }
+
+        public static List<commentaries> getCommentaries(object obj)
+        {
+            objects obj_as_objects = getBasicObjectFromObject(obj);
+
+            List<commentaries> result = new List<commentaries>();
+            List<commentaries_to_objects_with_commentaries> list = MyFunctions.database.commentaries_to_objects_with_commentaries.Where(p => (p.object_id == obj_as_objects.id)).ToList();
+            foreach (commentaries_to_objects_with_commentaries comment_info in list)
+            {
+                commentaries commentary = MyFunctions.database.commentaries.Where(p => (p.id == comment_info.commentary_id)).FirstOrDefault();
+                result.Add(commentary);
+            }
+            return result;
+        }
+
+        public static List<records> getSubscriptionsRecordsToUser(users user)
+        {
+            if (user == null)
+            {
+                return database.records.Where(p => (p.id >= 0)).ToList();
+            }
+            else
+            {
+                List<friends_and_subscriptions> subscriptions = database.friends_and_subscriptions.Where(p => (p.user_id_from == user.id)).ToList();
+                List<records> result = new List<records>();
+                foreach (friends_and_subscriptions subscription in subscriptions)
+                {
+                    result.AddRange(database.records.Where(p => (p.user_id_to == subscription.user_id_to)).ToList());
+                }
+                return result;
+            }
         }
     }
 }

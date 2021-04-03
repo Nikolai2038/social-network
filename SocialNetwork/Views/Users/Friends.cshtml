@@ -7,6 +7,8 @@
     {
         list.Add(o as SocialNetwork.Models.users);
     }
+
+    SocialNetwork.Models.users viewing_user = ViewBag.ViewingUser as SocialNetwork.Models.users;
 }
 
 <div class="center_content">
@@ -33,12 +35,10 @@
         string search_text = ViewBag.SearchText;
         string search_key = ViewBag.SearchKey;
 
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Index?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
-        MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
-        <br />
-        MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);
-        ViewContext.Writer.WriteLine("</form>");
+        @Html.ActionLink("Назад", "Viewing", "Users", new { id = viewing_user.special_name }, new { @class = "my_button" })
     }
+    <br />
+    <br />
     <table class="black_table">
         <tr>
             <td>
@@ -82,10 +82,24 @@
 
                 ViewContext.Writer.WriteLine("</tr>");
             }
+
+            if (list.Count == 0)
+            {
+                ViewContext.Writer.WriteLine("<tr>");
+                ViewContext.Writer.WriteLine("<td colspan=\"5\">");
+                ViewContext.Writer.WriteLine("Нет друзей");
+                ViewContext.Writer.WriteLine("</td>");
+                ViewContext.Writer.WriteLine("</tr>");
+            }
+
+            ViewContext.Writer.WriteLine("<tr id=\"records_white_line\">");
+            ViewContext.Writer.WriteLine("<td colspan=\"5\">");
+            ViewContext.Writer.WriteLine("</td>");
+            ViewContext.Writer.WriteLine("</tr>");
         }
     </table>
     @{
-        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Index?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
+        ViewContext.Writer.WriteLine($"<form method=\"GET\" action=\"/Users/Friends/{viewing_user.special_name}?page={total_page_id}&elements_on_page={elements_on_page}\" class=\"page_navigation_form\">");
         MyFunctions.printUsersSearch(ViewContext.Writer, search_text, search_names, search_key);
         <br />
         MyFunctions.pageNavigation_printFormWithPages(ViewContext.Writer, total_page_id, elements_on_page, sort_names, sort_key, sort_asc);

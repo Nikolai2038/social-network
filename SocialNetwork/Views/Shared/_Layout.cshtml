@@ -26,6 +26,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Главная", "Index", "Main")</li>
+                    <li>@Html.ActionLink("Новости", "Index", "Records")</li>
                     @if (ViewBag.isUserLoggedIn == false)
                     {
                         <li>@Html.ActionLink("Регистрация", "Registration", "Main")</li>
@@ -33,10 +34,8 @@
                     }
                     @if (ViewBag.isUserLoggedIn == true)
                     {
-                        //<li>@Html.ActionLink("Новости", "Index", "Records")</li>
-                        <li>@Html.ActionLink("Моя страница", "Viewing", "Users", new { id = Session["id"] }, null)</li>
-                        //<li>@Html.ActionLink("Мои переписки", "Index", "Dialogs")</li>
-                        //<li>@Html.ActionLink("Мои объекты", "Index", "Objects")</li>
+                        SocialNetwork.Models.users this_user = SocialNetwork.Models.users.getUserFromUserId(Convert.ToInt32(Session["id"]));
+                        <li>@Html.ActionLink("Моя страница", "Viewing", "Users", new { id = this_user.special_name }, new { @class = "" })</li>
                     }
                     <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
                     @if (ViewBag.isUserLoggedIn == true)
